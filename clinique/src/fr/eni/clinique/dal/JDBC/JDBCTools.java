@@ -1,12 +1,13 @@
-package src.fr.eni.clinique.dal.JDBC;
-
-import src.fr.eni.clinique.dal.Settings;
+package fr.eni.clinique.dal.jdbc;
+import fr.eni.clinique.dal.Settings;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+//import com.sun.scenario.Settings;
 
-public class JDBCTools {
+
+public class JdbcTools {
     private static  String urldb;
     private static String userdb;
     private static String passworddb;
@@ -25,7 +26,7 @@ public class JDBCTools {
 
 
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException{
         //Connection connection = DriverManager.getConnection(urldb);
         Connection connection = DriverManager.getConnection(urldb, userdb, passworddb);
 
