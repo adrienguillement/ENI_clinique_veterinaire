@@ -1,5 +1,3 @@
-package fr.eni.clinique.ihm;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -12,23 +10,28 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 
+import fr.eni.clinique.ihm.InternalFrame1;
 
-public class MDIAppExample extends JFrame implements ActionListener {
+public class IHMApp extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
 	private JDesktopPane desktopPane;
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
-	private InternalFrame1 frm1;
+	private fr.eni.clinique.ihm.InternalFrame1 frm1;
 
 
-	public MDIAppExample() {
+	public IHMApp() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension screenSize = new Dimension(1000, 750);
 		setBounds(0, 0, screenSize.width, screenSize.height);
+
+		//Titre
+		setTitle("Clinique vétérinaire");
 
 		// initialiser l'ecran MDI
 		desktopPane = new JDesktopPane();
@@ -40,8 +43,7 @@ public class MDIAppExample extends JFrame implements ActionListener {
 		setJMenuBar(getMenuBarre());
 		
 		//Frame interne exemple		
-		desktopPane.add(getFrm1());
-
+		//desktopPane.add(getFrm1());
 	}
 
 	// Lancement de l'application
@@ -50,7 +52,7 @@ public class MDIAppExample extends JFrame implements ActionListener {
 
 			@Override
 			public void run() {
-				MDIAppExample ecran = new MDIAppExample();
+				IHMApp ecran = new IHMApp();
 				ecran.setVisible(true);
 			}
 		});
@@ -75,11 +77,35 @@ public class MDIAppExample extends JFrame implements ActionListener {
 		menuItem.addActionListener(this);
 		menu.add(menuItem);
 
-		// Menu Agenda
-		menuItem = new JMenuItem("Ecran");
-		menuBarre.add(menuItem);		
-		menuItem.setActionCommand("ecran");
+		// Menu Gestion Rendez-vous
+		menu = new JMenu("Gestion des rendez-vous");
+		menu.setActionCommand("gestionRendezVous");
+		menu.addActionListener(this);
+		menuBarre.add(menu);
+
+		//Sous menu prise rdv
+		menuItem = new JMenuItem("Prise de rendez vous");
+		menuItem.setActionCommand("priseRendezVous");
 		menuItem.addActionListener(this);
+		menu.add(menuItem);
+
+		//Sous menu gestion des clients
+		menuItem = new JMenuItem("Gestion des clients");
+		menuItem.setActionCommand("gestionDesClients");
+		menuItem.addActionListener(this);
+		menu.add(menuItem);
+
+		//Menu Agenda
+		menu = new JMenu("Agenda");
+		menu.setActionCommand("agenda");
+		menu.addActionListener(this);
+		menuBarre.add(menu);
+
+		//Menu
+		menu = new JMenu("Gestion du personnel");
+		menu.setActionCommand("gestionPersonnel");
+		menu.addActionListener(this);
+		menuBarre.add(menu);
 
 	}
 
@@ -93,16 +119,25 @@ public class MDIAppExample extends JFrame implements ActionListener {
 		case "fermer":
 			System.exit(0);
 			break;
-
-		case "ecran":
-			System.out.println("coucou");
+		case "gestionRendezVous":
+			System.out.println("gestionRendezVous");
 			getFrm1().setVisible(true);
 			break;
-
+		case "agenda":
+			System.out.println("agenda");
+			break;
+		case "gestionPersonnel":
+			System.out.println("gestion personnel");
+			break;
+		case "priseRendezVous":
+			System.out.println("prise rdv");
+			break;
+		case "gestionDesClients":
+			System.out.println("gestion clients");
+			break;
 		default:
 			System.out.println("Probleme e=" + e);
 		}
-
 	}
 
 	public JDesktopPane getDesktopPane() {
