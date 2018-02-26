@@ -59,4 +59,30 @@ public class AnimauxManager {
         return animal;
     }
 
+    /**
+     * Mise à jour d'un animal
+     * @param animal
+     * @throws BLLException
+     */
+    public void updateAnimaux(Animal animal) throws  BLLException{
+        try{
+            validerAnimal(animal);
+            daoAnimaux.update(animal);
+        }catch(DALException e){
+            throw new BLLException("Echec updateAnimal-animal: "+animal, e);
+        }
+    }
+
+    /**
+     * Suppression d'un animal
+     * @param animal
+     * @throws BLLException
+     */
+    public void removeAnimal(Animal animal) throws BLLException{
+        try{
+            daoAnimaux.delete(animal.getId());
+        }catch(DALException e){
+            throw new BLLException("Echec de suppression de l'animal - ", e);
+        }
+    }
 }
