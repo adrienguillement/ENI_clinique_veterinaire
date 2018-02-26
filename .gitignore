@@ -1,6 +1,6 @@
 
 # Created by https://www.gitignore.io/api/git,java,intellij
-*.idea 
+*.idea
 ### Git ###
 *.orig
 
