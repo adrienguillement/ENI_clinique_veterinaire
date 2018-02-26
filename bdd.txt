@@ -1,0 +1,146 @@
+
+/*   Application : SQL Server Enterprise Manager*/
+CREATE TABLE dbo.Personnels
+	(
+ 	CodePers int NOT NULL IDENTITY(1,1),
+	Nom		 varchar(30) NOT NULL,
+	MotPasse varchar(10) NOT NULL,
+	Role	 varchar(3) NOT NULL,
+	Archive bit NOT NULL
+	)
+
+ALTER TABLE dbo.Personnels ADD CONSTRAINT
+	PK_Personnels PRIMARY KEY NONCLUSTERED
+	(
+	CodePers
+	)
+
+ALTER TABLE dbo.Personnels ADD CONSTRAINT
+	U_Nom_Personnel UNIQUE(Nom)
+
+/*********************************************************************************************/
+/*   Application : SQL Server Enterprise Manager*/
+CREATE TABLE dbo.Races
+	(
+ 	Race varchar(20) NOT NULL,
+	Espece varchar(20) NOT NULL
+	)
+
+ALTER TABLE dbo.Races ADD CONSTRAINT
+	PK_Races PRIMARY KEY NONCLUSTERED
+	(
+	Race,
+	Espece
+	)
+
+/*********************************************************************************************/
+/*   Application : SQL Server Enterprise Manager*/
+
+CREATE TABLE dbo.Clients
+	(
+ 	CodeClient int NOT NULL IDENTITY(1,1),
+	NomClient varchar(20) NOT NULL,
+	PrenomClient varchar(20) NOT NULL,
+	Adresse1 varchar(30) NULL,
+	Adresse2 varchar(30) NULL,
+	CodePostal char(6) NULL,
+	Ville varchar(25) NULL,
+	NumTel varchar(15) NULL,
+	Assurance varchar(30) NULL,
+	Email varchar(50) NULL ,
+	Remarque text NULL,
+	Archive bit NOT NULL
+	)
+
+ALTER TABLE dbo.Clients ADD CONSTRAINT
+	PK_Clients PRIMARY KEY NONCLUSTERED
+	(
+	codeClient
+	)
+
+/*******************************************************************************************/
+/*   Application : SQL Server Enterprise Manager*/
+CREATE TABLE dbo.Animaux
+	(
+ 	CodeAnimal int NOT NULL IDENTITY(1,1),
+	NomAnimal varchar(30) NOT NULL ,
+	Sexe char(1) NOT NULL ,
+	Couleur varchar(20) NULL,
+	Race varchar(20) NOT NULL,
+	Espece varchar(20) NOT NULL,
+	CodeClient int NOT NULL,
+	Tatouage varchar(10) NULL,
+	Antecedents text NULL,
+	Archive bit NOT NULL
+	)
+
+ALTER TABLE dbo.Animaux ADD CONSTRAINT
+	PK_Animaux PRIMARY KEY NONCLUSTERED
+	(
+	CodeAnimal
+	)
+
+ALTER TABLE dbo.Animaux ADD CONSTRAINT
+	FK_Animaux FOREIGN KEY 	( CodeClient )
+	references Clients (CodeClient )
+
+ALTER TABLE dbo.Animaux ADD CONSTRAINT
+	FK_ANIMAUX_RACES FOREIGN KEY (Race,Espece)
+	references Races (Race,Espece)
+
+
+/**********************************************************************************************/
+/*   Application : SQL Server Enterprise Manager*/
+
+CREATE TABLE dbo.Agendas
+	(
+ 	CodeVeto int NOT NULL,
+	DateRdv smalldatetime NOT NULL,
+	CodeAnimal int NOT NULL
+	)
+
+ALTER TABLE dbo.Agendas ADD CONSTRAINT
+	PK_Agendas PRIMARY KEY NONCLUSTERED
+	(
+	CodeVeto,
+	CodeAnimal,
+	DateRdv
+	)
+
+ALTER TABLE dbo.Agendas ADD CONSTRAINT
+	FK_Agendas FOREIGN KEY 	( CodeAnimal )
+	references Animaux (CodeAnimal )
+
+ALTER TABLE dbo.Agendas ADD CONSTRAINT
+	FK_Agendas_Veto FOREIGN KEY 	( CodeVeto )
+	references Personnels ( CodePers )
+
+INSERT INTO Clients (NomClient, PrenomClient, Adresse1, Adresse2, CodePostal, Ville, NumTel, Assurance, Email, Remarque, Archive)
+VALUES ('ANDRE', 'Clement', '74, quai Saint-Nicolas', NULL, '59200', 'TOURCOING', '03.00.22.62.97', 'A Plus Lawn Care', 'EChan@gmail.com', NULL, 0),
+('Chassé', 'Eustache', '72, Place de la Gare', NULL, '92700', 'COLOMBES', '01.04.94.95.41', 'Bench jeweler', 'EChasse@arpy.com', NULL, 0),
+('Dupuy', 'Karlotta', '16, cours Franklin Roosevelt', NULL, '13006', 'MARSEILLE', '04.11.75.44.39', 'Steak and Ale', 'KDupuy@arpy.com ', NULL, 0),
+('Sarrazin', 'Arlette', '97, rue Lenotre', NULL, '35000', 'RENNES', '02.44.92.13.10', 'ASarzin@joe.com', '', NULL, 0),
+('Charpie', 'Angelette', '8, rue du Président Roosevelt', NULL, '67300', 'SCHILTIGHEIM', '03.99.96.47.01', 'Rainbow Bay Crafts', 'ACharpie@apy.com', NULL, 0),
+('Tanguay', 'Sylvie', '39, rue des Soeurs', NULL, '06160', 'JUAN-LES-PINS', '04.71.46.47.36', 'Chi-Chi', 'STauay@telrm.us', NULL, 0),
+('Lance', 'Racine', '37, avenue Voltaire', NULL, '78600', 'MAISONS-LAFFITTE', '01.25.82.15.72', 'Crown Books', 'LRacine@arpy.com', NULL, 0),
+('Labonté', 'Varden', '9, rue Gustave Eiffel', NULL, '42300', 'ROANNE', '04.70.05.49.42', 'Integra Wealth', 'VLabe@arpy.com', NULL, 0),
+('Tardif', 'Laetitia', '64, Rue du Palais', NULL, '51200', 'ÉPERNAY', '03.83.07.26.84', 'Pointers', 'LTarf@rta.com ', NULL, 0)
+
+INSERT INTO Personnels (Nom, MotPasse, Role, Archive)
+VALUES ('secretaire', '123', 'sec', 0),
+('veterinaire', '123', 'vet', 0),
+('admin', '123', 'adm', 0)
+
+INSERT INTO Races (Race, Espece)
+VALUES ('Berger Allemand', 'Chien'),
+('Labrador', 'Chien'),
+('Pogona', 'Reptile'),
+('Poisson papillon', 'Poisson')
+
+INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive)
+VALUES ('Ludo', 'M', 'Bleu', 'Labrador', 'Chien', 1, 'KFHZOCNEHX', NULL, 0),
+('Jack Souslo', 'F', 'Violet', 'Poisson papillon', 'Poisson', 2, NULL, NULL, 0)
+
+INSERT INTO Agendas (CodeVeto, DateRdv, CodeAnimal)
+VALUES (2, '24-03-2018 09:00:00', 1),
+(2, '24-03-2018 11:03:00', 2)
