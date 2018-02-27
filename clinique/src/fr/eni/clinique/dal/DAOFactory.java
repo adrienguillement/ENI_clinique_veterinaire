@@ -1,6 +1,8 @@
 package src.fr.eni.clinique.dal;
 
 
+import src.fr.eni.clinique.dal.JDBC.PersonnelsDAOJdbcImpl;
+
 public class DAOFactory {
 
     public static DAORaces getRaceDAO()  {
@@ -20,7 +22,9 @@ public class DAOFactory {
         return racesDAO;
     }
 
-    public static DAOConnection getConnectionDAO(){
+
+    public static DAOConnection getConnectionDAO()
+    {
         DAOConnection connectionDAO = null;
         try{
             connectionDAO = getConnectionDAO();
@@ -29,5 +33,9 @@ public class DAOFactory {
         }
         return connectionDAO;
     }
-
+  
+    public static PersonnelsDAOJdbcImpl getPersonnelsDAO()
+    {
+        return new PersonnelsDAOJdbcImpl();
+    }
 }
