@@ -6,7 +6,7 @@ public class DAOFactory {
     public static DAORaces getRaceDAO()  {
         DAORaces racesDAO=null;
         try {
-            racesDAO=(DAORaces ) Class.forName("fr.eni.clinique.dal.jdbc.RacesDAOJdbcImpl").newInstance();
+            racesDAO=(DAORaces ) Class.forName("src.fr.eni.clinique.dal.JDBC.RacesDAOJdbcImpl").newInstance();
         } catch (InstantiationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
