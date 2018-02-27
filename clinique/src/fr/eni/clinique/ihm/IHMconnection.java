@@ -1,6 +1,8 @@
 package src.fr.eni.clinique.ihm;
 
-import oracle.jrockit.jfr.JFR;
+import src.fr.eni.clinique.bll.ConnectionManager;
+import src.fr.eni.clinique.bo.Personne;
+import src.fr.eni.clinique.dal.DALException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,11 @@ public class IHMconnection extends JFrame{
     private JTextField login1;
     private JPasswordField mdp1;
     private JButton valider,annuler;
+    private ConnectionManager connectionManager = new ConnectionManager();
 
+    private Personne personne;
+
+    //Singleton
     public static IHMconnection getInstance(){
         if(instance == null){
             instance = new IHMconnection();
@@ -22,9 +28,11 @@ public class IHMconnection extends JFrame{
         return instance;
     }
 
+    //constructeur
     public IHMconnection(){
         setIHMconnection();
     }
+
     // Lancement de l'application
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -41,6 +49,7 @@ public class IHMconnection extends JFrame{
         });
     }
 
+    //mise à jour de l'IHM
     private void setIHMconnection(){
 
         this.setTitle(" Authentification ");
@@ -85,10 +94,29 @@ public class IHMconnection extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 //renvoyer un test de connection
                 System.out.println("Demande d'authentification");
+                testConnection();
             }
         });
 
         this.setVisible(true);
+    }
+
+    public void testConnection()
+    {
+        try{
+            personne = connectionManager.getConnection(login1.getText(), mdp1.getText());
+            if(personne != null){
+                System.out.println("Bienvenue " + personne.getNom() + "Vos droits sont correspondantes à votre rôle: " + personne.getRole());
+                //init l'utilisateur en cours
+                GeneralController.getInstance().setUtilisateurEnCours(personne);
+                GeneralController.getInstance().getEcran();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.INFORMATION_MESSAGE);
+            }
+        }catch (DALException e1){
+            e1.printStackTrace();
+        }
     }
 }
 

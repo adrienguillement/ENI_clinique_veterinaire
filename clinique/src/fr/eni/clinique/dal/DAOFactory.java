@@ -1,6 +1,7 @@
 package src.fr.eni.clinique.dal;
 
 
+import src.fr.eni.clinique.dal.JDBC.ConnectionDAOJdbcImpl;
 import src.fr.eni.clinique.dal.JDBC.PersonnelsDAOJdbcImpl;
 
 public class DAOFactory {
@@ -27,9 +28,9 @@ public class DAOFactory {
     {
         DAOConnection connectionDAO = null;
         try{
-            connectionDAO = getConnectionDAO();
+            connectionDAO = new ConnectionDAOJdbcImpl();
         } catch (Exception e){
-
+            e.printStackTrace();
         }
         return connectionDAO;
     }
