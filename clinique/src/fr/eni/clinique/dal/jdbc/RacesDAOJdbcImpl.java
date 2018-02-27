@@ -1,6 +1,6 @@
 package src.fr.eni.clinique.dal.JDBC;
 
-import fr.eni.clinique.bo.Races;
+import src.fr.eni.clinique.bo.Races;
 import src.fr.eni.clinique.dal.DALException;
 import src.fr.eni.clinique.dal.DAORaces;
 

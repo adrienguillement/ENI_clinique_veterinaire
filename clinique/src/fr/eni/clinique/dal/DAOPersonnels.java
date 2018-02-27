@@ -1,4 +1,4 @@
-package fr.eni.clinique.dal;
+package src.fr.eni.clinique.dal;
 
 public interface DAOPersonnels {
 

@@ -2,7 +2,7 @@ package src.fr.eni.clinique.dal.JDBC;
 
 import com.sun.org.apache.bcel.internal.classfile.Code;
 import src.fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOPersonnels;
+import src.fr.eni.clinique.dal.DAOPersonnels;
 import src.fr.eni.clinique.bo.Personnels;
 
 import java.sql.ResultSet;
