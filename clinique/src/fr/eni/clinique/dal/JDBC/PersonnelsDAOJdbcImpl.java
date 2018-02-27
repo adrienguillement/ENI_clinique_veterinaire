@@ -1,4 +1,4 @@
-package fr.eni.clinique.dal.JDBC;
+package src.fr.eni.clinique.dal.JDBC;
 
 import com.sun.org.apache.bcel.internal.classfile.Code;
 import src.fr.eni.clinique.dal.DALException;
