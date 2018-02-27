@@ -202,10 +202,6 @@ public class IHMApp extends JFrame implements ActionListener {
 			gbc.gridx = 0;
 			gbc.gridy = 0;
 			gbc.gridwidth = 3;
-			JLabel titreClient = new JLabel("Clients");
-			titreClient.setFont(new Font(titreClient.getFont().getName(), titreClient.getFont().getStyle(), 30));
-			panel_client.add(titreClient,gbc);
-			gbc.gridy = 1;
 			panel_client.add(getPanel_client_result(),gbc);
 		}
 		return panel_client;
