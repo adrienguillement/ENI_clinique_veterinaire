@@ -1,5 +1,5 @@
-package fr.eni.clinique.dal.jdbc;
-import fr.eni.clinique.dal.Settings;
+package src.fr.eni.clinique.dal.JDBC;
+import src.fr.eni.clinique.dal.Settings;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

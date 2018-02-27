@@ -1,7 +1,5 @@
-package fr.eni.clinique.dal;
+package src.fr.eni.clinique.dal;
 
-import fr.eni.clinique.dal.Races;
-
-public class DAORaces {
+public interface DAORaces extends DAO {
 
 }
