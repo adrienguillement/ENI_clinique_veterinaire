@@ -1,7 +1,7 @@
 package src.fr.eni.clinique.dal;
 
-
 import src.fr.eni.clinique.dal.JDBC.ConnectionDAOJdbcImpl;
+import src.fr.eni.clinique.dal.JDBC.ClientDAOJdbcImpl;
 import src.fr.eni.clinique.dal.JDBC.PersonnelsDAOJdbcImpl;
 
 public class DAOFactory {
@@ -9,7 +9,7 @@ public class DAOFactory {
     public static DAORaces getRaceDAO()  {
         DAORaces racesDAO=null;
         try {
-            racesDAO=(DAORaces ) Class.forName("src.fr.eni.clinique.dal.JDBC.RacesDAOJdbcImpl").newInstance();
+            racesDAO=(DAORaces) Class.forName("src.fr.eni.clinique.dal.JDBC.RacesDAOJdbcImpl").newInstance();
         } catch (InstantiationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -23,6 +23,11 @@ public class DAOFactory {
         return racesDAO;
     }
 
+
+    public static ClientDAOJdbcImpl getClientDAO()
+    {
+        return new ClientDAOJdbcImpl();
+    }
 
     public static DAOConnection getConnectionDAO()
     {
