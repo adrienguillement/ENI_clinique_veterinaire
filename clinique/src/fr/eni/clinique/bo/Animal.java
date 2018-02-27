@@ -1,6 +1,6 @@
-package src.fr.eni.clinique.bo;
+package fr.eni.clinique.bo;
 
-public class Animaux {
+public class Animal {
     private int CodeAnimal;
     private String NomAnimal;
     private String Sexe;
@@ -11,7 +11,7 @@ public class Animaux {
     private String Antecedents;
     private boolean Archive;
 
-    public Animaux(int codeAnimal, String nomAnimal, String sexe, String couleur, String race, int codeClient, String tatouage, String antecedents, boolean archive) {
+    public Animal(int codeAnimal, String nomAnimal, String sexe, String couleur, String race, int codeClient, String tatouage, String antecedents, boolean archive) {
         CodeAnimal = codeAnimal;
         NomAnimal = nomAnimal;
         Sexe = sexe;
@@ -23,7 +23,7 @@ public class Animaux {
         Archive = archive;
     }
 
-    public Animaux() {
+    public Animal() {
     }
 
     public int getCodeAnimal() {

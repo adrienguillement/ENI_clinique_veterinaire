@@ -1,4 +1,4 @@
-package src.fr.eni.clinique.ihm;
+package fr.eni.clinique.ihm;
 
 import java.awt.*;
 import java.awt.Dimension;
@@ -18,7 +18,6 @@ public class IHMApp extends JFrame implements ActionListener {
 	//menu
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
-	private static IHMApp instance;
 	private JMenu acceuil_connection;
 
 	//Clients

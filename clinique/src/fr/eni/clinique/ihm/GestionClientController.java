@@ -1,8 +1,8 @@
-package src.fr.eni.clinique.ihm;
+package fr.eni.clinique.ihm;
 
-import src.fr.eni.clinique.bll.BLLException;
-import src.fr.eni.clinique.bll.CltManager;
-import src.fr.eni.clinique.bo.Clients;
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.CltManager;
+import fr.eni.clinique.bo.Client;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,13 +53,13 @@ public class GestionClientController {
     }
 
     // affichage des clients sous forme de liste sur l'IHM
-    public void displayResult(List<Clients> listeClient) {
+    public void displayResult(List<Client> listeClient) {
         // NOUVEAU PANEL
         GridBagConstraints gbc = new GridBagConstraints();
         int gridy = 0;
         ecran.getPanel_client_result().removeAll();
         // AFFICHAGE DES DONNEES
-        for (Clients client : listeClient) {
+        for (Client client : listeClient) {
             JPanel panel = new JPanel();//LIGNE
             panel.setLayout(new GridBagLayout());
             GridBagConstraints gbc_result = new GridBagConstraints();

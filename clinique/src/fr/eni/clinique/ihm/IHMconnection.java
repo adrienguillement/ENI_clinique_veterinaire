@@ -1,8 +1,8 @@
-package src.fr.eni.clinique.ihm;
+package fr.eni.clinique.ihm;
 
-import src.fr.eni.clinique.bll.ConnectionManager;
-import src.fr.eni.clinique.bo.Personne;
-import src.fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.bll.ConnectionManager;
+import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.dal.DALException;
 
 import javax.swing.*;
 import java.awt.*;

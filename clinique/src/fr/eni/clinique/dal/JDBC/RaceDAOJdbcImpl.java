@@ -1,8 +1,8 @@
-package src.fr.eni.clinique.dal.JDBC;
+package fr.eni.clinique.dal.JDBC;
 
-import src.fr.eni.clinique.bo.Races;
-import src.fr.eni.clinique.dal.DALException;
-import src.fr.eni.clinique.dal.DAORaces;
+import fr.eni.clinique.bo.Race;
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAORace;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,24 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RacesDAOJdbcImpl implements DAORaces {
+public class RaceDAOJdbcImpl implements DAORace {
 
     private static final String sqlSelectAll = "SELECT * from races";
 
     @Override
-    public List<Races> selectAll() throws DALException {
+    public List<Race> selectAll() throws DALException {
         Connection cnx = null;
         Statement rqt = null;
         ResultSet rs = null;
-        List<Races> liste = new ArrayList<Races>();
+        List<Race> liste = new ArrayList<Race>();
         try {
             cnx = JdbcTools.getConnection();
             rqt = cnx.createStatement();
             rs = rqt.executeQuery(sqlSelectAll);
-            Races race = null;
+            Race race = null;
 
             while (rs.next()) {
-                race = new Races(rs.getString("race"),
+                race = new Race(rs.getString("race"),
                         rs.getString("espece"));
                 liste.add(race);
             }

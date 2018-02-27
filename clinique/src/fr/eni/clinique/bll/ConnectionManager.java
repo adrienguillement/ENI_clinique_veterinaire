@@ -1,9 +1,9 @@
-package src.fr.eni.clinique.bll;
+package fr.eni.clinique.bll;
 
-import src.fr.eni.clinique.bo.Personne;
-import src.fr.eni.clinique.dal.DALException;
-import src.fr.eni.clinique.dal.DAOConnection;
-import src.fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOConnection;
+import fr.eni.clinique.dal.DAOFactory;
 
 public class ConnectionManager{
 
