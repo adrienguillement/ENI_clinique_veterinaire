@@ -53,4 +53,31 @@ public class GestionPersonnelController
             controllerBase.error_alert("Impossible d'afficher les données!");
         }
     }
+
+    public void displayResult(List<Personne> listePersonne) {
+        // NOUVEAU PANEL
+        GridBagConstraints gbc = new GridBagConstraints();
+        int gridy = 0;
+        ecran.getPanel_personnel_result().removeAll();
+        // AFFICHAGE DES DONNEES
+        for (Personne personne : listePersonne) {
+            JPanel panel = new JPanel();//LIGNE
+            panel.setLayout(new GridBagLayout());
+            GridBagConstraints gbc_result = new GridBagConstraints();
+            gbc.insets = new Insets(20, 10, 10, 10);
+            gbc.gridwidth = 1;
+            gbc.gridy = 0;
+            gbc.gridx = 0;
+            panel.add(new JLabel(personne.getNom()+" - "+personne.getRole()+" - "+personne.getMotPasse()), gbc);
+            gbc.gridx = 2;
+
+            panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+            gbc.gridy = gridy;//ORDRE DE LA LIGNE
+            gbc.gridwidth = 3;//TAILLE DE LA LIGNE
+            ecran.getPanel_personnel_result().add(panel, gbc);//AJOUT DE LA LIGNE
+            gridy++;
+        }
+        //Actualisation
+        ecran.getPanel_personnel().revalidate();
+    }
 }
