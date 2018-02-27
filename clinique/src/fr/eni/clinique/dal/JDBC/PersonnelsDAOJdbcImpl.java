@@ -11,13 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
-    private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personne";
-    private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personne where Nom= ?";
-    private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personne where id= ?";
-    private static final String insert = "insert into Personne(Nom, MotPasse, Role, Archive) values(?,?,?,?s)";
-    private static final String update = "update Personne set Nom=?, MotPasse=?,Role=?,Archive=? where id=?";
-    private static final String delete = "delete from Personne where id=?";
-
+    private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnels";
+    private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where Nom= ?";
+    private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where CodePers= ?";
+    private static final String insert = "insert into Personnels(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
+    private static final String update = "update Personnels set Nom=?, MotPasse=?,Role=?,Archive=? where CodePers=?";
+    private static final String delete = "delete from Personnels where id=?";
 
     public List<Personne> selectAll() throws DALException{
         Connection cnx = null;
