@@ -1,16 +1,13 @@
 package fr.eni.clinique.ihm;
 
-import src.fr.eni.clinique.bll.ConnectionManager;
-import src.fr.eni.clinique.bo.Personne;
-import src.fr.eni.clinique.dal.DALException;
-
-import java.awt.*;
-import java.awt.Dimension;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import fr.eni.clinique.bll.ConnectionManager;
+import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.dal.DALException;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class IHMApp extends JFrame implements ActionListener {
 
