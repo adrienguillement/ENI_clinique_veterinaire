@@ -32,27 +32,27 @@ public class Clients{
     public Clients() {
     }
 
-    public int getCodeClient() {
+    public int getCode() {
         return CodeClient;
     }
 
-    public void setCodeClient(int codeClient) {
+    public void setCode(int codeClient) {
         CodeClient = codeClient;
     }
 
-    public String getNomClient() {
+    public String getNom() {
         return NomClient;
     }
 
-    public void setNomClient(String nomClient) {
+    public void setNom(String nomClient) {
         NomClient = nomClient;
     }
 
-    public String getPrenomClient() {
+    public String getPrenom() {
         return PrenomClient;
     }
 
-    public void setPrenomClient(String prenomClient) {
+    public void setPrenom(String prenomClient) {
         PrenomClient = prenomClient;
     }
 

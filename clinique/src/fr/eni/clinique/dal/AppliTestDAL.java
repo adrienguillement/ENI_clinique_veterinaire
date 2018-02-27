@@ -1,5 +1,5 @@
 package src.fr.eni.clinique.dal;
-import fr.eni.clinique.bo.Races;
+import src.fr.eni.clinique.bo.Races;
 
 import java.util.List;
 

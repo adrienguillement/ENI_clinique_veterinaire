@@ -2,7 +2,7 @@ package src.fr.eni.clinique.dal.JDBC;
 
 import src.fr.eni.clinique.bo.Races;
 import src.fr.eni.clinique.dal.DALException;
-import src.fr.eni.clinique.dal.DAORaces;
+import src.fr.eni.clinique.dal.DAOClient;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,10 +11,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+public class ClientDAOJdbcImpl implements DAOClient {
 
-public class RacesDAOJdbcImpl implements DAORaces {
 
-    private static final String sqlSelectAll = "SELECT * from races";
+    private static final String sqlSelectAll = "SELECT * from clients";
 
     @Override
     public List<Races> selectAll() throws DALException {
@@ -29,8 +29,8 @@ public class RacesDAOJdbcImpl implements DAORaces {
             Races race = null;
 
             while (rs.next()) {
-                race = new Races(rs.getString("race"),
-                        rs.getString("espece"));
+                race = new Races(rs.getString("NomClient"),
+                        rs.getString("PrenomClient"));
                 liste.add(race);
             }
         } catch (SQLException e) {
