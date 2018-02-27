@@ -1,5 +1,6 @@
 package src.fr.eni.clinique.dal;
 
+
 public class DALException extends Exception {
     //Constructeurs
     public DALException() {
