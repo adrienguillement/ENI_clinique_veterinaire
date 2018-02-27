@@ -7,6 +7,13 @@ public class Personnels{
     private String Role;
     private boolean Archive;
 
+    public Personnels( String nom, String motPasse, String role, boolean archive) {
+        Nom = nom;
+        MotPasse = motPasse;
+        Role = role;
+        Archive = archive;
+    }
+
     public Personnels(int codePers, String nom, String motPasse, String role, boolean archive) {
         CodePers = codePers;
         Nom = nom;

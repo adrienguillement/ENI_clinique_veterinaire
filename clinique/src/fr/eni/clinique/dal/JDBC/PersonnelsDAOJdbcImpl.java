@@ -15,7 +15,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
     private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnels";
     private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where Nom= ?";
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where CodePers= ?";
-    private static final String insert = "insert into Personnels(Nom, MotPasse, Role, Archive) values(?,?,?,?s)";
+    private static final String insert = "insert into Personnels(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
     private static final String update = "update Personnels set Nom=?, MotPasse=?,Role=?,Archive=? where CodePers=?";
     private static final String delete = "delete from Personnels where id=?";
 

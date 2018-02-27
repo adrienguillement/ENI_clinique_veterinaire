@@ -12,11 +12,9 @@ public class AppliTestDAL extends DAOFactory{
 
         //TODO...
         try {
-            //Sélection de toutes les races
+            //Test de la DAL
             List<Personnels> personnels = DAOFactory.getPersonnelsDAO().selectAll();
-            System.out.println("Sélection de tous les articles  : " + personnels.toString() );
-
-
+            System.out.println("ajout effectuer de : " + personnels.toString());
         } catch (DALException e) {
             e.printStackTrace();
         }
