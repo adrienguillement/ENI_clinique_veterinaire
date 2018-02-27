@@ -57,7 +57,6 @@ public class IHMconnection extends JFrame{
         this.setLocationRelativeTo(null);
         this.setResizable(false);
 
-
         login = new JLabel("Login");
         login1 = new JTextField();
 
