@@ -20,4 +20,14 @@ public class DAOFactory {
         return racesDAO;
     }
 
+    public static DAOConnection getConnectionDAO(){
+        DAOConnection connectionDAO = null;
+        try{
+            connectionDAO = getConnectionDAO();
+        } catch (Exception e){
+
+        }
+        return connectionDAO;
+    }
+
 }
