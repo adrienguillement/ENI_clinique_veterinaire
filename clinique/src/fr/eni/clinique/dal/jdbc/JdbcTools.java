@@ -4,6 +4,8 @@ import src.fr.eni.clinique.dal.Settings;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+//import com.sun.scenario.Settings;
+
 
 public class JdbcTools {
     private static  String urldb;
