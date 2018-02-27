@@ -1,7 +1,7 @@
-package src.fr.eni.clinique.ihm;
+package fr.eni.clinique.ihm;
 
-import src.fr.eni.clinique.bll.BLLException;
-import src.fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Personne;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

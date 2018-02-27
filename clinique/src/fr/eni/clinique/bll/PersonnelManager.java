@@ -1,4 +1,4 @@
-package src.fr.eni.clinique.bll;
+package fr.eni.clinique.bll;
 
 import src.fr.eni.clinique.bo.Personne;
 import src.fr.eni.clinique.dal.DALException;

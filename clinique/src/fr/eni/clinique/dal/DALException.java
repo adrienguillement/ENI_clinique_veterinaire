@@ -1,4 +1,4 @@
-package src.fr.eni.clinique.dal;
+package fr.eni.clinique.dal;
 
 
 public class DALException extends Exception {

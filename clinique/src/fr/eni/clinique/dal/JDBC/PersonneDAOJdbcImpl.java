@@ -1,10 +1,8 @@
+package fr.eni.clinique.dal.JDBC;
 
-package src.fr.eni.clinique.dal.JDBC;
-
-import src.fr.eni.clinique.dal.Settings;
-import src.fr.eni.clinique.dal.DALException;
-import src.fr.eni.clinique.dal.DAOPersonnels;
-import src.fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOPersonne;
+import fr.eni.clinique.bo.Personne;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -12,7 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
+public class PersonneDAOJdbcImpl implements DAOPersonne{
     private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnels";
     private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where Nom= ?";
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where CodePers= ?";
@@ -26,7 +24,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
         ResultSet rs = null;
         List<Personne> liste = new ArrayList<Personne>();
         try{
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
+            cnx = JdbcTools.getConnection();
             stt = cnx.createStatement();
             rs = stt.executeQuery(selectAll);
             Personne per = null;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package src.fr.eni.clinique.ihm;
 
 import src.fr.eni.clinique.bll.BLLException;
@@ -9,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+=======
+package fr.eni.clinique.ihm;
+>>>>>>> master
 
 public class GestionPersonnelController
 {
