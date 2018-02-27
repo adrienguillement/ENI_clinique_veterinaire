@@ -7,6 +7,7 @@ import java.sql.SQLException;
 //import com.sun.scenario.Settings;
 
 
+
 public class JdbcTools {
     private static  String urldb;
     private static String userdb;

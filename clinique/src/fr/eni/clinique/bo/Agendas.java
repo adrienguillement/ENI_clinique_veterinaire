@@ -1,3 +1,5 @@
+package src.fr.eni.clinique.bo;
+
 import java.util.Date;
 
 public class Agendas {
