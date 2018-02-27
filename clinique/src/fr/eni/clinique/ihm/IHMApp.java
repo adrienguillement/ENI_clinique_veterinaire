@@ -1,5 +1,9 @@
 package fr.eni.clinique.ihm;
 
+import src.fr.eni.clinique.bll.ConnectionManager;
+import src.fr.eni.clinique.bo.Personne;
+import src.fr.eni.clinique.dal.DALException;
+
 import java.awt.*;
 import java.awt.Dimension;
 
@@ -15,6 +19,16 @@ public class IHMApp extends JFrame implements ActionListener {
 	// INSTANCE
 	private static IHMApp instance;
 
+	//Connexion
+    private JLabel login,mdp;
+    private JTextField login1;
+    private JPasswordField mdp1;
+    private JButton valider,annuler;
+    private Container containerLogin;
+    private ConnectionManager connectionManager = new ConnectionManager();
+
+    private Personne personne;
+
 	//menu
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
@@ -26,26 +40,11 @@ public class IHMApp extends JFrame implements ActionListener {
 
 
 	private IHMApp() {
-		//Titre
-		this.setTitle("Clinique vétérinaire");
 
-		// Réglage de la taille du conteneur
-		this.setSize(900, 655);
-		this.setResizable(false);
-
-
-		// Réglage de la position du conteneur
-		this.setLocationRelativeTo(null);
-
-		// Fermeture de l'application JAVA lorsque on clique sur la croix
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//Affichage fenetre
-		this.setVisible(true);
-
-		this.setupIHM();
+		this.setupLogin();
 	}
 
+	//SINGLETON
 	public static IHMApp getInstance(){
 		if(instance == null){
 			instance = new IHMApp();
@@ -53,8 +52,96 @@ public class IHMApp extends JFrame implements ActionListener {
 		return instance;
 	}
 
+	//SETUP LOGIN (FORMULAIRE DE CONNEXION)
+	public void setupLogin() {
+        this.setTitle(" Authentification ");
+        this.setSize(new Dimension(400,200));
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+
+        login = new JLabel("Login");
+        login1 = new JTextField();
+
+        mdp = new JLabel("Mot de Passe");
+        mdp1 = new JPasswordField();
+
+        valider = new JButton("Valider ");
+        annuler = new JButton(" Annuler");
+
+
+        this.containerLogin = this.getContentPane();
+        this.containerLogin.setLayout(null);
+
+        this.containerLogin.add(login);
+        login.setBounds(20, 20, 100, 20);
+
+        this.containerLogin.add(login1);
+        login1.setBounds(150, 20, 150, 20);
+
+        this.containerLogin.add(mdp);
+        mdp.setBounds(22, 55, 100, 20);
+
+        this.containerLogin.add(mdp1);
+        mdp1.setBounds(150, 55, 150, 20);
+
+        this.containerLogin.add(valider);
+        valider.setBounds(125,100 ,77 ,20 );
+
+        this.containerLogin.add(annuler);
+        annuler.setBounds(225, 100, 82, 20);
+
+        valider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //renvoyer un test de connection
+                System.out.println("Demande d'authentification");
+                connect();
+            }
+        });
+    }
+
+    //Connexion de l'utilisateur
+    public void connect()
+    {
+        try{
+            personne = connectionManager.getConnection(login1.getText(), mdp1.getText());
+            if(personne != null){
+                System.out.println("Bienvenue " + personne.getNom() + "Vos droits sont correspondantes à votre rôle: " + personne.getRole());
+                //init l'utilisateur en cours
+                GeneralController.getInstance().setUtilisateurEnCours(personne);
+
+                this.dispose();
+                this.containerLogin.removeAll();
+                this.setupIHM();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.INFORMATION_MESSAGE);
+            }
+        }catch (DALException e1){
+            e1.printStackTrace();
+        }
+
+    }
+
 	public void setupIHM() {
-		this.setJMenuBar(getMenuBarre());
+        //Titre
+        this.setTitle("Clinique vétérinaire");
+        this.setVisible(true);
+        // Réglage de la taille du conteneur
+        this.setSize(900, 655);
+        this.setResizable(false);
+
+
+        // Réglage de la position du conteneur
+        this.setLocationRelativeTo(null);
+
+        // Fermeture de l'application JAVA lorsque on clique sur la croix
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        //Affichage fenetre
+        this.setVisible(true);
+
+        this.setJMenuBar(getMenuBarre());
 
 		// Creation du panel
 		JPanel panel_container = new JPanel();

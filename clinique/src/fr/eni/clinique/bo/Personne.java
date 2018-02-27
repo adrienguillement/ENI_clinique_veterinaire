@@ -1,11 +1,19 @@
 package fr.eni.clinique.bo;
 
 public class Personne {
-    private int CodePers;
+    private int codePers;
     private String Nom;
     private String MotPasse;
     private String Role;
     private boolean Archive;
+
+    public Personne(int codePers, String nom, String motPasse, String role, boolean archive) {
+        codePers = codePers;
+        Nom = nom;
+        MotPasse = motPasse;
+        Role = role;
+        Archive = archive;
+    }
 
     public Personne( String nom, String motPasse, String role, boolean archive) {
         Nom = nom;
@@ -25,11 +33,11 @@ public class Personne {
     }
 
     public int getCodePers() {
-        return CodePers;
+        return codePers;
     }
 
     public void setCodePers(int codePers) {
-        CodePers = codePers;
+        codePers = codePers;
     }
 
     public String getNom() {
@@ -67,7 +75,7 @@ public class Personne {
     @java.lang.Override
     public java.lang.String toString() {
         return "Personne{" +
-                "CodePers=" + CodePers +
+                "CodePers=" + codePers +
                 ", Nom=" + Nom +
                 ", MotPasse=" + MotPasse +
                 ", Role=" + Role +
