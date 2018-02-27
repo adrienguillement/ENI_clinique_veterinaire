@@ -1,49 +1,85 @@
+package src.fr.eni.clinique.ihm;
+
+import java.awt.*;
 import java.awt.Dimension;
-import java.awt.Toolkit;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
-
-import fr.eni.clinique.ihm.InternalFrame1;
+import javax.swing.*;
 
 public class IHMApp extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	
-	private JDesktopPane desktopPane;
+
+	// INSTANCE
+	private static IHMApp instance;
+
+	//menu
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
-	private fr.eni.clinique.ihm.InternalFrame1 frm1;
+	private static IHMApp instance;
+	private JMenu acceuil_connection;
+
+	//Clients
+	private JPanel panel_client;
+	private JPanel panel_client_result;
 
 
-	public IHMApp() {
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension screenSize = new Dimension(1000, 750);
-		setBounds(0, 0, screenSize.width, screenSize.height);
-
+	private IHMApp() {
 		//Titre
-		setTitle("Clinique vétérinaire");
+		this.setTitle("Clinique vétérinaire");
 
-		// initialiser l'ecran MDI
-		desktopPane = new JDesktopPane();
+		// Réglage de la taille du conteneur
+		this.setSize(900, 655);
+		this.setResizable(false);
 
-		// Associer le JDesktopPane à la JFrame
-		setContentPane(desktopPane);
 
-		// Barre de menus
-		setJMenuBar(getMenuBarre());
-		
-		//Frame interne exemple		
-		//desktopPane.add(getFrm1());
+		// Réglage de la position du conteneur
+		this.setLocationRelativeTo(null);
+
+		// Fermeture de l'application JAVA lorsque on clique sur la croix
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//Affichage fenetre
+		this.setVisible(true);
+
+		this.setupIHM();
+	}
+
+	public static IHMApp getInstance(){
+		if(instance == null){
+			instance = new IHMApp();
+		}
+		return instance;
+	}
+
+	public void setupIHM() {
+		this.setJMenuBar(getMenuBarre());
+
+		// Creation du panel
+		JPanel panel_container = new JPanel();
+		panel_container.setOpaque(true);
+		panel_container.setLayout(new GridLayout(1,1));
+
+		// Mise en place Layout
+		JPanel panel = new JPanel();
+		panel.setOpaque(true);
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.gridy = 0;
+		panel.add(this.getPanel_client(), gbc);
+
+		panel_container.add(panel);
+
+		// SCROLL BAR
+		JScrollPane scrollPane = new JScrollPane(panel_container, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setPreferredSize(new Dimension(100, 100));
+		Container cp = this;
+		cp.add(scrollPane);
+
+		this.getContentPane().add(scrollPane);
 	}
 
 	// Lancement de l'application
@@ -56,7 +92,6 @@ public class IHMApp extends JFrame implements ActionListener {
 				ecran.setVisible(true);
 			}
 		});
-
 	}
 
 	public void createMenuBar() {
@@ -121,7 +156,6 @@ public class IHMApp extends JFrame implements ActionListener {
 			break;
 		case "gestionRendezVous":
 			System.out.println("gestionRendezVous");
-			getFrm1().setVisible(true);
 			break;
 		case "agenda":
 			System.out.println("agenda");
@@ -133,15 +167,11 @@ public class IHMApp extends JFrame implements ActionListener {
 			System.out.println("prise rdv");
 			break;
 		case "gestionDesClients":
-			System.out.println("gestion clients");
+			GestionClientController.getInstance().initMyApp();
 			break;
 		default:
 			System.out.println("Probleme e=" + e);
 		}
-	}
-
-	public JDesktopPane getDesktopPane() {
-		return desktopPane;
 	}
 
 	public JMenuBar getMenuBarre() {
@@ -153,11 +183,37 @@ public class IHMApp extends JFrame implements ActionListener {
 		return menuBarre;
 	}
 
-	public InternalFrame1 getFrm1() {
-		if(frm1== null){
-			frm1 = new InternalFrame1();
+	public JMenu getAccueil_connection(){
+		if(acceuil_connection  == null){
+			acceuil_connection = new JMenu("Acceuil");
 		}
-		return frm1;
+		return acceuil_connection;
+	}
+
+	//PANEL CLIENT
+	public JPanel getPanel_client() {
+		if(panel_client==null){
+			panel_client = new JPanel();
+			panel_client.setSize(this.getWidth(), this.getHeight());
+			panel_client.setOpaque(true);
+			// Mise en place Layout
+			panel_client.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.gridwidth = 3;
+			panel_client.add(getPanel_client_result(),gbc);
+		}
+		return panel_client;
+	}
+
+	public JPanel getPanel_client_result() {
+		if(panel_client_result == null){
+			panel_client_result = new JPanel();
+			panel_client_result.setLayout(new GridLayout(0,1));
+		}
+		return panel_client_result;
 	}
 
 }

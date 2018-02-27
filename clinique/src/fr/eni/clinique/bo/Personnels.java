@@ -1,4 +1,4 @@
-package fr.eni.clinique.bo;
+package src.fr.eni.clinique.bo;
 
 public class Personnels{
     private int CodePers;
@@ -6,6 +6,13 @@ public class Personnels{
     private String MotPasse;
     private String Role;
     private boolean Archive;
+
+    public Personnels( String nom, String motPasse, String role, boolean archive) {
+        Nom = nom;
+        MotPasse = motPasse;
+        Role = role;
+        Archive = archive;
+    }
 
     public Personnels(int codePers, String nom, String motPasse, String role, boolean archive) {
         CodePers = codePers;

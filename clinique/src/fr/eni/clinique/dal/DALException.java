@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package fr.eni.clinique.dal;
+=======
+package src.fr.eni.clinique.dal;
+>>>>>>> master
 
 public class DALException extends Exception {
     //Constructeurs
@@ -22,5 +26,8 @@ public class DALException extends Exception {
 
         return sb.toString() ;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 }
