@@ -29,7 +29,7 @@ public class ConnectionDAOJdbcImpl implements DAOConnection {
 
             rs = rqt.executeQuery();
             if (rs.next()) {
-                personne = new Personne(rs.getInt("CodePers"),
+                personne = new Personne(
                         rs.getString("Nom"),
                         rs.getString("MotPasse"),
                         rs.getString("Role"),
