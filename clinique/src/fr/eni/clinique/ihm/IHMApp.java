@@ -3,14 +3,15 @@ package fr.eni.clinique.ihm;
 import fr.eni.clinique.bll.ConnectionManager;
 import fr.eni.clinique.bo.Personne;
 import fr.eni.clinique.dal.DALException;
-
-import java.awt.*;
-import java.awt.Dimension;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+<<<<<<< HEAD
+=======
+import fr.eni.clinique.utils.SHA512;
+>>>>>>> master
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class IHMApp extends JFrame implements ActionListener {
 
@@ -108,12 +109,13 @@ public class IHMApp extends JFrame implements ActionListener {
     public void connect()
     {
         try{
-            personne = connectionManager.getConnection(login1.getText(), mdp1.getText());
+            personne = connectionManager.getConnection(login1.getText(), SHA512.getSHA512(mdp1.getText(), "toto"));
             if(personne != null){
                 System.out.println("Bienvenue " + personne.getNom() + "Vos droits sont correspondantes à votre rôle: " + personne.getRole());
                 //init l'utilisateur en cours
                 GeneralController.getInstance().setUtilisateurEnCours(personne);
 
+                //Fermeture fenetre login et lancement IHM
                 this.dispose();
                 this.containerLogin.removeAll();
                 this.setupIHM();
@@ -124,7 +126,6 @@ public class IHMApp extends JFrame implements ActionListener {
         }catch (DALException e1){
             e1.printStackTrace();
         }
-
     }
 
 	public void setupIHM() {

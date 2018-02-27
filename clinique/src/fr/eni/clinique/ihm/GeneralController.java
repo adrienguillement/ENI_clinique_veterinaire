@@ -2,6 +2,7 @@ package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.ihm.IHMApp;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
