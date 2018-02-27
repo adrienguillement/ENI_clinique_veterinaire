@@ -1,7 +1,7 @@
-package src.fr.eni.clinique.ihm;
+package fr.eni.clinique.ihm;
 
-import src.fr.eni.clinique.ihm.IHMApp;
-import src.fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.ihm.IHMApp;
+import fr.eni.clinique.bll.BLLException;
 
 public class ConnectionController
 {

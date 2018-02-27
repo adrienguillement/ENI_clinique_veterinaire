@@ -1,19 +1,19 @@
-package src.fr.eni.clinique.bo;
+package fr.eni.clinique.bo;
 
 import java.util.Date;
 
-public class Agendas {
+public class Agenda {
     private int CodeVeto;
     private Date DateRdv;
     private int CodeAnimal;
 
-    public Agendas(int codeVeto, Date dateRdv, int codeAnimal) {
+    public Agenda(int codeVeto, Date dateRdv, int codeAnimal) {
         CodeVeto = codeVeto;
         DateRdv = dateRdv;
         CodeAnimal = codeAnimal;
     }
 
-    public Agendas(){
+    public Agenda(){
 
     }
 

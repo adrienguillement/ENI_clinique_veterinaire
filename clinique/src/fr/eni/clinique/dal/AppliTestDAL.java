@@ -1,8 +1,7 @@
-package src.fr.eni.clinique.dal;
-import src.fr.eni.clinique.bo.Races;
+package fr.eni.clinique.dal;
 
 
-import src.fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personne;
 
 import java.util.List;
 
@@ -10,12 +9,12 @@ public class AppliTestDAL extends DAOFactory{
 
     public static void main(String[] args) {
 
-        DAOPersonnels DAOPersonnel = DAOFactory.getPersonnelsDAO();
+        DAOPersonne DAOPersonnel = DAOFactory.getPersonneDAO();
 
         //TODO...
         try {
             //Sélection de toutes les races
-            List<Personne> personnels = DAOFactory.getPersonnelsDAO().selectAll();
+            List<Personne> personnels = DAOFactory.getPersonneDAO().selectAll();
             System.out.println("Sélection de tous les articles  : " + personnels.toString() );
 
 

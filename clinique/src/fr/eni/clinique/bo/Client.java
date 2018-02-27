@@ -1,6 +1,6 @@
-package src.fr.eni.clinique.bo;
+package fr.eni.clinique.bo;
 
-public class Clients{
+public class Client{
     private int CodeClient;
     private String NomClient;
     private String PrenomClient;
@@ -14,7 +14,7 @@ public class Clients{
     private String Remarque;
     private boolean Archive;
 
-    public Clients(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2, String codePostal, String ville, String numTel, String assurance, String email, String remarque, boolean archive) {
+    public Client(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2, String codePostal, String ville, String numTel, String assurance, String email, String remarque, boolean archive) {
         CodeClient = codeClient;
         NomClient = nomClient;
         PrenomClient = prenomClient;
@@ -29,7 +29,7 @@ public class Clients{
         Archive = archive;
     }
 
-    public Clients() {
+    public Client() {
     }
 
     public int getCode() {

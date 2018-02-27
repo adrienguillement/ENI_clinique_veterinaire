@@ -1,10 +1,9 @@
-package src.fr.eni.clinique.bll;
+package fr.eni.clinique.bll;
 
-import src.fr.eni.clinique.dal.DALException;
-import src.fr.eni.clinique.dal.DAOClient;
-import src.fr.eni.clinique.dal.DAOFactory;
-import src.fr.eni.clinique.bo.Clients;
-
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOClient;
+import fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.bo.Client;
 import java.util.List;
 
 public class CltManager {
@@ -21,8 +20,8 @@ public class CltManager {
      * @return
      * @throws BLLException
      */
-    public List<Clients> getCatalogue() throws BLLException{
-        List<Clients> clients = null;
+    public List<Client> getCatalogue() throws BLLException{
+        List<Client> clients = null;
 
         try{
             clients = daoClients.selectAll();
@@ -38,7 +37,7 @@ public class CltManager {
      * @param client
      * @throws BLLException
      */
-    public void validerClient(Clients client) throws BLLException{
+    public void validerClient(Client client) throws BLLException{
         boolean valide = true;
         StringBuffer sb = new StringBuffer();
 

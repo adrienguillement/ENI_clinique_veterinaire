@@ -1,6 +1,6 @@
-package src.fr.eni.clinique.dal;
+package fr.eni.clinique.dal;
 
-import src.fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personne;
 
 public interface DAOConnection{
 
