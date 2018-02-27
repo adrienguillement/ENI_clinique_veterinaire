@@ -1,6 +1,7 @@
 package src.fr.eni.clinique.ihm;
 
 import src.fr.eni.clinique.bll.BLLException;
+import src.fr.eni.clinique.bo.Personne;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -10,6 +11,7 @@ public class GeneralController {
 
     private IHMApp ecran;
     private static GeneralController instance;
+    private Personne utilisateurEnCours = null;
 
     //constructeur
     private GeneralController(){
@@ -75,5 +77,13 @@ public class GeneralController {
     public void success_alert(String message){
         JOptionPane alert = new JOptionPane();
         alert.showMessageDialog(null, message, "Succès", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public Personne getUtilisateurEnCours() {
+        return utilisateurEnCours;
+    }
+
+    public void setUtilisateurEnCours(Personne utilisateurEnCours) {
+        this.utilisateurEnCours = utilisateurEnCours;
     }
 }

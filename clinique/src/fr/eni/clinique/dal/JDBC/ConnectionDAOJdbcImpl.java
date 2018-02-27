@@ -1,6 +1,6 @@
 package src.fr.eni.clinique.dal.JDBC;
 
-import src.fr.eni.clinique.bo.Personnels;
+import src.fr.eni.clinique.bo.Personne;
 import src.fr.eni.clinique.dal.DALException;
 import src.fr.eni.clinique.dal.DAOConnection;
 
@@ -8,15 +8,18 @@ import java.sql.*;
 
 public class ConnectionDAOJdbcImpl implements DAOConnection {
 
-    private static final String sqlTestAuthentification =   "SELECT Top 1 CodePers, Nom, MotPasse, Role FROM PERSONNELS " +
+    private static final String sqlTestAuthentification =   "SELECT Top 1 CodePers, Nom, MotPasse, Role, Archive FROM PERSONNELS " +
                                                             "WHERE Nom = ? " +
                                                             "AND MotPasse = ?";
 
-    public Personnels getConnection(String login, String mdp) throws DALException {
+    public Personne getConnection(String login, String mdp) throws DALException {
+
+        System.out.println("> ConnectionDAOJdbcImpl");
+
         Connection cnx = null;
         PreparedStatement rqt = null;
         ResultSet rs = null;
-        Personnels personne = null;
+        Personne personne = null;
 
         try {
             cnx = JdbcTools.getConnection();
@@ -26,7 +29,7 @@ public class ConnectionDAOJdbcImpl implements DAOConnection {
 
             rs = rqt.executeQuery();
             if (rs.next()) {
-                personne = new Personnels(rs.getInt("CodePers"),
+                personne = new Personne(rs.getInt("CodePers"),
                         rs.getString("Nom"),
                         rs.getString("MotPasse"),
                         rs.getString("Role"),

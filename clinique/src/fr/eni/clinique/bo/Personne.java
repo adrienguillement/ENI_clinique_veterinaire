@@ -1,21 +1,20 @@
 package src.fr.eni.clinique.bo;
 
-public class Personnels{
+public class Personne {
     private int CodePers;
     private String Nom;
     private String MotPasse;
     private String Role;
     private boolean Archive;
 
-    public Personnels(int codePers, String nom, String motPasse, String role, boolean archive) {
-        CodePers = codePers;
+    public Personne( String nom, String motPasse, String role, boolean archive) {
         Nom = nom;
         MotPasse = motPasse;
         Role = role;
         Archive = archive;
     }
 
-    public Personnels() {
+    public Personne() {
     }
 
     public int getCodePers() {
@@ -60,7 +59,7 @@ public class Personnels{
 
     @java.lang.Override
     public java.lang.String toString() {
-        return "Personnels{" +
+        return "Personne{" +
                 "CodePers=" + CodePers +
                 ", Nom=" + Nom +
                 ", MotPasse=" + MotPasse +
