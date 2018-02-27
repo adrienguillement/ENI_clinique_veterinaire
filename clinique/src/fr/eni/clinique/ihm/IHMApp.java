@@ -1,4 +1,4 @@
-package src.fr.eni.clinique.ihm;
+package fr.eni.clinique.ihm;
 
 import src.fr.eni.clinique.bll.ConnectionManager;
 import src.fr.eni.clinique.bo.Personne;

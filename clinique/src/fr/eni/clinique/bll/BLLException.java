@@ -1,4 +1,4 @@
-package src.fr.eni.clinique.bll;
+package fr.eni.clinique.bll;
 
 public class BLLException extends Exception {
     public BLLException() {

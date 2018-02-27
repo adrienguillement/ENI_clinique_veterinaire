@@ -1,15 +1,15 @@
-package src.fr.eni.clinique.bo;
+package fr.eni.clinique.bo;
 
-public class Races{
+public class Race{
     private String Race;
     private String Espece;
 
-    public Races(String race, String espece) {
+    public Race(String race, String espece) {
         Race = race;
         Espece = espece;
     }
 
-    public Races() {
+    public Race() {
     }
 
     public String getRace() {

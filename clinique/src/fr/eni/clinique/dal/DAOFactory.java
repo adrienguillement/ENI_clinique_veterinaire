@@ -1,15 +1,15 @@
-package src.fr.eni.clinique.dal;
+package fr.eni.clinique.dal;
 
-import src.fr.eni.clinique.dal.JDBC.ConnectionDAOJdbcImpl;
-import src.fr.eni.clinique.dal.JDBC.ClientDAOJdbcImpl;
-import src.fr.eni.clinique.dal.JDBC.PersonnelsDAOJdbcImpl;
+import fr.eni.clinique.dal.JDBC.ConnectionDAOJdbcImpl;
+import fr.eni.clinique.dal.JDBC.ClientDAOJdbcImpl;
+import fr.eni.clinique.dal.JDBC.PersonneDAOJdbcImpl;
 
 public class DAOFactory {
 
-    public static DAORaces getRaceDAO()  {
-        DAORaces racesDAO=null;
+    public static DAORace getRaceDAO()  {
+        DAORace racesDAO=null;
         try {
-            racesDAO=(DAORaces) Class.forName("src.fr.eni.clinique.dal.JDBC.RacesDAOJdbcImpl").newInstance();
+            racesDAO=(DAORace) Class.forName("src.fr.eni.clinique.dal.JDBC.RacesDAOJdbcImpl").newInstance();
         } catch (InstantiationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -40,8 +40,8 @@ public class DAOFactory {
         return connectionDAO;
     }
   
-    public static PersonnelsDAOJdbcImpl getPersonnelsDAO()
+    public static PersonneDAOJdbcImpl getPersonneDAO()
     {
-        return new PersonnelsDAOJdbcImpl();
+        return new PersonneDAOJdbcImpl();
     }
 }

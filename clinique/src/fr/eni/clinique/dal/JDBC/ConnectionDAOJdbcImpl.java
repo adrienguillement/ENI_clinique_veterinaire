@@ -1,8 +1,8 @@
-package src.fr.eni.clinique.dal.JDBC;
+package fr.eni.clinique.dal.JDBC;
 
-import src.fr.eni.clinique.bo.Personne;
-import src.fr.eni.clinique.dal.DALException;
-import src.fr.eni.clinique.dal.DAOConnection;
+import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOConnection;
 
 import java.sql.*;
 
