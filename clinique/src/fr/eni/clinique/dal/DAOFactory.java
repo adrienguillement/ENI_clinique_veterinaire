@@ -1,7 +1,7 @@
 package src.fr.eni.clinique.dal;
 
-
 import src.fr.eni.clinique.dal.JDBC.ClientDAOJdbcImpl;
+import src.fr.eni.clinique.dal.JDBC.PersonnelsDAOJdbcImpl;
 
 public class DAOFactory {
 
@@ -22,8 +22,25 @@ public class DAOFactory {
         return racesDAO;
     }
 
+
     public static ClientDAOJdbcImpl getClientDAO()
     {
         return new ClientDAOJdbcImpl();
+    }
+
+    public static DAOConnection getConnectionDAO()
+    {
+        DAOConnection connectionDAO = null;
+        try{
+            connectionDAO = getConnectionDAO();
+        } catch (Exception e){
+
+        }
+        return connectionDAO;
+    }
+  
+    public static PersonnelsDAOJdbcImpl getPersonnelsDAO()
+    {
+        return new PersonnelsDAOJdbcImpl();
     }
 }

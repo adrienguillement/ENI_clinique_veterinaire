@@ -1,12 +1,12 @@
 package src.fr.eni.clinique.ihm;
 
 import java.awt.*;
+import java.awt.Dimension;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
-import fr.eni.clinique.ihm.InternalFrame1;
 
 public class IHMApp extends JFrame implements ActionListener {
 
@@ -18,6 +18,7 @@ public class IHMApp extends JFrame implements ActionListener {
 	//menu
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
+	private static IHMApp instance;
 	private JMenu acceuil_connection;
 
 	//Clients
