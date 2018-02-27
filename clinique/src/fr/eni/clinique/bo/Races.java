@@ -1,4 +1,4 @@
-package fr.eni.clinique.bo;
+package src.fr.eni.clinique.bo;
 
 public class Races{
     private String Race;

@@ -1,3 +1,5 @@
+package src.fr.eni.clinique.ihm;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -19,7 +21,9 @@ public class IHMApp extends JFrame implements ActionListener {
 	private JDesktopPane desktopPane;
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
-	private fr.eni.clinique.ihm.InternalFrame1 frm1;
+	private InternalFrame1 frm1;
+	private static IHMApp instance;
+	private JMenu acceuil_connection;
 
 
 	public IHMApp() {
@@ -56,7 +60,13 @@ public class IHMApp extends JFrame implements ActionListener {
 				ecran.setVisible(true);
 			}
 		});
+	}
 
+	public static IHMApp getInstance(){
+		if(instance == null){
+			instance = new IHMApp();
+		}
+		return instance;
 	}
 
 	public void createMenuBar() {
@@ -158,6 +168,13 @@ public class IHMApp extends JFrame implements ActionListener {
 			frm1 = new InternalFrame1();
 		}
 		return frm1;
+	}
+
+	public JMenu getAccueil_connection(){
+		if(acceuil_connection  == null){
+			acceuil_connection = new JMenu("Acceuil");
+		}
+		return acceuil_connection;
 	}
 
 }
