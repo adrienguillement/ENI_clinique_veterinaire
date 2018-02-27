@@ -11,12 +11,13 @@ import fr.eni.clinique.ihm.InternalFrame1;
 public class IHMApp extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	
-	private JDesktopPane desktopPane;
+
+	// INSTANCE
+	private static IHMApp instance;
+
+	//menu
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
-	private InternalFrame1 frm1;
-	private static IHMApp instance;
 	private JMenu acceuil_connection;
 
 	//Clients
@@ -24,28 +25,60 @@ public class IHMApp extends JFrame implements ActionListener {
 	private JPanel panel_client_result;
 
 
-	public IHMApp() {
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		Dimension screenSize = new Dimension(1000, 750);
-		setBounds(0, 0, screenSize.width, screenSize.height);
-
+	private IHMApp() {
 		//Titre
-		setTitle("Clinique vétérinaire");
+		this.setTitle("Clinique vétérinaire");
 
-		// initialiser l'ecran MDI
-		desktopPane = new JDesktopPane();
+		// Réglage de la taille du conteneur
+		this.setSize(900, 655);
+		this.setResizable(false);
 
-		// Associer le JDesktopPane à la JFrame
-		setContentPane(desktopPane);
 
-		// Barre de menus
-		setJMenuBar(getMenuBarre());
-		
-		//Frame interne exemple		
-		//desktopPane.add(getFrm1());
+		// Réglage de la position du conteneur
+		this.setLocationRelativeTo(null);
+
+		// Fermeture de l'application JAVA lorsque on clique sur la croix
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//Affichage fenetre
+		this.setVisible(true);
+
+		this.setupIHM();
+	}
+
+	public static IHMApp getInstance(){
+		if(instance == null){
+			instance = new IHMApp();
+		}
+		return instance;
+	}
+
+	public void setupIHM() {
+		this.setJMenuBar(getMenuBarre());
+
+		// Creation du panel
+		JPanel panel_container = new JPanel();
+		panel_container.setOpaque(true);
+		panel_container.setLayout(new GridLayout(1,1));
+
+		// Mise en place Layout
+		JPanel panel = new JPanel();
+		panel.setOpaque(true);
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.gridy = 0;
+		panel.add(this.getPanel_client(), gbc);
+
+		panel_container.add(panel);
+
+		// SCROLL BAR
+		JScrollPane scrollPane = new JScrollPane(panel_container, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setPreferredSize(new Dimension(100, 100));
+		Container cp = this;
+		cp.add(scrollPane);
+
+		this.getContentPane().add(scrollPane);
 	}
 
 	// Lancement de l'application
@@ -58,13 +91,6 @@ public class IHMApp extends JFrame implements ActionListener {
 				ecran.setVisible(true);
 			}
 		});
-	}
-
-	public static IHMApp getInstance(){
-		if(instance == null){
-			instance = new IHMApp();
-		}
-		return instance;
 	}
 
 	public void createMenuBar() {
@@ -129,7 +155,6 @@ public class IHMApp extends JFrame implements ActionListener {
 			break;
 		case "gestionRendezVous":
 			System.out.println("gestionRendezVous");
-			getFrm1().setVisible(true);
 			break;
 		case "agenda":
 			System.out.println("agenda");
@@ -148,10 +173,6 @@ public class IHMApp extends JFrame implements ActionListener {
 		}
 	}
 
-	public JDesktopPane getDesktopPane() {
-		return desktopPane;
-	}
-
 	public JMenuBar getMenuBarre() {
 		if (menuBarre == null) {
 			menuBarre = new JMenuBar();
@@ -159,13 +180,6 @@ public class IHMApp extends JFrame implements ActionListener {
 			createMenuBar();
 		}
 		return menuBarre;
-	}
-
-	public InternalFrame1 getFrm1() {
-		if(frm1== null){
-			frm1 = new InternalFrame1();
-		}
-		return frm1;
 	}
 
 	public JMenu getAccueil_connection(){
@@ -190,7 +204,6 @@ public class IHMApp extends JFrame implements ActionListener {
 			gbc.gridwidth = 3;
 			JLabel titreClient = new JLabel("Clients");
 			titreClient.setFont(new Font(titreClient.getFont().getName(), titreClient.getFont().getStyle(), 30));
-
 			panel_client.add(titreClient,gbc);
 			gbc.gridy = 1;
 			panel_client.add(getPanel_client_result(),gbc);
