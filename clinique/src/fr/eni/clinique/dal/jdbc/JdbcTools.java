@@ -1,4 +1,5 @@
 package src.fr.eni.clinique.dal.JDBC;
+
 import src.fr.eni.clinique.dal.Settings;
 
 import java.sql.Connection;

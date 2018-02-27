@@ -1,5 +1,7 @@
+
 package src.fr.eni.clinique.dal.JDBC;
 
+import src.fr.eni.clinique.dal.Settings;
 import src.fr.eni.clinique.dal.DALException;
 import src.fr.eni.clinique.dal.DAOPersonnels;
 import src.fr.eni.clinique.bo.Personne;
@@ -64,7 +66,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
 
         Personne personne = null;
         try{
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
+            cnx = JdbcTools.getConnection();
             stt = cnx.prepareStatement(selectByNom);
             stt.setString(1, Nom);
 
@@ -103,7 +105,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
 
         Personne personne = null;
         try{
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
+            cnx = JdbcTools.getConnection();
             stt = cnx.prepareStatement(selectById);
             stt.setInt(1, CodePers);
 
@@ -140,7 +142,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
+            cnx = JdbcTools.getConnection();
             stt = cnx.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
             stt.setString(1, personne.getNom());
             stt.setString(2, personne.getMotPasse());
@@ -176,7 +178,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
+            cnx = JdbcTools.getConnection();
             stt = cnx.prepareStatement(update);
             stt.setString(1, personne.getNom());
             stt.setString(2, personne.getMotPasse());
@@ -204,7 +206,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
+            cnx = JdbcTools.getConnection();
             stt = cnx.prepareStatement(delete);
             stt.setInt(1, CodePers);
             stt.executeUpdate();
