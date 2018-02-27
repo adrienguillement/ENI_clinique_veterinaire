@@ -1,6 +1,9 @@
 package src.fr.eni.clinique.dal.JDBC;
 
+import fr.eni.clinique.dal.jdbc.JdbcTools;
+import fr.eni.clinique.bo.Races;
 import src.fr.eni.clinique.dal.DALException;
+import src.fr.eni.clinique.dal.DAORaces;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,37 +11,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import fr.eni.clinique.dal.jdbc.JdbcTools;
-import src.fr.eni.clinique.bo.*;
+
 
 public class RacesDAOJdbcImpl implements DAORaces {
-    private static final String sqlSelectById = "SELECT id, nom, nom_scene from races where id = ?";
 
-    private static final String sqlSelectAll = "SELECT id, nom, nom_scene from races";
-
-    private static final String sqlUpdate = "update races set nom=?,nom_scene=? where id=?";
-
-    private static final String sqlInsert = "insert into races(nom,nom_scene) values(?,?)";
-
-    private static final String sqlDelete = "delete from races where id=?";
-    private static final String sqlSelectByNomScene = "select nom, nom_scene from races where nom_scene = ?";
+    private static final String sqlSelectAll = "SELECT * from races";
 
     @Override
-    public List<Race> selectAll() throws DALException {
+    public List<Races> selectAll() throws DALException {
         Connection cnx = null;
         Statement rqt = null;
         ResultSet rs = null;
-        List<Race> liste = new ArrayList<Artiste>();
+        List<Races> liste = new ArrayList<Races>();
         try {
             cnx = JdbcTools.getConnection();
             rqt = cnx.createStatement();
             rs = rqt.executeQuery(sqlSelectAll);
-            Race race = null;
+            Races race = null;
 
             while (rs.next()) {
-                race = new Race(rs.getInt("id"),
-                        rs.getString("nom"),
-                        rs.getString("nom_scene"));
+                race = new Races(rs.getString("race"),
+                        rs.getString("espece"));
                 liste.add(race);
             }
         } catch (SQLException e) {
