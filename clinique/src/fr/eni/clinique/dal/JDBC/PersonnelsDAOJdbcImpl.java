@@ -1,18 +1,10 @@
-<<<<<<< HEAD
-package fr.eni.clinique.dal.JDBC;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
-import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOPersonnels;
-import fr.eni.clinique.bo.Personnels;
-=======
 package src.fr.eni.clinique.dal.JDBC;
 
-import com.sun.org.apache.bcel.internal.classfile.Code;
+import src.fr.eni.clinique.dal.Settings;
 import src.fr.eni.clinique.dal.DALException;
 import src.fr.eni.clinique.dal.DAOPersonnels;
 import src.fr.eni.clinique.bo.Personnels;
->>>>>>> master
 
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -23,15 +15,9 @@ import java.util.List;
 public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
     private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnels";
     private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where Nom= ?";
-<<<<<<< HEAD
-    private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where id= ?";
-    private static final String insert = "insert into Personnels(Nom, MotPasse, Role, Archive) values(?,?,?,?s)";
-    private static final String update = "update Personnels set Nom=?, MotPasse=?,Role=?,Archive=? where id=?";
-=======
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where CodePers= ?";
     private static final String insert = "insert into Personnels(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
     private static final String update = "update Personnels set Nom=?, MotPasse=?,Role=?,Archive=? where CodePers=?";
->>>>>>> master
     private static final String delete = "delete from Personnels where id=?";
 
 
@@ -41,11 +27,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
         ResultSet rs = null;
         List<Personnels> liste = new ArrayList<Personnels>();
         try{
-<<<<<<< HEAD
-            cnx = JdbcTools.getConnection();
-=======
             cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
->>>>>>> master
             stt = cnx.createStatement();
             rs = stt.executeQuery(selectAll);
             Personnels per = null;
@@ -85,11 +67,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
 
         Personnels personnels = null;
         try{
-<<<<<<< HEAD
             cnx = JdbcTools.getConnection();
-=======
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
->>>>>>> master
             stt = cnx.prepareStatement(selectByNom);
             stt.setString(1, Nom);
 
@@ -128,11 +106,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
 
         Personnels personnels = null;
         try{
-<<<<<<< HEAD
             cnx = JdbcTools.getConnection();
-=======
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
->>>>>>> master
             stt = cnx.prepareStatement(selectById);
             stt.setInt(1, CodePers);
 
@@ -169,11 +143,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
-<<<<<<< HEAD
             cnx = JdbcTools.getConnection();
-=======
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
->>>>>>> master
             stt = cnx.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
             stt.setString(1,personnels.getNom());
             stt.setString(2,personnels.getMotPasse());
@@ -209,11 +179,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
-<<<<<<< HEAD
             cnx = JdbcTools.getConnection();
-=======
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
->>>>>>> master
             stt = cnx.prepareStatement(update);
             stt.setString(1,personnels.getNom());
             stt.setString(2,personnels.getMotPasse());
@@ -241,11 +207,7 @@ public class PersonnelsDAOJdbcImpl implements DAOPersonnels{
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
-<<<<<<< HEAD
             cnx = JdbcTools.getConnection();
-=======
-            cnx = src.fr.eni.clinique.dal.JDBC.JdbcTools.getConnection();
->>>>>>> master
             stt = cnx.prepareStatement(delete);
             stt.setInt(1, CodePers);
             stt.executeUpdate();
