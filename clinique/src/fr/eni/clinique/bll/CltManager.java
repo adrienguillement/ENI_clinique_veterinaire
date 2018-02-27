@@ -50,7 +50,7 @@ public class CltManager {
             valide = false;
             sb.append("Nom du client null");
         }
-        if(null==client.getPrenom() || 0==client.getPrenom().trim().length()){
+        if(null==client.getPrenomClient() || 0==client.getPrenomClient().trim().length()){
             valide = true;
             sb.append("Prénom du client null");
         }

@@ -48,11 +48,11 @@ public class Clients{
         NomClient = nomClient;
     }
 
-    public String getPrenom() {
+    public String getPrenomClient() {
         return PrenomClient;
     }
 
-    public void setPrenom(String prenomClient) {
+    public void setPrenomClient(String prenomClient) {
         PrenomClient = prenomClient;
     }
 

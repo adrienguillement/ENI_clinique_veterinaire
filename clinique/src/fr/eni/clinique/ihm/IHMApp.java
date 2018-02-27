@@ -1,16 +1,10 @@
 package src.fr.eni.clinique.ihm;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import fr.eni.clinique.ihm.InternalFrame1;
 
@@ -24,6 +18,10 @@ public class IHMApp extends JFrame implements ActionListener {
 	private InternalFrame1 frm1;
 	private static IHMApp instance;
 	private JMenu acceuil_connection;
+
+	//Clients
+	private JPanel panel_client;
+	private JPanel panel_client_result;
 
 
 	public IHMApp() {
@@ -143,7 +141,7 @@ public class IHMApp extends JFrame implements ActionListener {
 			System.out.println("prise rdv");
 			break;
 		case "gestionDesClients":
-			System.out.println("gestion clients");
+			GestionClientController.getInstance().initMyApp();
 			break;
 		default:
 			System.out.println("Probleme e=" + e);
@@ -175,6 +173,37 @@ public class IHMApp extends JFrame implements ActionListener {
 			acceuil_connection = new JMenu("Acceuil");
 		}
 		return acceuil_connection;
+	}
+
+	//PANEL CLIENT
+	public JPanel getPanel_client() {
+		if(panel_client==null){
+			panel_client = new JPanel();
+			panel_client.setSize(this.getWidth(), this.getHeight());
+			panel_client.setOpaque(true);
+			// Mise en place Layout
+			panel_client.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.gridwidth = 3;
+			JLabel titreClient = new JLabel("Clients");
+			titreClient.setFont(new Font(titreClient.getFont().getName(), titreClient.getFont().getStyle(), 30));
+
+			panel_client.add(titreClient,gbc);
+			gbc.gridy = 1;
+			panel_client.add(getPanel_client_result(),gbc);
+		}
+		return panel_client;
+	}
+
+	public JPanel getPanel_client_result() {
+		if(panel_client_result == null){
+			panel_client_result = new JPanel();
+			panel_client_result.setLayout(new GridLayout(0,1));
+		}
+		return panel_client_result;
 	}
 
 }
