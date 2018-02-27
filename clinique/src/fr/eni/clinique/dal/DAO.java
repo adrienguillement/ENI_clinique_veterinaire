@@ -1,4 +1,7 @@
-package clinique.src.fr.eni.clinique.dal;
+package src.fr.eni.clinique.dal;
 
-public class DAO {
+import java.util.List;
+
+public interface DAO<T> {
+    public List<T> selectAll() throws DALException;
 }
