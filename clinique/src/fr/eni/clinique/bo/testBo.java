@@ -1,5 +1,4 @@
-
-import fr.eni.clinique.bo.Races;
+package src.fr.eni.clinique.bo;
 
 public class testBo {
 
