@@ -1,17 +1,17 @@
 package fr.eni.clinique.bll;
 
-import src.fr.eni.clinique.bo.Personne;
-import src.fr.eni.clinique.dal.DALException;
-import src.fr.eni.clinique.dal.DAOFactory;
-import src.fr.eni.clinique.dal.DAOPersonnels;
+import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.dal.DAOPersonne;
 
 import java.util.List;
 
 public class PersonnelManager {
-    private static DAOPersonnels daoPersonnels;
+    private static DAOPersonne daoPersonnels;
 
     public PersonnelManager() throws BLLException{
-        daoPersonnels = DAOFactory.getPersonnelsDAO();
+        daoPersonnels = DAOFactory.getPersonneDAO();
     }
 
     /**
@@ -23,7 +23,7 @@ public class PersonnelManager {
         List<Personne> personne = null;
 
         try{
-            personne = DAOFactory.getPersonnelsDAO().selectAll();
+            personne = DAOFactory.getPersonneDAO().selectAll();
         }catch(DALException e){
             e.printStackTrace();
             throw new BLLException("Erreur récupération du personnels", e);
