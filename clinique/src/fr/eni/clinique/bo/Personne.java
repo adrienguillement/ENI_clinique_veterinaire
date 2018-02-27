@@ -7,14 +7,6 @@ public class Personne {
     private String Role;
     private boolean Archive;
 
-    public Personne(int codePers, String nom, String motPasse, String role, boolean archive) {
-        codePers = codePers;
-        Nom = nom;
-        MotPasse = motPasse;
-        Role = role;
-        Archive = archive;
-    }
-
     public Personne( String nom, String motPasse, String role, boolean archive) {
         Nom = nom;
         MotPasse = motPasse;
