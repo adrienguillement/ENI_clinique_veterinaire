@@ -5,7 +5,7 @@ public class Animal {
     private String nom;
     private String sexe;
     private String couleur;
-    private String race;
+    private Race race = new Race();
     private int codeClient;
     private String tatouage;
     private String antecedents;
@@ -16,7 +16,18 @@ public class Animal {
         this.nom = nomAnimal;
         this.sexe = sexe;
         this.couleur = couleur;
-        this.race = race;
+        this.race.setRace(race);
+        this.codeClient = codeClient;
+        this.tatouage = tatouage;
+        this.antecedents = antecedents;
+        this.archive = archive;
+    }
+
+    public Animal(String nomAnimal, String sexe, String couleur, String race, int codeClient, String tatouage, String antecedents, boolean archive) {
+        this.nom = nomAnimal;
+        this.sexe = sexe;
+        this.couleur = couleur;
+        this.race.setRace(race);
         this.codeClient = codeClient;
         this.tatouage = tatouage;
         this.antecedents = antecedents;
@@ -58,12 +69,12 @@ public class Animal {
         this.couleur = couleur;
     }
 
-    public String getRace() {
+    public Race getRace() {
         return this.race;
     }
 
     public void setRace(String race) {
-        this.race = race;
+        this.race.setRace(race);
     }
 
     public int getCodeClient() {

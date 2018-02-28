@@ -4,10 +4,7 @@ import fr.eni.clinique.bo.Race;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAORace;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +12,8 @@ import java.util.List;
 public class RaceDAOJdbcImpl implements DAORace {
 
     private static final String sqlSelectAll = "SELECT * from race";
+    private static final String sqlSelectByRace =   "SELECT TOP 1 * FROM RACE" +
+                                                    "WHERE Espece = ?";
 
     @Override
     public List<Race> selectAll() throws DALException {
@@ -56,5 +55,45 @@ public class RaceDAOJdbcImpl implements DAORace {
     @Override
     public Object insert(Object data) throws DALException {
         return null;
+    }
+
+    public Race selectByRace(String uneRace){
+        Connection cnx = null;
+        PreparedStatement rqt = null;
+        ResultSet rs = null;
+
+        Race race = null;
+        try {
+            cnx = JdbcTools.getConnection();
+            rqt = cnx.prepareStatement(sqlSelectByRace);
+            rqt.setString(1, uneRace);
+
+            rs = rqt.executeQuery();
+            if(rs.next()){
+                race = new Race(rs.getString("Race"),
+                        rs.getString("Espece"));
+            }
+        } catch (SQLException e) {
+            try {
+                throw new DALException("selectByRace failed - race = " + race , e);
+            } catch (DALException e1) {
+                e1.printStackTrace();
+            }
+        } finally {
+            try {
+                if (rs != null){
+                    rs.close();
+                }
+                if (rqt != null){
+                    rqt.close();
+                }
+                if(cnx!=null){
+                    cnx.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return race;
     }
 }

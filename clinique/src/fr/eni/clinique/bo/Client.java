@@ -1,5 +1,7 @@
 package fr.eni.clinique.bo;
 
+import java.util.List;
+
 public class Client{
     private int code;
     private String nom;
@@ -13,6 +15,9 @@ public class Client{
     private String email;
     private String remarque;
     private boolean archive;
+
+    //Chaque client possède une liste d'animaux
+    private List<Animal> Animaux = null;
 
     public Client(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2, String codePostal, String ville, String numTel, String assurance, String email, String remarque, boolean archive) {
         this.code= codeClient;
