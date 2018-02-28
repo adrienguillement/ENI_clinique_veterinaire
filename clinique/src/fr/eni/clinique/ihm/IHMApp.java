@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class IHMApp extends JFrame implements ActionListener {
 
@@ -33,6 +35,7 @@ public class IHMApp extends JFrame implements ActionListener {
 	private JMenuBar menuBarre;
 	private JMenu menuAgenda;
 	private JMenu acceuil_connection;
+	private JMenu gestion_personnel;
 
 	//Clients
 	private JPanel panel_client;
@@ -108,7 +111,7 @@ public class IHMApp extends JFrame implements ActionListener {
     public void connect()
     {
         try{
-            personnel = connectionManager.getConnection(login1.getText(), SHA512.getSHA512(mdp1.getText(), "toto"));
+            personnel = connectionManager.getConnection(login1.getText(), mdp1.getText());
             if(personnel != null){
                 System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
                 //init l'utilisateur en cours
@@ -117,7 +120,24 @@ public class IHMApp extends JFrame implements ActionListener {
                 //Fermeture fenetre login et lancement IHM
                 this.dispose();
                 this.containerLogin.removeAll();
-                this.setupIHM();
+
+
+                // Affichage de l'IHM correspondant a l'utilisateur
+                if(personnel.getRole().equals("sec"))
+                {
+                    // Role secrétaire
+                    this.setupSec();
+                }
+                else if(personnel.getRole().equals("vet"))
+                {
+                    // Role vétérinaire
+                    this.setupVet();
+                }
+                else if(personnel.getRole().equals("adm"))
+                {
+                    // Role admin
+                    this.setupAdm();
+                }
             }
             else{
                 JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.INFORMATION_MESSAGE);
@@ -127,7 +147,7 @@ public class IHMApp extends JFrame implements ActionListener {
         }
     }
 
-	public void setupIHM() {
+	public void setupSec() {
         //Titre
         this.setTitle("Clinique vétérinaire");
         this.setVisible(true);
@@ -172,6 +192,96 @@ public class IHMApp extends JFrame implements ActionListener {
 		this.getContentPane().add(scrollPane);
 	}
 
+    public void setupVet() {
+        //Titre
+        this.setTitle("Clinique vétérinaire");
+        this.setVisible(true);
+        // Réglage de la taille du conteneur
+        this.setSize(900, 655);
+        this.setResizable(false);
+
+
+        // Réglage de la position du conteneur
+        this.setLocationRelativeTo(null);
+
+        // Fermeture de l'application JAVA lorsque on clique sur la croix
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        //Affichage fenetre
+        this.setVisible(true);
+
+        this.setJMenuBar(getMenuBarre());
+
+        // Creation du panel
+        JPanel panel_container = new JPanel();
+        panel_container.setOpaque(true);
+        panel_container.setLayout(new GridLayout(1,1));
+
+        // Mise en place Layout
+        JPanel panel = new JPanel();
+        panel.setOpaque(true);
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridy = 0;
+        panel.add(this.getPanel_client(), gbc);
+
+        panel_container.add(panel);
+
+        // SCROLL BAR
+        JScrollPane scrollPane = new JScrollPane(panel_container, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(100, 100));
+        Container cp = this;
+        cp.add(scrollPane);
+
+        this.getContentPane().add(scrollPane);
+    }
+
+    public void setupAdm() {
+        //Titre
+        this.setTitle("Clinique vétérinaire");
+        this.setVisible(true);
+        // Réglage de la taille du conteneur
+        this.setSize(900, 655);
+        this.setResizable(false);
+
+
+        // Réglage de la position du conteneur
+        this.setLocationRelativeTo(null);
+
+        // Fermeture de l'application JAVA lorsque on clique sur la croix
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        //Affichage fenetre
+        this.setVisible(true);
+
+        this.setJMenuBar(getMenuBarre());
+
+        // Creation du panel
+        JPanel panel_container = new JPanel();
+        panel_container.setOpaque(true);
+        panel_container.setLayout(new GridLayout(1,1));
+
+        // Mise en place Layout
+        JPanel panel = new JPanel();
+        panel.setOpaque(true);
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridy = 0;
+        panel.add(this.getPanel_client(), gbc);
+
+        panel_container.add(panel);
+
+        // SCROLL BAR
+        JScrollPane scrollPane = new JScrollPane(panel_container, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(100, 100));
+        Container cp = this;
+        cp.add(scrollPane);
+
+        this.getContentPane().add(scrollPane);
+    }
+
 	// Lancement de l'application
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -202,37 +312,104 @@ public class IHMApp extends JFrame implements ActionListener {
 		menuItem.addActionListener(this);
 		menu.add(menuItem);
 
-		// Menu Gestion Rendez-vous
-		menu = new JMenu("Gestion des rendez-vous");
-		menu.setActionCommand("gestionRendezVous");
-		menu.addActionListener(this);
-		menuBarre.add(menu);
+        if(personnel.getRole().equals("sec")) {
+            // Menu Gestion Rendez-vous
+            menu = new JMenu("Gestion des rendez-vous");
+            menu.setActionCommand("gestionRendezVous");
+            menu.addActionListener(this);
+            menuBarre.add(menu);
 
-		//Sous menu prise rdv
-		menuItem = new JMenuItem("Prise de rendez vous");
-		menuItem.setActionCommand("priseRendezVous");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
 
-		//Sous menu gestion des clients
-		menuItem = new JMenuItem("Gestion des clients");
-		menuItem.setActionCommand("gestionDesClients");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
+            //Sous menu prise rdv
+            menuItem = new JMenuItem("Prise de rendez vous");
+            menuItem.setActionCommand("priseRendezVous");
+            menuItem.addActionListener(this);
+            menu.add(menuItem);
 
-		//Menu Agenda
-		menu = new JMenu("Agenda");
-		menu.setActionCommand("agenda");
-		menu.addActionListener(this);
-		menuBarre.add(menu);
+            //Sous menu gestion des clients
+            menuItem = new JMenuItem("Gestion des clients");
+            menuItem.setActionCommand("gestionDesClients");
+            menuItem.addActionListener(this);
+            menu.add(menuItem);
+        }
 
-		//Menu
-		menu = new JMenu("Gestion du personnel");
-		menu.setActionCommand("gestionPersonnel");
-		menu.addActionListener(this);
-		menuBarre.add(menu);
+        if(personnel.getRole().equals("vet")){
+            //Menu Agenda
+            menuBarre.add(getMenuAgenda());
+        }
+
+        if(personnel.getRole().equals("adm")){
+            //Menu personnel
+            menuBarre.add(getPersonnel_menu());
+        }
 
 	}
+
+	public JMenu getMenuAgenda(){
+	    if(menuAgenda==null){
+	        menuAgenda = new JMenu("Agenda");
+	        menuAgenda.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("cc agenda");
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                }
+            });
+        }
+        return menuAgenda;
+    }
+
+    public JMenu getPersonnel_menu() {
+        if(gestion_personnel==null){
+            gestion_personnel = new JMenu("Gestion du personnel");
+            gestion_personnel.addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.out.println("ROUI");
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+
+                }
+            });
+        }
+        return gestion_personnel;
+    }
 
 	// Réagir aux clicks sur les menus
 	@Override
