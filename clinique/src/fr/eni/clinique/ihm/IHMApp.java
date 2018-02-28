@@ -384,7 +384,7 @@ public class IHMApp extends JFrame implements ActionListener {
             gestion_personnel.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    System.out.println("ROUI");
+                    GestionPersonnelController.getInstance().initMyApp();
                 }
 
                 @Override
@@ -428,7 +428,7 @@ public class IHMApp extends JFrame implements ActionListener {
 			System.out.println("agenda");
 			break;
 		case "gestionPersonnel":
-			System.out.println("gestion personnel");
+			GestionPersonnelController.getInstance().initMyApp();
 			break;
 		case "priseRendezVous":
 			System.out.println("prise rdv");

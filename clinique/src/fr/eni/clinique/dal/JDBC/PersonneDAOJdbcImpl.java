@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonneDAOJdbcImpl implements DAOPersonne{
+
     private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnel";
     private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where Nom= ?";
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where CodePers= ?";
@@ -19,6 +20,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     private static final String delete = "delete from Personnel where id=?";
 
     public List<Personnel> selectAll() throws DALException{
+
         Connection cnx = null;
         Statement stt = null;
         ResultSet rs = null;
