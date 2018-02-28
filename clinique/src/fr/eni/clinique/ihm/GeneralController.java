@@ -11,6 +11,8 @@ public class GeneralController {
     // instance
     private static GeneralController instance;
 
+    private Personnel utilisateurEnCours = null;
+
     // Fenetres nécessaires à l'application
     private JFrame main_jframe;
 
@@ -52,5 +54,21 @@ public class GeneralController {
     public void initMyapp() throws BLLException {
 
         LoginController.initMyApp();
+    }
+
+
+    public void setUtilisateurEnCours(Personnel utilisateurEnCours) {
+        this.utilisateurEnCours = utilisateurEnCours;
+    }
+
+    public void setupMainJFrame(){
+        this.main_jframe = new JFrame();
+        this.main_jframe.setJMenuBar(getJMenuBar);
+
+        main_jframe.setVisible(true);
+    }
+
+    public JMenuBar getJMenuBar(){
+
     }
 }

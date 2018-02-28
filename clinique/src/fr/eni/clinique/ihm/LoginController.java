@@ -1,7 +1,9 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.ConnectionManager;
 import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.dal.DALException;
 import sun.rmi.runtime.Log;
 
 import javax.swing.*;
@@ -21,7 +23,8 @@ public class LoginController {
     private static JPasswordField password_field;
     private static JButton valider_login, annuler_login;
 
-    private Personnel personnel;
+    private static Personnel personnel;
+    private static ConnectionManager connectionManager = new ConnectionManager();
     private static JFrame login_jframe;
 
     // constructeur
@@ -84,9 +87,39 @@ public class LoginController {
             public void actionPerformed(ActionEvent e) {
                 //renvoyer un test de connection
                 System.out.println("Demande d'authentification");
+                connect();
             }
         });
 
         login_jframe.setVisible(true);
+    }
+
+    public static void connect()
+    {
+        try{
+            try {
+                personnel = connectionManager.getConnection(login_field.getText(), password_field.getText());
+            } catch (DALException e) {
+                e.printStackTrace();
+            }
+            if(personnel != null){
+                System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
+                //init l'utilisateur en cours
+                GeneralController.getInstance().setUtilisateurEnCours(personnel);
+
+                //Fermeture fenetre login et lancement IHM
+                login_jframe.dispose();
+
+
+
+                GeneralController.getInstance().setupMainJFrame();
+
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.INFORMATION_MESSAGE);
+            }
+        }catch (Exception e1){
+            e1.printStackTrace();
+        }
     }
 }
