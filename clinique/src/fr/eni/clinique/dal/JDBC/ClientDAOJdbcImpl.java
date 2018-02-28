@@ -9,10 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDAOJdbcImpl implements DAOClient {
-
-
-    private static final String sqlSelectAll = "SELECT * from clients";
+    
     private static final String sqlInsert = "INSERT INTO CLIENT(NomClient, PrenomClient, Adresse1, Ardresse2, CodePostal, Ville, NumTel, Assurance, Email, Remarque, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String sqlSelectAll = "SELECT * from client";
 
     @Override
     public List<Client> selectAll() throws DALException {
