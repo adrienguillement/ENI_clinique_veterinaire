@@ -1,148 +1,148 @@
 package fr.eni.clinique.bo;
 
 public class Client{
-    private int CodeClient;
-    private String NomClient;
-    private String PrenomClient;
-    private String Adresse1;
-    private String Adresse2;
-    private String CodePostal;
-    private String Ville;
-    private String NumTel;
-    private String Assurance;
-    private String Email;
-    private String Remarque;
-    private boolean Archive;
+    private int code;
+    private String nom;
+    private String prenom;
+    private String adresse1;
+    private String adresse2;
+    private String codePostal;
+    private String ville;
+    private String numTel;
+    private String assurance;
+    private String email;
+    private String remarque;
+    private boolean archive;
 
     public Client(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2, String codePostal, String ville, String numTel, String assurance, String email, String remarque, boolean archive) {
-        CodeClient = codeClient;
-        NomClient = nomClient;
-        PrenomClient = prenomClient;
-        Adresse1 = adresse1;
-        Adresse2 = adresse2;
-        CodePostal = codePostal;
-        Ville = ville;
-        NumTel = numTel;
-        Assurance = assurance;
-        Email = email;
-        Remarque = remarque;
-        Archive = archive;
+        this.code= codeClient;
+        this.nom = nomClient;
+        this.prenom = prenomClient;
+        this.adresse1 = adresse1;
+        this.adresse2 = adresse2;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.numTel = numTel;
+        this.assurance = assurance;
+        this.email = email;
+        this.remarque = remarque;
+        this.archive = archive;
     }
 
     public Client() {
     }
 
     public int getCode() {
-        return CodeClient;
+        return this.code;
     }
 
     public void setCode(int codeClient) {
-        CodeClient = codeClient;
+        this.code = codeClient;
     }
 
     public String getNom() {
-        return NomClient;
+        return this.nom;
     }
 
     public void setNom(String nomClient) {
-        NomClient = nomClient;
+        this.nom = nomClient;
     }
 
     public String getPrenomClient() {
-        return PrenomClient;
+        return this.prenom;
     }
 
     public void setPrenomClient(String prenomClient) {
-        PrenomClient = prenomClient;
+        this.prenom = prenomClient;
     }
 
     public String getAdresse1() {
-        return Adresse1;
+        return this.adresse1;
     }
 
     public void setAdresse1(String adresse1) {
-        Adresse1 = adresse1;
+        this.adresse1 = adresse1;
     }
 
     public String getAdresse2() {
-        return Adresse2;
+        return this.adresse2;
     }
 
     public void setAdresse2(String adresse2) {
-        Adresse2 = adresse2;
+        this.adresse2 = adresse2;
     }
 
     public String getCodePostal() {
-        return CodePostal;
+        return this.codePostal;
     }
 
     public void setCodePostal(String codePostal) {
-        CodePostal = codePostal;
+        this.codePostal = codePostal;
     }
 
     public String getVille() {
-        return Ville;
+        return this.ville;
     }
 
     public void setVille(String ville) {
-        Ville = ville;
+        this.ville = ville;
     }
 
     public String getNumTel() {
-        return NumTel;
+        return this.numTel;
     }
 
     public void setNumTel(String numTel) {
-        NumTel = numTel;
+        this.numTel = numTel;
     }
 
     public String getAssurance() {
-        return Assurance;
+        return this.assurance;
     }
 
     public void setAssurance(String assurance) {
-        Assurance = assurance;
+        this.assurance = assurance;
     }
 
     public String getEmail() {
-        return Email;
+        return this.email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getRemarque() {
-        return Remarque;
+        return this.remarque;
     }
 
     public void setRemarque(String remarque) {
-        Remarque = remarque;
+        this.remarque = remarque;
     }
 
     public boolean isArchive() {
-        return Archive;
+        return this.archive;
     }
 
     public void setArchive(boolean archive) {
-        Archive = archive;
+        this.archive = archive;
     }
 
     @java.lang.Override
     public java.lang.String toString() {
         return "Clients{" +
-                "CodeClient=" + CodeClient +
-                ", NomClient=" + NomClient +
-                ", PrenomClient=" + PrenomClient +
-                ", Adresse1=" + Adresse1 +
-                ", Adresse2=" + Adresse2 +
-                ", CodePostal=" + CodePostal +
-                ", Ville=" + Ville +
-                ", NumTel=" + NumTel +
-                ", Assurance=" + Assurance +
-                ", Email=" + Email +
-                ", Remarque=" + Remarque +
-                ", Archive=" + Archive +
+                "CodeClient=" + this.code +
+                ", NomClient=" + this.nom +
+                ", PrenomClient=" + this.prenom +
+                ", Adresse1=" + this.adresse1 +
+                ", Adresse2=" + this.adresse2 +
+                ", CodePostal=" + this.codePostal +
+                ", Ville=" + this.ville +
+                ", NumTel=" + this.numTel +
+                ", Assurance=" + this.assurance +
+                ", Email=" + this.email +
+                ", Remarque=" + this.remarque +
+                ", Archive=" + this.archive +
                 '}';
     }
 }

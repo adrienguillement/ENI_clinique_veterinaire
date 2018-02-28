@@ -1,8 +1,8 @@
 package fr.eni.clinique.dal;
 
-import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personnel;
 
 public interface DAOConnection{
 
-    public Personne getConnection(String login, String Mdp) throws DALException;
+    public Personnel getConnection(String login, String Mdp) throws DALException;
 }

@@ -1,6 +1,6 @@
 package fr.eni.clinique.bll;
 
-import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOConnection;
 import fr.eni.clinique.dal.DAOFactory;
@@ -13,11 +13,11 @@ public class ConnectionManager{
         daoConnection = DAOFactory.getConnectionDAO();
     }
 
-    public Personne getConnection(String login, String mdp) throws DALException{
+    public Personnel getConnection(String login, String mdp) throws DALException{
 
         System.out.println("> ConnectionManager");
-        Personne personne = daoConnection.getConnection(login, mdp);
+        Personnel personnel = daoConnection.getConnection(login, mdp);
 
-        return personne;
+        return personnel;
     }
 }
