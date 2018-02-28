@@ -3,7 +3,9 @@ package fr.eni.clinique.ihm;
 import fr.eni.clinique.bll.ConnectionManager;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
+
 import fr.eni.clinique.utils.SHA512;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +37,10 @@ public class IHMApp extends JFrame implements ActionListener {
 	//Clients
 	private JPanel panel_client;
 	private JPanel panel_client_result;
+
+	//Personnel
+	private JPanel panel_personnel;
+	private JPanel panel_personnel_result;
 
 
 	private IHMApp() {
@@ -298,6 +304,31 @@ public class IHMApp extends JFrame implements ActionListener {
 			panel_client_result.setLayout(new GridLayout(0,1));
 		}
 		return panel_client_result;
+	}
+
+	//PANEL PERSONNEL
+	public JPanel getPanel_personnel(){
+		if(panel_personnel==null){
+			panel_personnel = new JPanel();
+			panel_personnel.setSize(this.getWidth(),this.getHeight());
+			panel_personnel.setOpaque(true);
+			panel_personnel.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5,5,5,5);
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.gridwidth = 3;
+			panel_personnel.add(getPanel_personnel_result(), gbc);
+		}
+		return panel_personnel;
+	}
+
+	public JPanel getPanel_personnel_result(){
+		if(panel_personnel_result == null){
+			panel_personnel_result = new JPanel();
+			panel_personnel_result.setLayout(new GridLayout(0,1));
+		}
+		return panel_personnel_result;
 	}
 
 }
