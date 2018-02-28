@@ -48,7 +48,8 @@ public class IHMApp extends JFrame implements ActionListener {
 
 	private IHMApp() {
 
-		this.setupLogin();
+	    personnel = new Personnel("secretaire", "123", "sec", false);
+		this.setupSec();
 	}
 
 	//SINGLETON
@@ -118,7 +119,7 @@ public class IHMApp extends JFrame implements ActionListener {
                 GeneralController.getInstance().setUtilisateurEnCours(personnel);
 
                 //Fermeture fenetre login et lancement IHM
-                this.dispose();
+
                 this.containerLogin.removeAll();
 
 
@@ -148,6 +149,7 @@ public class IHMApp extends JFrame implements ActionListener {
     }
 
 	public void setupSec() {
+        System.out.println("setup sec");
         //Titre
         this.setTitle("Clinique vétérinaire");
         this.setVisible(true);
@@ -224,7 +226,6 @@ public class IHMApp extends JFrame implements ActionListener {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridy = 0;
-        panel.add(this.getPanel_client(), gbc);
 
         panel_container.add(panel);
 
@@ -269,7 +270,6 @@ public class IHMApp extends JFrame implements ActionListener {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.gridy = 0;
-        panel.add(this.getPanel_client(), gbc);
 
         panel_container.add(panel);
 
@@ -434,7 +434,7 @@ public class IHMApp extends JFrame implements ActionListener {
 			System.out.println("prise rdv");
 			break;
 		case "gestionDesClients":
-			GestionClientController.getInstance().initMyApp();
+		    GestionClientController.getInstance().initMyApp();
 			break;
 		default:
 			System.out.println("Probleme e=" + e);
@@ -463,6 +463,7 @@ public class IHMApp extends JFrame implements ActionListener {
 			panel_client = new JPanel();
 			panel_client.setSize(this.getWidth(), this.getHeight());
 			panel_client.setOpaque(true);
+
 			// Mise en place Layout
 			panel_client.setLayout(new GridBagLayout());
 			GridBagConstraints gbc = new GridBagConstraints();
@@ -476,10 +477,10 @@ public class IHMApp extends JFrame implements ActionListener {
 	}
 
 	public JPanel getPanel_client_result() {
-		if(panel_client_result == null){
-			panel_client_result = new JPanel();
-			panel_client_result.setLayout(new GridLayout(0,1));
-		}
+		if(panel_client_result == null) {
+            panel_client_result = new JPanel();
+            panel_client_result.setLayout(new GridLayout(0, 1));
+        }
 		return panel_client_result;
 	}
 

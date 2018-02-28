@@ -1,7 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.ClientManager;
+import fr.eni.clinique.bll.CltManager;
 import fr.eni.clinique.bo.Client;
 
 import javax.swing.*;
@@ -16,7 +16,7 @@ public class IHMAjoutClient extends JFrame{
     private JTextField nomTextField, prenomTextField, adresseTextField, codePostalTextField, villeTextField, numTextField, assuranceTextField, eMailTextField;
     private JButton valider,annuler;
     private Client client;
-    private ClientManager clientManager;
+    private CltManager clientManager;
 
     //Singleton
     public static IHMAjoutClient getInstance(){
@@ -166,7 +166,7 @@ public class IHMAjoutClient extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 try {
                     client = new Client(nomTextField.getText(), prenomTextField.getText(), adresseTextField.getText(), null, codePostalTextField.getText(), villeTextField.getText(), numTextField.getText(), assuranceTextField.getText(), eMailTextField.getText(), null, false);
-                    clientManager = new ClientManager();
+                    clientManager = new CltManager();
                     clientManager.insertClient(client);
                 } catch (BLLException e1) {
                     e1.printStackTrace();

@@ -1,7 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.ClientManager;
+import fr.eni.clinique.bll.CltManager;
 import fr.eni.clinique.bo.Client;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ public class GestionClientController {
 
     private IHMApp ecran;
     private static GestionClientController instance;
-    private ClientManager clientM = new ClientManager();
+    private CltManager clientM = new CltManager();
     private GeneralController controllerBase = GeneralController.getInstance();
 
     // constructeur
@@ -41,13 +41,14 @@ public class GestionClientController {
 
     //initialisation de l'ecran de connexion
     public void initMyApp(){
-        ecran.getPanel_client().setVisible(true);
-
+        System.out.println("panel client");
         try{
             displayResult(clientM.getCatalogue());
+            System.out.println("display result");
         }catch(BLLException e){
             controllerBase.error_alert("Impossible d'afficher les données!");
         }
+        ecran.getPanel_client().setVisible(true);
     }
 
     // affichage des clients sous forme de liste sur l'IHM
