@@ -14,7 +14,7 @@ import java.util.List;
 public class ClientDAOJdbcImpl implements DAOClient {
 
 
-    private static final String sqlSelectAll = "SELECT * from clients";
+    private static final String sqlSelectAll = "SELECT * from client";
 
     @Override
     public List<Client> selectAll() throws DALException {

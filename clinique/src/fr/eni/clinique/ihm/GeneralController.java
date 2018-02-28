@@ -41,10 +41,10 @@ public class GeneralController {
     }
 
     public void initMyButton() throws BLLException{
-        ecran.getAccueil_connection().addMouseListener(new MouseListener() {
+        ecran.getPersonnel_menu().addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ConnectionController.getInstance().initMyApp();
+                System.out.println("ROUI");
             }
 
             @Override

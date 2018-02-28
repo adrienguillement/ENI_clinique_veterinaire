@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class ConnectionDAOJdbcImpl implements DAOConnection {
 
-    private static final String sqlTestAuthentification =   "SELECT Top 1 CodePers, Nom, MotPasse, Role, Archive FROM PERSONNELS " +
+    private static final String sqlTestAuthentification =   "SELECT Top 1 CodePers, Nom, MotPasse, Role, Archive FROM PERSONNEL " +
                                                             "WHERE Nom = ? " +
                                                             "AND MotPasse = ?";
 
