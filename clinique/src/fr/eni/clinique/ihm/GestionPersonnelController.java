@@ -52,21 +52,13 @@ public class GestionPersonnelController
         }
     }
 
-<<<<<<< HEAD
-    public void displayResult(List<Personnel> listePersonnel) {
-=======
     public void displayResult(List<Personnel> listePersonne) {
->>>>>>> master
         // NOUVEAU PANEL
         GridBagConstraints gbc = new GridBagConstraints();
         int gridy = 0;
         ecran.getPanel_personnel_result().removeAll();
         // AFFICHAGE DES DONNEES
-<<<<<<< HEAD
-        for (Personnel personnel : listePersonnel) {
-=======
         for (Personnel personnel : listePersonne) {
->>>>>>> master
             JPanel panel = new JPanel();//LIGNE
             panel.setLayout(new GridBagLayout());
             GridBagConstraints gbc_result = new GridBagConstraints();
@@ -74,13 +66,9 @@ public class GestionPersonnelController
             gbc.gridwidth = 1;
             gbc.gridy = 0;
             gbc.gridx = 0;
-<<<<<<< HEAD
             panel.add(new JLabel(personnel.getNom()+" - "+personnel.getRole()), gbc);
-            gbc.gridy = 1;
+            gbc.gridx = 1;
             panel.add(new JPasswordField(personnel.getMotPasse()), gbc);
-=======
-            panel.add(new JLabel(personnel.getNom()+" - "+personnel.getRole()+" - "+personnel.getMotPasse()), gbc);
->>>>>>> master
             gbc.gridx = 2;
 
             panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));

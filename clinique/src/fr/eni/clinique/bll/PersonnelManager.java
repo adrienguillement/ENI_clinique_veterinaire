@@ -2,6 +2,7 @@ package fr.eni.clinique.bll;
 
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.DAOPersonne;
 
@@ -20,29 +21,28 @@ public class PersonnelManager {
      * @throws BLLException
      */
     public List<Personnel> getPersonnels() throws BLLException{
-<<<<<<< HEAD
-        List<Personnel> personnel = null;
-
-        try{
-            personnel = daoPersonnels.selectAll();
-=======
         List<Personnel> personnels = null;
 
         try{
             personnels = DAOFactory.getPersonneDAO().selectAll();
->>>>>>> master
         }catch(DALException e){
             e.printStackTrace();
             throw new BLLException("Erreur récupération du personnel", e);
         }
-<<<<<<< HEAD
-        return personnel;
-=======
         return personnels;
->>>>>>> master
     }
 
-    public void validerPersonne(Personnel personnel) throws BLLException{
+    public void insertPersonnel(Personnel personnel) throws BLLException{
+        try{
+            validerPersonnel(personnel);
+            daoPersonnel.insert(personnel);
+        } catch(DALException e) {
+            e.printStackTrace();
+            throw new BLLException("Erreur d'ajout de personnel", e);
+        }
+    }
+
+    public void validerPersonnel(Personnel personnel) throws BLLException{
         boolean valide = true;
         StringBuffer sb = new StringBuffer();
 
