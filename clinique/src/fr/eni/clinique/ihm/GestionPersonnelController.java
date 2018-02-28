@@ -2,7 +2,7 @@ package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.PersonnelManager;
-import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personnel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,13 +54,13 @@ public class GestionPersonnelController
         }
     }
 
-    public void displayResult(List<Personne> listePersonne) {
+    public void displayResult(List<Personnel> listePersonnel) {
         // NOUVEAU PANEL
         GridBagConstraints gbc = new GridBagConstraints();
         int gridy = 0;
         ecran.getPanel_personnel_result().removeAll();
         // AFFICHAGE DES DONNEES
-        for (Personne personne : listePersonne) {
+        for (Personnel personnel : listePersonnel) {
             JPanel panel = new JPanel();//LIGNE
             panel.setLayout(new GridBagLayout());
             GridBagConstraints gbc_result = new GridBagConstraints();
@@ -68,9 +68,9 @@ public class GestionPersonnelController
             gbc.gridwidth = 1;
             gbc.gridy = 0;
             gbc.gridx = 0;
-            panel.add(new JLabel(personne.getNom()+" - "+personne.getRole()), gbc);
+            panel.add(new JLabel(personnel.getNom()+" - "+personnel.getRole()), gbc);
             gbc.gridy = 1;
-            panel.add(new JPasswordField(personne.getMotPasse()), gbc);
+            panel.add(new JPasswordField(personnel.getMotPasse()), gbc);
             gbc.gridx = 2;
 
             panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));

@@ -44,7 +44,7 @@ public class GeneralController {
         ecran.getPersonnel_menu().addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("ROUI");
+                GestionPersonnelController.getInstance().initMyApp();
             }
 
             @Override

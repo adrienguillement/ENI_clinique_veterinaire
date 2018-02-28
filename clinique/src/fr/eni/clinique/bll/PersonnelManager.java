@@ -1,6 +1,6 @@
 package fr.eni.clinique.bll;
 
-import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.DAOPersonne;
@@ -19,35 +19,35 @@ public class PersonnelManager {
      * @return
      * @throws BLLException
      */
-    public List<Personne> getPersonnels() throws BLLException{
-        List<Personne> personne = null;
+    public List<Personnel> getPersonnels() throws BLLException{
+        List<Personnel> personnel = null;
 
         try{
-            personne = daoPersonnels.selectAll();
+            personnel = daoPersonnels.selectAll();
         }catch(DALException e){
             e.printStackTrace();
             throw new BLLException("Erreur récupération du personnel", e);
         }
-        return personne;
+        return personnel;
     }
 
-    public void validerPersonne(Personne personne) throws BLLException{
+    public void validerPersonne(Personnel personnel) throws BLLException{
         boolean valide = true;
         StringBuffer sb = new StringBuffer();
 
-        if(null==personne){
+        if(null==personnel){
             valide = false;
             sb.append("Pas de personnel");
         }
-        if(null==personne.getNom() || 0==personne.getNom().trim().length()){
+        if(null==personnel.getNom() || 0==personnel.getNom().trim().length()){
             valide = false;
             sb.append("Nom de l'employé inconnu");
         }
-        if(null==personne.getRole() || 0==personne.getRole().trim().length()){
+        if(null==personnel.getRole() || 0==personnel.getRole().trim().length()){
             valide = true;
             sb.append("Pas de role");
         }
-        if(null==personne.getMotPasse() || 0==personne.getMotPasse().trim().length()){
+        if(null==personnel.getMotPasse() || 0==personnel.getMotPasse().trim().length()){
             valide = true;
             sb.append("Pas de mot de passe");
         }
