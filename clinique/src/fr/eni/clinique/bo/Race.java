@@ -1,38 +1,38 @@
 package fr.eni.clinique.bo;
 
 public class Race{
-    private String Race;
-    private String Espece;
+    private String race;
+    private String espece;
 
     public Race(String race, String espece) {
-        Race = race;
-        Espece = espece;
+        this.race = race;
+        this.espece = espece;
     }
 
     public Race() {
     }
 
     public String getRace() {
-        return Race;
+        return this.race;
     }
 
     public void setRace(String race) {
-        Race = race;
+        this.race = race;
     }
 
     public String getEspece() {
-        return Espece;
+        return this.espece;
     }
 
     public void setEspece(String espece) {
-        Espece = espece;
+        this.espece = espece;
     }
 
     @java.lang.Override
     public java.lang.String toString() {
         return "Races{" +
-                "Race=" + Race +
-                ", Espece=" + Espece +
+                "Race=" + this.race +
+                ", Espece=" + this.espece +
                 '}';
     }
 }

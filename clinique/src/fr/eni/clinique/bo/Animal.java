@@ -1,115 +1,115 @@
 package fr.eni.clinique.bo;
 
 public class Animal {
-    private int CodeAnimal;
-    private String NomAnimal;
-    private String Sexe;
-    private String Couleur;
-    private String Race;
-    private int CodeClient;
-    private String Tatouage;
-    private String Antecedents;
-    private boolean Archive;
+    private int code;
+    private String nom;
+    private String sexe;
+    private String couleur;
+    private String race;
+    private int codeClient;
+    private String tatouage;
+    private String antecedents;
+    private boolean archive;
 
     public Animal(int codeAnimal, String nomAnimal, String sexe, String couleur, String race, int codeClient, String tatouage, String antecedents, boolean archive) {
-        CodeAnimal = codeAnimal;
-        NomAnimal = nomAnimal;
-        Sexe = sexe;
-        Couleur = couleur;
-        Race = race;
-        CodeClient = codeClient;
-        Tatouage = tatouage;
-        Antecedents = antecedents;
-        Archive = archive;
+        this.code = codeAnimal;
+        this.nom = nomAnimal;
+        this.sexe = sexe;
+        this.couleur = couleur;
+        this.race = race;
+        this.codeClient = codeClient;
+        this.tatouage = tatouage;
+        this.antecedents = antecedents;
+        this.archive = archive;
     }
 
     public Animal() {
     }
 
     public int getCodeAnimal() {
-        return CodeAnimal;
+        return this.code;
     }
 
     public void setCodeAnimal(int codeAnimal) {
-        CodeAnimal = codeAnimal;
+        this.code = codeAnimal;
     }
 
     public String getNomAnimal() {
-        return NomAnimal;
+        return nom;
     }
 
     public void setNomAnimal(String nomAnimal) {
-        NomAnimal = nomAnimal;
+        this.nom = nomAnimal;
     }
 
     public String getSexe() {
-        return Sexe;
+        return this.sexe;
     }
 
     public void setSexe(String sexe) {
-        Sexe = sexe;
+        this.sexe = sexe;
     }
 
     public String getCouleur() {
-        return Couleur;
+        return this.couleur;
     }
 
     public void setCouleur(String couleur) {
-        Couleur = couleur;
+        this.couleur = couleur;
     }
 
     public String getRace() {
-        return Race;
+        return this.race;
     }
 
     public void setRace(String race) {
-        Race = race;
+        this.race = race;
     }
 
     public int getCodeClient() {
-        return CodeClient;
+        return this.codeClient;
     }
 
     public void setCodeClient(int codeClient) {
-        CodeClient = codeClient;
+        this.codeClient = codeClient;
     }
 
     public String getTatouage() {
-        return Tatouage;
+        return this.tatouage;
     }
 
     public void setTatouage(String tatouage) {
-        Tatouage = tatouage;
+        this.tatouage = tatouage;
     }
 
     public String getAntecedents() {
-        return Antecedents;
+        return this.antecedents;
     }
 
     public void setAntecedents(String antecedents) {
-        Antecedents = antecedents;
+        this.antecedents = antecedents;
     }
 
     public boolean isArchive() {
-        return Archive;
+        return this.archive;
     }
 
     public void setArchive(boolean archive) {
-        Archive = archive;
+        this.archive = archive;
     }
 
     @java.lang.Override
     public java.lang.String toString() {
         return "Animaux{" +
-                "CodeAnimal=" + CodeAnimal +
-                ", NomAnimal=" + NomAnimal +
-                ", Sexe=" + Sexe +
-                ", Couleur=" + Couleur +
-                ", Race=" + Race +
-                ", CodeClient=" + CodeClient +
-                ", Tatouage=" + Tatouage +
-                ", Antecedents=" + Antecedents +
-                ", Archive=" + Archive +
+                "CodeAnimal=" + this.code +
+                ", NomAnimal=" + this.nom +
+                ", Sexe=" + this.sexe +
+                ", Couleur=" + this.couleur +
+                ", Race=" + this.race +
+                ", CodeClient=" + this.codeClient +
+                ", Tatouage=" + this.tatouage +
+                ", Antecedents=" + this.antecedents +
+                ", Archive=" + this.archive +
                 '}';
     }
 }

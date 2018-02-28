@@ -1,7 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.ConnectionManager;
-import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 
 import javax.swing.*;
@@ -18,7 +18,7 @@ public class IHMconnection extends JFrame{
     private JButton valider,annuler;
     private ConnectionManager connectionManager = new ConnectionManager();
 
-    private Personne personne;
+    private Personnel personnel;
 
     //Singleton
     public static IHMconnection getInstance(){
@@ -103,11 +103,11 @@ public class IHMconnection extends JFrame{
     public void testConnection()
     {
         try{
-            personne = connectionManager.getConnection(login1.getText(), mdp1.getText());
-            if(personne != null){
-                System.out.println("Bienvenue " + personne.getNom() + "Vos droits sont correspondantes à votre rôle: " + personne.getRole());
+            personnel = connectionManager.getConnection(login1.getText(), mdp1.getText());
+            if(personnel != null){
+                System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
                 //init l'utilisateur en cours
-                GeneralController.getInstance().setUtilisateurEnCours(personne);
+                GeneralController.getInstance().setUtilisateurEnCours(personnel);
                 GeneralController.getInstance().getEcran();
             }
             else{
