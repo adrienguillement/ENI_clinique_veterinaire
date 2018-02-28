@@ -1,7 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.ConnectionManager;
-import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.utils.SHA512;
 
@@ -25,7 +25,7 @@ public class IHMApp extends JFrame implements ActionListener {
     private Container containerLogin;
     private ConnectionManager connectionManager = new ConnectionManager();
 
-    private Personne personne;
+    private Personnel personnel;
 
 	//menu
 	private JMenuBar menuBarre;
@@ -102,11 +102,11 @@ public class IHMApp extends JFrame implements ActionListener {
     public void connect()
     {
         try{
-            personne = connectionManager.getConnection(login1.getText(), SHA512.getSHA512(mdp1.getText(), "toto"));
-            if(personne != null){
-                System.out.println("Bienvenue " + personne.getNom() + "Vos droits sont correspondantes à votre rôle: " + personne.getRole());
+            personnel = connectionManager.getConnection(login1.getText(), SHA512.getSHA512(mdp1.getText(), "toto"));
+            if(personnel != null){
+                System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
                 //init l'utilisateur en cours
-                GeneralController.getInstance().setUtilisateurEnCours(personne);
+                GeneralController.getInstance().setUtilisateurEnCours(personnel);
 
                 //Fermeture fenetre login et lancement IHM
                 this.dispose();

@@ -3,14 +3,14 @@ package fr.eni.clinique.bo;
 import java.util.Date;
 
 public class Agenda {
-    private int CodeVeto;
-    private Date DateRdv;
-    private int CodeAnimal;
+    private int codeVeto;
+    private Date dateRdv;
+    private int codeAnimal;
 
     public Agenda(int codeVeto, Date dateRdv, int codeAnimal) {
-        CodeVeto = codeVeto;
-        DateRdv = dateRdv;
-        CodeAnimal = codeAnimal;
+        this.codeVeto = codeVeto;
+        this.dateRdv = dateRdv;
+        this.codeAnimal = codeAnimal;
     }
 
     public Agenda(){
@@ -18,35 +18,35 @@ public class Agenda {
     }
 
     public int getCodeVeto() {
-        return CodeVeto;
+        return this.codeVeto;
     }
 
     public void setCodeVeto(int codeVeto) {
-        CodeVeto = codeVeto;
+        this.codeVeto = codeVeto;
     }
 
     public Date getDateRdv() {
-        return DateRdv;
+        return this.dateRdv;
     }
 
     public void setDateRdv(Date dateRdv) {
-        DateRdv = dateRdv;
+        this.dateRdv = dateRdv;
     }
 
     public int getCodeAnimal() {
-        return CodeAnimal;
+        return this.codeAnimal;
     }
 
     public void setCodeAnimal(int codeAnimal) {
-        CodeAnimal = codeAnimal;
+        this.codeAnimal = codeAnimal;
     }
 
     @java.lang.Override
     public java.lang.String toString() {
         return "Agendas{" +
-                "CodeVeto=" + CodeVeto +
-                ", DateRdv=" + DateRdv +
-                ", CodeAnimal=" + CodeAnimal +
+                "CodeVeto=" + this.codeVeto +
+                ", DateRdv=" + this.dateRdv +
+                ", CodeAnimal=" + this.codeAnimal +
                 '}';
     }
 }

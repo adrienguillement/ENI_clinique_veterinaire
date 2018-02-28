@@ -1,6 +1,6 @@
 package fr.eni.clinique.dal.JDBC;
 
-import fr.eni.clinique.bo.Personne;
+import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOConnection;
 
@@ -12,14 +12,14 @@ public class ConnectionDAOJdbcImpl implements DAOConnection {
                                                             "WHERE Nom = ? " +
                                                             "AND MotPasse = ?";
 
-    public Personne getConnection(String login, String mdp) throws DALException {
+    public Personnel getConnection(String login, String mdp) throws DALException {
 
         System.out.println("> ConnectionDAOJdbcImpl");
 
         Connection cnx = null;
         PreparedStatement rqt = null;
         ResultSet rs = null;
-        Personne personne = null;
+        Personnel personnel = null;
 
         try {
             cnx = JdbcTools.getConnection();
@@ -29,14 +29,14 @@ public class ConnectionDAOJdbcImpl implements DAOConnection {
 
             rs = rqt.executeQuery();
             if (rs.next()) {
-                personne = new Personne(
+                personnel = new Personnel(
                         rs.getString("Nom"),
                         rs.getString("MotPasse"),
                         rs.getString("Role"),
                         rs.getBoolean("Archive"));
             }
         } catch (SQLException e) {
-            throw new DALException("connection codePers = " + personne.getCodePers(), e);
+            throw new DALException("connection codePers = " + personnel.getCodePers(), e);
         } finally {
             try {
                 if (rs != null){
@@ -52,6 +52,6 @@ public class ConnectionDAOJdbcImpl implements DAOConnection {
                 throw new DALException("close failed " , e);
             }
         }
-        return personne;
+        return personnel;
     }
 }
