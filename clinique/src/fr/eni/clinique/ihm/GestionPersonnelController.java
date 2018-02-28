@@ -68,7 +68,9 @@ public class GestionPersonnelController
             gbc.gridwidth = 1;
             gbc.gridy = 0;
             gbc.gridx = 0;
-            panel.add(new JLabel(personne.getNom()+" - "+personne.getRole()+" - "+personne.getMotPasse()), gbc);
+            panel.add(new JLabel(personne.getNom()+" - "+personne.getRole()), gbc);
+            gbc.gridy = 1;
+            panel.add(new JPasswordField(personne.getMotPasse()), gbc);
             gbc.gridx = 2;
 
             panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));

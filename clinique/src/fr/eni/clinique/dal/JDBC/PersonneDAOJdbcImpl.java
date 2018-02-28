@@ -1,6 +1,6 @@
 package fr.eni.clinique.dal.JDBC;
 
-import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.bo.Personne;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOPersonne;
 
@@ -11,26 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonneDAOJdbcImpl implements DAOPersonne{
-    private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnels";
-    private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where Nom= ?";
-    private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnels where CodePers= ?";
-    private static final String insert = "insert into Personnels(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
-    private static final String update = "update Personnels set Nom=?, MotPasse=?,Role=?,Archive=? where CodePers=?";
-    private static final String delete = "delete from Personnels where id=?";
+    private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from PERSONNEL";
+    private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from PERSONNEL where Nom= ?";
+    private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from PERSONNEL where CodePers= ?";
+    private static final String insert = "insert into PERSONNEL(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
+    private static final String update = "update PERSONNEL set Nom=?, MotPasse=?,Role=?,Archive=? where CodePers=?";
+    private static final String delete = "delete from PERSONNEL where id=?";
 
-    public List<Personnel> selectAll() throws DALException{
+    public List<Personne> selectAll() throws DALException{
         Connection cnx = null;
         Statement stt = null;
         ResultSet rs = null;
-        List<Personnel> liste = new ArrayList<Personnel>();
+        List<Personne> liste = new ArrayList<Personne>();
         try{
             cnx = JdbcTools.getConnection();
             stt = cnx.createStatement();
             rs = stt.executeQuery(selectAll);
-            Personnel per = null;
+            Personne per = null;
 
             while (rs.next()) {
-                per = new Personnel(rs.getInt("CodePers"),
+                per = new Personne(rs.getInt("CodePers"),
                         rs.getString("Nom"),
                         rs.getString("MotPasse"),
                         rs.getString("Role"),
@@ -57,12 +57,12 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return liste;
     }
 
-    public Personnel selectByNom(String Nom) throws DALException{
+    public Personne selectByNom(String Nom) throws DALException{
         Connection cnx = null;
         PreparedStatement stt = null;
         ResultSet rs = null;
 
-        Personnel personnel = null;
+        Personne personnel = null;
         try{
             cnx = JdbcTools.getConnection();
             stt = cnx.prepareStatement(selectByNom);
@@ -70,7 +70,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
 
             rs = stt.executeQuery();
             if(rs.next()){
-                personnel = new Personnel(rs.getInt("CodePers"),
+                personnel = new Personne(rs.getInt("CodePers"),
                         rs.getString("Nom"),
                         rs.getString("MotPasse"),
                         rs.getString("Role"),
@@ -96,12 +96,12 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return personnel;
     }
 
-    public Personnel selectById(int CodePers) throws DALException{
+    public Personne selectById(int CodePers) throws DALException{
         Connection cnx = null;
         PreparedStatement stt = null;
         ResultSet rs = null;
 
-        Personnel personnel = null;
+        Personne personnel = null;
         try{
             cnx = JdbcTools.getConnection();
             stt = cnx.prepareStatement(selectById);
@@ -109,7 +109,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
 
             rs = stt.executeQuery();
             if(rs.next()){
-                personnel = new Personnel(rs.getInt("CodePers"),
+                personnel = new Personne(rs.getInt("CodePers"),
                         rs.getString("Nom"),
                         rs.getString("MotPasse"),
                         rs.getString("Role"),
@@ -135,8 +135,8 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return personnel;
     }
 
-    public Personnel insert(Object data) throws DALException{
-        Personnel personnel = (Personnel)data;
+    public Personne insert(Object data) throws DALException{
+        Personne personnel = (Personne)data;
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
@@ -172,7 +172,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     }
 
     public void update(Object data) throws DALException{
-        Personnel personnel = (Personnel)data;
+        Personne personnel = (Personne)data;
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
