@@ -12,9 +12,9 @@ import java.awt.event.ActionListener;
 
 public class IHMAjoutPersonnel extends JFrame {
     private static IHMAjoutPersonnel instance;
-    private JLabel nomLabel, roleLabel, motPasseLabel, valideMdpLabel;
+    private JLabel nomLabel, roleLabel, motPasseLabel;
     private JTextField nomTextField, roleTextField;
-    private JPasswordField motPasse, valideMdp;
+    private JPasswordField motPasse;
     private JButton valider, annuler;
     private Personnel personnel;
     private PersonnelManager personnelManager;
@@ -61,8 +61,6 @@ public class IHMAjoutPersonnel extends JFrame {
         motPasseLabel = new JLabel("mot de passe : ");
         motPasse = new JPasswordField(10);
 
-        valideMdpLabel = new JLabel("validation du mot de passe:");
-        valideMdp = new JPasswordField(10);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -96,17 +94,9 @@ public class IHMAjoutPersonnel extends JFrame {
 
         gbc.gridx = 3;
         gbc.gridy = 0;
-        panel.add(valideMdpLabel);
-
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        panel.add(valideMdp);
-
-        gbc.gridx = 4;
-        gbc.gridy = 0;
         panel.add(valider);
 
-        gbc.gridx = 4;
+        gbc.gridx = 3;
         gbc.gridy = 1;
         panel.add(annuler);
 
