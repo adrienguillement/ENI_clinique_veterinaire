@@ -1,20 +1,18 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.CltManager;
+import fr.eni.clinique.bll.ClientManager;
 import fr.eni.clinique.bo.Client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public class GestionClientController {
 
     private IHMApp ecran;
     private static GestionClientController instance;
-    private CltManager clientM = new CltManager();
+    private ClientManager clientM = new ClientManager();
     private GeneralController controllerBase = GeneralController.getInstance();
 
     // constructeur

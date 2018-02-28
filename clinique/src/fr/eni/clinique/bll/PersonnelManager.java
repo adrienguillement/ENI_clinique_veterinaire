@@ -8,10 +8,10 @@ import fr.eni.clinique.dal.DAOPersonne;
 import java.util.List;
 
 public class PersonnelManager {
-    private static DAOPersonne daoPersonnels;
+    private static DAOPersonne daoPersonnel;
 
     public PersonnelManager() throws BLLException{
-        daoPersonnels = DAOFactory.getPersonneDAO();
+        daoPersonnel = DAOFactory.getPersonneDAO();
     }
 
     /**
@@ -20,15 +20,26 @@ public class PersonnelManager {
      * @throws BLLException
      */
     public List<Personnel> getPersonnels() throws BLLException{
+<<<<<<< HEAD
         List<Personnel> personnel = null;
 
         try{
             personnel = daoPersonnels.selectAll();
+=======
+        List<Personnel> personnels = null;
+
+        try{
+            personnels = DAOFactory.getPersonneDAO().selectAll();
+>>>>>>> master
         }catch(DALException e){
             e.printStackTrace();
             throw new BLLException("Erreur récupération du personnel", e);
         }
+<<<<<<< HEAD
         return personnel;
+=======
+        return personnels;
+>>>>>>> master
     }
 
     public void validerPersonne(Personnel personnel) throws BLLException{
