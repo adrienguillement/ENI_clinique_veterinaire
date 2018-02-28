@@ -52,4 +52,9 @@ public class RaceDAOJdbcImpl implements DAORace {
         }
         return liste;
     }
+
+    @Override
+    public Object insert(Object data) throws DALException {
+        return null;
+    }
 }

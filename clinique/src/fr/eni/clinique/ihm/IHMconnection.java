@@ -12,13 +12,11 @@ import java.awt.event.ActionListener;
 public class IHMconnection extends JFrame{
 
     private static IHMconnection instance;
-    private JLabel login,mdp;
-    private JTextField login1;
-    private JPasswordField mdp1;
+    private JLabel nomLabel, prenomLabel, adresseLabel, codePostalLabel, villeLabel, numLabel, assuranceLabel, eMailLabel;
+    private JTextField nomTextField, prenomTextField, adresseTextField, codePostalTextField, villeTextField, numTextField, assuranceTextField, eMailTextField;
     private JButton valider,annuler;
-    private ConnectionManager connectionManager = new ConnectionManager();
-
     private Personnel personnel;
+
 
     //Singleton
     public static IHMconnection getInstance(){
@@ -43,7 +41,7 @@ public class IHMconnection extends JFrame{
                     IHMconnection window = new IHMconnection();
                     window.setVisible(true);
                 } catch (Exception e){
-                    System.out.println("Erreur chargement ecran authentification");
+                    e.printStackTrace();
                 }
             }
         });
@@ -52,70 +50,133 @@ public class IHMconnection extends JFrame{
     //mise à jour de l'IHM
     private void setIHMconnection(){
 
-        this.setTitle(" Authentification ");
+        this.setTitle(" Clients ");
         this.setSize(new Dimension(400,200));
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(true);
 
-        login = new JLabel("Login");
-        login1 = new JTextField();
+        nomLabel = new JLabel("Nom: ");
+        nomTextField = new JTextField(10);
 
-        mdp = new JLabel("Mot de Passe");
-        mdp1 = new JPasswordField();
+        prenomLabel = new JLabel("Prenom: ");
+        prenomTextField = new JTextField(10);
+
+        adresseLabel = new JLabel("Adresse: ");
+        adresseTextField = new JTextField(10);
+
+        codePostalLabel = new JLabel("Code postal: ");
+        codePostalTextField = new JTextField(10);
+
+        villeLabel = new JLabel("Ville: ");
+        villeTextField = new JTextField(10);
+
+        numLabel = new JLabel("Num tel: ");
+        numTextField = new JTextField(10);
+
+        assuranceLabel = new JLabel("Assurance: ");
+        assuranceTextField = new JTextField(10);
+
+        eMailLabel = new JLabel("eMail: ");
+        eMailTextField = new JTextField(10);
 
         valider = new JButton("Valider ");
         annuler = new JButton(" Annuler");
 
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20, 10, 10, 10);
+        gbc.gridwidth = 1;
 
-        Container contenu = this.getContentPane();
-        contenu.setLayout(null);
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        panel.add(nomLabel,gbc);
 
-        contenu.add(login);
-        login.setBounds(20, 20, 100, 20);
+        gbc.gridy = 0;
+        gbc.gridx = 1;
+        panel.add(nomTextField,gbc);
 
-        contenu.add(login1);
-        login1.setBounds(150, 20, 150, 20);
+        gbc.gridy = 1;
+        gbc.gridx = 0;
+        panel.add(prenomLabel,gbc);
 
-        contenu.add(mdp);
-        mdp.setBounds(22, 55, 100, 20);
+        gbc.gridy = 1;
+        gbc.gridx = 1;
+        panel.add(prenomTextField,gbc);
 
-        contenu.add(mdp1);
-        mdp1.setBounds(150, 55, 150, 20);
+        gbc.gridy = 2;
+        gbc.gridx = 0;
+        panel.add(adresseLabel,gbc);
 
-        contenu.add(valider);
-        valider.setBounds(125,100 ,77 ,20 );
+        gbc.gridy = 2;
+        gbc.gridx = 1;
+        panel.add(adresseTextField,gbc);
 
-        contenu.add(annuler);
-        annuler.setBounds(225, 100, 82, 20);
+        gbc.gridy = 3;
+        gbc.gridx = 0;
+        panel.add(codePostalLabel,gbc);
+
+        gbc.gridy = 3;
+        gbc.gridx = 1;
+        panel.add(codePostalTextField,gbc);
+
+        gbc.gridy = 4;
+        gbc.gridx = 0;
+        panel.add(villeLabel,gbc);
+
+        gbc.gridy = 4;
+        gbc.gridx = 1;
+        panel.add(villeTextField,gbc);
+
+        gbc.gridy = 5;
+        gbc.gridx = 0;
+        panel.add(numLabel,gbc);
+
+        gbc.gridy = 5;
+        gbc.gridx = 1;
+        panel.add(numTextField,gbc);
+
+        gbc.gridy = 6;
+        gbc.gridx = 0;
+        panel.add(assuranceLabel,gbc);
+
+        gbc.gridy = 6;
+        gbc.gridx = 1;
+        panel.add(assuranceTextField,gbc);
+
+        gbc.gridy = 7;
+        gbc.gridx = 0;
+        panel.add(eMailLabel,gbc);
+
+        gbc.gridy = 7;
+        gbc.gridx = 1;
+        panel.add(eMailTextField,gbc);
+
+        gbc.gridy = 8;
+        gbc.gridx = 0;
+        panel.add(valider, gbc);
+
+        gbc.gridy = 8;
+        gbc.gridx = 1;
+        panel.add(annuler, gbc);
 
         valider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //renvoyer un test de connection
-                System.out.println("Demande d'authentification");
-                testConnection();
+                //TODO
             }
         });
 
-        this.setVisible(true);
-    }
+        annuler.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO
+            }
+        });
 
-    public void testConnection()
-    {
-        try{
-            personnel = connectionManager.getConnection(login1.getText(), mdp1.getText());
-            if(personnel != null){
-                System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
-                //init l'utilisateur en cours
-                GeneralController.getInstance().setUtilisateurEnCours(personnel);
-                GeneralController.getInstance().getEcran();
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.INFORMATION_MESSAGE);
-            }
-        }catch (DALException e1){
-            e1.printStackTrace();
-        }
+        this.setContentPane(panel);
+        this.setVisible(true);
     }
 }
 
