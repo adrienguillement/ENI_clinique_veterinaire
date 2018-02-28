@@ -29,6 +29,20 @@ public class Client{
         this.archive = archive;
     }
 
+    public Client(String nomClient, String prenomClient, String adresse1, String adresse2, String codePostal, String ville, String numTel, String assurance, String email, String remarque, boolean archive) {
+        this.nom = nomClient;
+        this.prenom = prenomClient;
+        this.adresse1 = adresse1;
+        this.adresse2 = adresse2;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.numTel = numTel;
+        this.assurance = assurance;
+        this.email = email;
+        this.remarque = remarque;
+        this.archive = archive;
+    }
+
     public Client() {
     }
 

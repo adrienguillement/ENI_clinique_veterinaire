@@ -6,15 +6,26 @@ import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.bo.Client;
 import java.util.List;
 
-public class CltManager {
+public class ClientManager {
 
-    private static DAOClient daoClients;
+    private static DAOClient daoClient;
 
-    public CltManager() throws BLLException{
+    public ClientManager() throws BLLException{
 
-        daoClients = DAOFactory.getClientDAO();
+        daoClient = DAOFactory.getClientDAO();
     }
 
+    /**
+     * insert d'un client
+    * */
+    public void insertClient(Client client) throws BLLException{
+        try{
+            validerClient(client);
+            daoClient.insert(client);
+        }catch(DALException e){
+            throw new BLLException("Echec insertClient-client : "+client, e);
+        }
+    }
     /**
      * Récupération du catalogue des Cliens
      * @return
@@ -24,7 +35,7 @@ public class CltManager {
         List<Client> clients = null;
 
         try{
-            clients = daoClients.selectAll();
+            clients = daoClient.selectAll();
         }catch(DALException e){
             e.printStackTrace();
             throw new BLLException("Erreur récupération catalogue", e);
