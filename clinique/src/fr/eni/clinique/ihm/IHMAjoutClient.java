@@ -1,34 +1,34 @@
 package fr.eni.clinique.ihm;
 
-import fr.eni.clinique.bll.ConnectionManager;
-import fr.eni.clinique.bo.Personnel;
-import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.ClientManager;
+import fr.eni.clinique.bo.Client;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class IHMconnection extends JFrame{
+public class IHMAjoutClient extends JFrame{
 
-    private static IHMconnection instance;
+    private static IHMAjoutClient instance;
     private JLabel nomLabel, prenomLabel, adresseLabel, codePostalLabel, villeLabel, numLabel, assuranceLabel, eMailLabel;
     private JTextField nomTextField, prenomTextField, adresseTextField, codePostalTextField, villeTextField, numTextField, assuranceTextField, eMailTextField;
     private JButton valider,annuler;
-    private Personnel personnel;
-
+    private Client client;
+    private ClientManager clientManager;
 
     //Singleton
-    public static IHMconnection getInstance(){
+    public static IHMAjoutClient getInstance(){
         if(instance == null){
-            instance = new IHMconnection();
+            instance = new IHMAjoutClient();
         }
         return instance;
     }
 
     //constructeur
-    public IHMconnection(){
-        setIHMconnection();
+    public IHMAjoutClient(){
+        setIHMAjoutClient();
     }
 
     // Lancement de l'application
@@ -38,7 +38,7 @@ public class IHMconnection extends JFrame{
             @Override
             public void run() {
                 try{
-                    IHMconnection window = new IHMconnection();
+                    IHMAjoutClient window = new IHMAjoutClient();
                     window.setVisible(true);
                 } catch (Exception e){
                     e.printStackTrace();
@@ -48,7 +48,7 @@ public class IHMconnection extends JFrame{
     }
 
     //mise à jour de l'IHM
-    private void setIHMconnection(){
+    private void setIHMAjoutClient(){
 
         this.setTitle(" Clients ");
         this.setSize(new Dimension(400,200));
@@ -164,7 +164,13 @@ public class IHMconnection extends JFrame{
         valider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                try {
+                    client = new Client(nomTextField.getText(), prenomTextField.getText(), adresseTextField.getText(), null, codePostalTextField.getText(), villeTextField.getText(), numTextField.getText(), assuranceTextField.getText(), eMailTextField.getText(), null, false);
+                    clientManager = new ClientManager();
+                    clientManager.insertClient(client);
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 

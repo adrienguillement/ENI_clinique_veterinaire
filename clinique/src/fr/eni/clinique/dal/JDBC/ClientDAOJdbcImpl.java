@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDAOJdbcImpl implements DAOClient {
-    
-    private static final String sqlInsert = "INSERT INTO CLIENT(NomClient, PrenomClient, Adresse1, Ardresse2, CodePostal, Ville, NumTel, Assurance, Email, Remarque, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    private static final String sqlInsert = "INSERT INTO CLIENT(NomClient, PrenomClient, Adresse1, Adresse2, CodePostal, Ville, NumTel, Assurance, Email, Remarque, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String sqlSelectAll = "SELECT * from client";
 
     @Override
@@ -71,15 +71,16 @@ public class ClientDAOJdbcImpl implements DAOClient {
             cnx = JdbcTools.getConnection();
             rqt = cnx.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
             rqt.setString(1, client.getNom());
-            rqt.setString(1, client.getPrenomClient());
-            rqt.setString(1, client.getAdresse1());
-            rqt.setString(1, client.getAdresse2());
-            rqt.setString(1, client.getCodePostal());
-            rqt.setString(1, client.getVille());
-            rqt.setString(1, client.getNumTel());
-            rqt.setString(1, client.getEmail());
-            rqt.setString(1, client.getRemarque());
-            rqt.setBoolean(1, client.isArchive());
+            rqt.setString(2, client.getPrenomClient());
+            rqt.setString(3, client.getAdresse1());
+            rqt.setString(4, client.getAdresse2());
+            rqt.setString(5, client.getCodePostal());
+            rqt.setString(6, client.getVille());
+            rqt.setString(7, client.getNumTel());
+            rqt.setString(8, client.getAssurance());
+            rqt.setString(9, client.getEmail());
+            rqt.setString(10, client.getRemarque());
+            rqt.setBoolean(11, client.isArchive());
 
             int nbRows = rqt.executeUpdate();
             if(nbRows == 1){

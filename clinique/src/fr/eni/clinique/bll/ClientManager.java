@@ -18,12 +18,12 @@ public class ClientManager {
     /**
      * insert d'un client
     * */
-    public void InsertClient(Client client) throws BLLException{
+    public void insertClient(Client client) throws BLLException{
         try{
             validerClient(client);
             daoClient.insert(client);
         }catch(DALException e){
-            throw new BLLException("Echec updateClient-client : "+client, e);
+            throw new BLLException("Echec insertClient-client : "+client, e);
         }
     }
     /**
