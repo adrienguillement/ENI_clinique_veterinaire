@@ -10,8 +10,8 @@ public class Launcher {
             @Override
             public void run() {
                 try {
-                    GeneralController.getInstance().initMyapp();
-                } catch (BLLException e) {
+                    GeneralController.getInstance();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

@@ -1,17 +1,42 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Personnel;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class GeneralController {
 
-    // recuperation singleton IHMApp
-    private IHMApplication ecran;
-
-    // singleton GeneralController
+    // instance
     private static GeneralController instance;
 
+    // Fenetres nécessaires à l'application
+    private JFrame main_jframe;
+
+    // Menu
+    private JMenu gestion_client;
+    private JMenu gestion_personnel;
+    private JMenu prise_rdv;
+
+
+    // Panel client
+    private JPanel panel_client;
+    private JPanel panel_client_result;
+    private JPanel panel_client_add;
+    private JLabel nomLabel, prenomLabel, adresseLabel, codePostalLabel,
+            villeLabel, numLabel, assuranceLabel, eMailLabel;
+    private JTextField nomTextField, prenomTextField, adresseTextField, codePostalTextField,
+            villeTextField, numTextField, assuranceTextField, eMailTextField;
+    private JButton valider_ajoutClient, annuler_ajoutClient;
+
+    // Constructeur appelle initMyApp()
     private GeneralController(){
-        getEcran();
+        try {
+            this.initMyapp();
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
     }
 
     // méthode singleton
@@ -22,14 +47,10 @@ public class GeneralController {
         return GeneralController.instance;
     }
 
-    public IHMApplication getEcran() {
-        if(ecran==null){
-            ecran = IHMApplication.getInstance();
-        }
-        return ecran;
-    }
 
+    // affiche la jframe login au lancement
     public void initMyapp() throws BLLException {
-        LoginController.getInstance().initMyApp();
+
+        LoginController.initMyApp();
     }
 }
