@@ -14,7 +14,7 @@ import java.util.List;
 
 public class RaceDAOJdbcImpl implements DAORace {
 
-    private static final String sqlSelectAll = "SELECT * from races";
+    private static final String sqlSelectAll = "SELECT * from race";
 
     @Override
     public List<Race> selectAll() throws DALException {

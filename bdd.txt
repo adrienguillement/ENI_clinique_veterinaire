@@ -169,9 +169,9 @@ VALUES ('ANDRE', 'Clement', '74, quai Saint-Nicolas', NULL, '59200', 'TOURCOING'
 ('Tardif', 'Laetitia', '64, Rue du Palais', NULL, '51200', 'ÉPERNAY', '03.83.07.26.84', 'Pointers', 'LTarf@rta.com ', NULL, 0)
 
 INSERT INTO PERSONNEL (Nom, MotPasse, Role, Archive)
-VALUES ('secretaire', '123', 'sec', 0),
-('veterinaire', '123', 'vet', 0),
-('admin', '123', 'adm', 0)
+VALUES ('secretaire', 'bc58e1e78140a57bc1ca02a67a7735c36e186a16b70c9be60fd316a535c77652978e231d073f8e55ca02c26d6cc5b81bc75bcf6911d311edc75e1b38b3361ee0', 'sec', 0),
+('veterinaire', 'd720c9c7d5b7b04503dbe189d7085132679b6d22d4ec446c16879233d6920c4ca4ab25cff11e416d9c09e19dc0dbf60d916ea118f96b2446c59248e07c261064', 'vet', 0),
+('admin', '767005313d8106769d1c57c9375e81838b46906dd3cc02b17d1b8b8cef8514cea76886271c6eddfa1407c69d9c09a460aea99e96c1decffa1fe133f9e29a931e', 'adm', 0)
 
 INSERT INTO RACE (Race, Espece)
 VALUES ('Berger Allemand', 'Chien'),
