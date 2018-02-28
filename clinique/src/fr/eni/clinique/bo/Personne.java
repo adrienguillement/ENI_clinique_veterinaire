@@ -7,11 +7,7 @@ public class Personne {
     private String Role;
     private boolean Archive;
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> master
     public Personne( String nom, String motPasse, String role, boolean archive) {
         Nom = nom;
         MotPasse = motPasse;

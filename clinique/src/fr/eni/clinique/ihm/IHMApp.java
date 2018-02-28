@@ -3,10 +3,9 @@ package fr.eni.clinique.ihm;
 import fr.eni.clinique.bll.ConnectionManager;
 import fr.eni.clinique.bo.Personne;
 import fr.eni.clinique.dal.DALException;
-<<<<<<< HEAD
-=======
+
 import fr.eni.clinique.utils.SHA512;
->>>>>>> master
+
 
 import javax.swing.*;
 import java.awt.*;
