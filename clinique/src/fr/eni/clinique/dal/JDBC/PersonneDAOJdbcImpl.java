@@ -11,16 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonneDAOJdbcImpl implements DAOPersonne{
-<<<<<<< HEAD
-    private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from PERSONNEL";
-    private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from PERSONNEL where Nom= ?";
-    private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from PERSONNEL where CodePers= ?";
-    private static final String insert = "insert into PERSONNEL(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
-    private static final String update = "update PERSONNEL set Nom=?, MotPasse=?,Role=?,Archive=? where CodePers=?";
-    private static final String delete = "delete from PERSONNEL where id=?";
 
-    public List<Personne> selectAll() throws DALException{
-=======
     private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnel";
     private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where Nom= ?";
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where CodePers= ?";
@@ -28,8 +19,8 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     private static final String update = "update Personnel set Nom=?, MotPasse=?,Role=?,Archive=? where CodePers=?";
     private static final String delete = "delete from Personnel where id=?";
 
-    public List<Personnel> selectAll() throws DALException{
->>>>>>> master
+    public List<Personne> selectAll() throws DALException{
+
         Connection cnx = null;
         Statement stt = null;
         ResultSet rs = null;
