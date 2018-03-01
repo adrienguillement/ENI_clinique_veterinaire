@@ -50,6 +50,7 @@ public class ClientController {
 
     // initialisation de l'onglet client
     public void init(){
+        controllerBase.getPanel_personnel().setVisible(false);
         controllerBase.getPanel_client().setVisible(true);
         try{
             Client client = clientM.getFirst();
