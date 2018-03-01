@@ -11,10 +11,10 @@ import java.util.List;
 public class ClientDAOJdbcImpl implements DAOClient {
 
     private static final String sqlInsert = "INSERT INTO CLIENT(NomClient, PrenomClient, Adresse1, Adresse2, CodePostal, Ville, NumTel, Assurance, Email, Remarque, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String sqlSelectAll = "SELECT * from client";
-    private static final String sqlSelectById = "SELECT * from client WHERE CodeClient = ?";
-    private static final String sqlDelete = "DELETE FROM client WHERE CodeClient = ?";
-    private static final String sqlFirstClient = "SELECT TOP 1 * FROM client";
+    private static final String sqlSelectAll = "SELECT * from client WHERE archive = 0";
+    private static final String sqlSelectById = "SELECT * from client WHERE CodeClient = ? AND archive = 0";
+    private static final String sqlDelete = "UPDATE client SET archive = 1 WHERE CodeClient = ?";
+    private static final String sqlFirstClient = "SELECT TOP 1 * FROM client WHERE archive = 0";
 
 
     @Override
@@ -229,7 +229,7 @@ public class ClientDAOJdbcImpl implements DAOClient {
                 listeClients.add(client);
             }
         } catch (SQLException e) {
-            throw new DALException("selectByEmail failed - " , e);
+            throw new DALException("selectByID failed - " , e);
         } finally {
             try {
                 if (rs != null){

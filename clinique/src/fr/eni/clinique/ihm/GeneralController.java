@@ -168,6 +168,7 @@ public class GeneralController {
             gbc.gridx = 0;
             gbc.gridy = 1;
             panel_client.add(getPanel_client_result(),gbc);
+
         }
         return panel_client;
     }
