@@ -1,7 +1,6 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
-
 import fr.eni.clinique.bll.CltManager;
 import fr.eni.clinique.bll.PersonnelManager;
 import fr.eni.clinique.bo.Client;
@@ -211,6 +210,7 @@ public class GeneralController {
         return panelButtons;
     }
 
+
     public JPanel getPanel_client_result() {
         if(panel_client_result == null){
             panel_client_result = new JPanel();
@@ -218,6 +218,7 @@ public class GeneralController {
         }
         return panel_client_result;
     }
+
 
     /**
      * Méthode d'ajout d'un client
@@ -368,6 +369,4 @@ public class GeneralController {
         this.ajout_client.setContentPane(panel);
         this.ajout_client.setVisible(true);
     }
-
-
 }
