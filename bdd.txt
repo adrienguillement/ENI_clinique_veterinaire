@@ -121,10 +121,12 @@ ALTER TABLE ANIMAL ADD CONSTRAINT
 ALTER TABLE ANIMAL ADD CONSTRAINT
 	FK_Animal FOREIGN KEY 	( CodeClient )
 	references Client (CodeClient )
+	ON DELETE CASCADE
 
 ALTER TABLE ANIMAL ADD CONSTRAINT
 	FK_ANIMAUX_RACE FOREIGN KEY (Race,Espece)
 	references RACE (Race,Espece)
+	ON DELETE CASCADE
 
 
 /*****************************************/
@@ -148,10 +150,12 @@ ALTER TABLE AGENDA ADD CONSTRAINT
 ALTER TABLE AGENDA ADD CONSTRAINT
 	FK_Agenda FOREIGN KEY 	( CodeAnimal )
 	references ANIMAL (CodeAnimal )
+	ON DELETE CASCADE
 
 ALTER TABLE AGENDA ADD CONSTRAINT
 	FK_Agenda_Veto FOREIGN KEY 	( CodeVeto )
 	references Personnel ( CodePers )
+	ON DELETE CASCADE
 
 
 /*****************************************/
