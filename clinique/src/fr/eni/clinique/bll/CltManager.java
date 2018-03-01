@@ -6,18 +6,18 @@ import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.bo.Client;
 import java.util.List;
 
-public class ClientManager {
+public class CltManager {
 
     private static DAOClient daoClient;
 
-    public ClientManager() throws BLLException{
+    public CltManager() throws BLLException{
 
         daoClient = DAOFactory.getClientDAO();
     }
 
     /**
      * insert d'un client
-    * */
+     * */
     public void insertClient(Client client) throws BLLException{
         try{
             validerClient(client);
