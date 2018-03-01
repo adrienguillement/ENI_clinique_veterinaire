@@ -48,10 +48,9 @@ public class CltManager {
      * @param client
      * @throws BLLException
      */
-    public void validerClient(Client client) throws BLLException{
+    public boolean validerClient(Client client) throws BLLException{
         boolean valide = true;
         StringBuffer sb = new StringBuffer();
-
         if(null==client){
             valide = false;
             sb.append("Client null");
@@ -61,28 +60,29 @@ public class CltManager {
             sb.append("Nom du client null");
         }
         if(null==client.getPrenomClient() || 0==client.getPrenomClient().trim().length()){
-            valide = true;
+            valide = false;
             sb.append("Prénom du client null");
         }
         if(null==client.getEmail() || 0==client.getEmail().trim().length()){
-            valide = true;
+            valide = false;
             sb.append("Email du client null");
         }
         if(null==client.getAdresse1() || 0==client.getAdresse1().trim().length()){
-            valide = true;
+            valide = false;
             sb.append("Adresse du client null");
         }
         if(null==client.getCodePostal() || 0==client.getCodePostal().trim().length()){
-            valide = true;
+            valide = false;
             sb.append("Code Postal du client null");
         }
         if(null==client.getVille() || 0==client.getVille().trim().length()){
-            valide = true;
+            valide = false;
             sb.append("Ville du client null");
         }
 
         if(!valide){
             throw new BLLException(sb.toString());
         }
+        return valide;
     }
 }

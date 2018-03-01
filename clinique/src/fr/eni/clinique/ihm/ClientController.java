@@ -60,6 +60,7 @@ public class ClientController {
         GridBagConstraints gbc = new GridBagConstraints();
         int gridy = 0;
         controllerBase.getPanel_client_result().removeAll();
+
         // AFFICHAGE DES DONNEES
         for (Client client : listeClient) {
             JPanel panel = new JPanel();//LIGNE
@@ -67,6 +68,7 @@ public class ClientController {
             gbc.insets = new Insets(20, 10, 10, 10);
             panel.add(new JLabel(client.getPrenomClient() + " " + client.getNom() + " - " + client.getEmail()), gbc);
             gbc.gridx = 2;
+
             //Ligne de séparation
             panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
             gbc.gridy = gridy;//ORDRE DE LA LIGNE
