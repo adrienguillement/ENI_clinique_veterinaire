@@ -216,6 +216,9 @@ public class GeneralController {
         return panel_client_result;
     }
 
+    /**
+     * Méthode d'ajout d'un client
+     */
     public void frameAjoutClient() {
         this.ajout_client = new JFrame();
 
