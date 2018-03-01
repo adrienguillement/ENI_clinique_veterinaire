@@ -87,6 +87,7 @@ public class GeneralController {
         return menubar;
     }
 
+    
     public JMenu getGestion_client_menu() {
         gestion_client = new JMenu("Gestion des clients");
 
