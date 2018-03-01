@@ -4,6 +4,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.ClientManager;
 import fr.eni.clinique.bll.PersonnelManager;
 import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.utils.SHA512;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,7 +48,7 @@ public class IHMAjoutPersonnel extends JFrame {
 
     private void setIHMAjoutPersonnel() {
         this.setTitle("Personnel");
-        this.setSize(new Dimension(400, 200));
+        this.setSize(new Dimension(600, 400));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
@@ -61,6 +62,9 @@ public class IHMAjoutPersonnel extends JFrame {
         motPasseLabel = new JLabel("mot de passe : ");
         motPasse = new JPasswordField(10);
 
+        valider = new JButton("valider");
+        annuler = new JButton("annuler");
+
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -69,42 +73,42 @@ public class IHMAjoutPersonnel extends JFrame {
         gbc.gridwidth = 1;
 
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         panel.add(nomLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         panel.add(nomTextField, gbc);
 
-        gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
         panel.add(roleLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
-        panel.add(roleTextField);
+        gbc.gridy = 2;
+        panel.add(roleTextField, gbc);
 
-        gbc.gridx = 2;
-        gbc.gridy = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         panel.add(motPasseLabel, gbc);
 
-        gbc.gridx = 2;
-        gbc.gridy = 1;
+        gbc.gridx = 1;
+        gbc.gridy = 3;
         panel.add(motPasse, gbc);
 
-        gbc.gridx = 3;
-        gbc.gridy = 0;
-        panel.add(valider);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        panel.add(valider, gbc);
 
-        gbc.gridx = 3;
-        gbc.gridy = 1;
-        panel.add(annuler);
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        panel.add(annuler, gbc);
 
         valider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    personnel = new Personnel(nomTextField.getText(), motPasse.getText(), roleTextField.getText(), false);
+                    personnel = new Personnel(nomTextField.getText(), SHA512.getSHA512(motPasse.getText(), "toto"), roleTextField.getText(), false);
                     personnelManager = new PersonnelManager();
                     personnelManager.insertPersonnel(personnel);
                 } catch (BLLException e1) {
