@@ -31,7 +31,7 @@ public class PersonnelManager {
         return personnels;
     }
 
-    public Personnel insert(Personnel personnel) throws  BLLException{
+    public Personnel insertPersonnel(Personnel personnel) throws  BLLException{
         try{
             validerPersonnel(personnel);
             daoPersonnel.insert(personnel);
