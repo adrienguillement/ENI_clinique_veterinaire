@@ -14,11 +14,19 @@ import java.util.List;
 
 public class IHMAnimal extends JFrame{
 
+    //GLOBAL
     private AnimalManager animalManager;
     private RaceManager raceManager;
     //private ModeleDynamiqueObjetAnimal modele = new ModeleDynamiqueObjetAnimal();
+
+    //SetIHMAjoutOuModification
+    private JLabel clientLabel, codeLabel, nomLabel, couleurLabel, especeLabel, raceLabel, tatouageLabel, sexeLabel;
+    private JTextField clientTextField, codeTextField, nomTextfield, couleurTextField, tatouageTextField;
+    private JComboBox sexeComboBox, EspeceComboBox, RaceComboBox;
+
+    //SetIHMAnimal
     private JTable table;
-    private Animal animalSelected;
+    private Animal animalSelected = null;
 
     // Lancement de l'application
     public static void main(String[] args) {
@@ -48,6 +56,25 @@ public class IHMAnimal extends JFrame{
         setIHMAnimal(null);
     }
 
+    private void setIHMAjoutOuModifcationAnimal(Animal animal, Boolean estModification){
+        this.setTitle("Liste animaux pour 1 client ");
+        this.setSize(new Dimension(400,200));
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(true);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(20, 10, 10, 10);
+        gbc.gridwidth = 1;
+
+        gbc.gridy = 0;
+        gbc.gridx = 0;
+        panel.add(clientLabel,gbc);
+    }
+
+
     private void setIHMAnimal(List<Animal> Animaux) {
         this.setTitle("Liste animaux pour 1 client ");
         this.setSize(new Dimension(400,200));
@@ -76,17 +103,8 @@ public class IHMAnimal extends JFrame{
             public void valueChanged(ListSelectionEvent e) {
                 String selectedData = null;
 
-                int[] selectedRow = table.getSelectedRows();
-                int[] selectedColumns = table.getSelectedColumns();
-
-                for (int i = 0; i < selectedRow.length; i++) {
-                    for (int j = 0; j < selectedColumns.length; j++) {
-                        selectedData = (String) table.getValueAt(selectedRow[i], selectedColumns[j]);
-                    }
-                }
                 System.out.println("avant cast");
-                //String selectedValue = ;
-                System.out.println("second cast");
+
                 int codeAnimal = (int)(table.getValueAt(table.getSelectedRow(), 0));
                 if(codeAnimal != 0){
                     animalSelected.setCodeAnimal(codeAnimal);
