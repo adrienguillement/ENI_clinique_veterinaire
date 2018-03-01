@@ -15,6 +15,10 @@ public class ClientController {
 
     private GeneralController controllerBase;
 
+    //Fields
+    private JTextField code, nom, prenom, adresse, ville, codePostal, assurance, email, numTel, remarque;
+
+
     // constructeur
     private ClientController() throws BLLException {
         getEcran();
@@ -48,7 +52,8 @@ public class ClientController {
     public void init(){
         controllerBase.getPanel_client().setVisible(true);
         try{
-            mainDisplay(clientM.getClientById(1));
+            Client client = clientM.getFirst();
+            mainDisplay(clientM.getClientById(client.getCode()));
         }catch(BLLException e){
             e.printStackTrace();
         }
@@ -64,15 +69,42 @@ public class ClientController {
             panel.setLayout(new GridLayout(0 , 2));
             GridLayout gbc = new GridLayout(0, 2);
 
+            //Affichage des données du client
             panel.add(new JLabel("Code : "));
 
-            panel.add(new JLabel(String.valueOf(client.getCode())));
+            this.code = new JTextField(String.valueOf(client.getCode()));
+            this.code.setEditable(false);
+            JTextField codeClient = this.code;
+            panel.add(codeClient);
+
             panel.add(new JLabel("Nom : "));
-            panel.add(new JTextField(client.getNom()));
+            this.nom = new JTextField(client.getNom());
+            panel.add(this.nom);
             panel.add(new JLabel("Prenom : "));
-            panel.add(new JTextField(client.getPrenomClient()));
+
+            this.prenom = new JTextField(client.getPrenomClient());
+            panel.add(this.prenom);
             panel.add(new JLabel("Email : "));
-            panel.add(new JTextField(client.getEmail()));
+            this.email = new JTextField(client.getEmail());
+            panel.add(this.email);
+            panel.add(new JLabel("Adresse : "));
+            this.adresse = new JTextField(client.getAdresse1());
+            panel.add(this.adresse);
+            panel.add(new JLabel("Code postal : "));
+            this.codePostal = new JTextField(client.getCodePostal());
+            panel.add(this.codePostal);
+            panel.add(new JLabel("Ville : "));
+            this.ville = new JTextField(client.getVille());
+            panel.add(this.ville);
+            panel.add(new JLabel("Assurance : "));
+            this.assurance = new JTextField(client.getAssurance());
+            panel.add(this.assurance);
+            panel.add(new JLabel("Numéro tel : "));
+            this.numTel = new JTextField(client.getNumTel());
+            panel.add(this.numTel);
+            panel.add(new JLabel("Remarque : "));
+            this.remarque = new JTextField(client.getRemarque());
+            panel.add(this.remarque);
 
             controllerBase.getPanel_client_result().add(panel);//AJOUT DE LA LIGNE
         }
@@ -104,6 +136,20 @@ public class ClientController {
         }
         //Actualisation
         controllerBase.getPanel_client().revalidate();
+    }
+
+    public void supprimerClient() {
+        try {
+            Client client = new Client(Integer.parseInt(this.code.getText()), this.nom.getText(), this.prenom.getText(), this.adresse.getText(), null, this.codePostal.getText(), this.ville.getText(), this.numTel.getText(), this.assurance.getText(), this.email.getText(), null, false);
+
+            this.clientM.deleteClient(client);
+            controllerBase.getPanel_client().revalidate();
+            JOptionPane.showMessageDialog(null, "Utilisateur supprimé", null, JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (BLLException e1) {
+            e1.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Problème lors de la suppression", null, JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

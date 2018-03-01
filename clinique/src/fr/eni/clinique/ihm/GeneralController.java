@@ -33,11 +33,12 @@ public class GeneralController {
     private JPanel panel_client;
     private JPanel panel_client_result, panel_client_buttons;
     private JPanel panel_client_add;
+    private JPanel panelButtons;
     private JLabel nomLabel, prenomLabel, adresseLabel, codePostalLabel,
             villeLabel, numLabel, assuranceLabel, eMailLabel;
     private JTextField nomTextField, prenomTextField, adresseTextField, codePostalTextField,
             villeTextField, numTextField, assuranceTextField, eMailTextField;
-    private JButton btn_ajoutClient, valider_ajoutClient, annuler_ajoutClient;
+    private JButton btn_ajoutClient, btn_supprimerClient, valider_ajoutClient, annuler_ajoutClient;
     private Client client;
     private CltManager clientManager;
 
@@ -163,17 +164,34 @@ public class GeneralController {
 
             gbc.gridx = 0;
             gbc.gridy = 0;
-            panel_client.add(getButton_ajout_client(), gbc);
+            panel_client.add(getButtons(), gbc);
             gbc.gridx = 0;
             gbc.gridy = 1;
             panel_client.add(getPanel_client_result(),gbc);
-
         }
         return panel_client;
     }
 
-    public JButton getButton_ajout_client() {
-        if(btn_ajoutClient == null){
+    /**
+     * Correspond aux boutons rechercher, ajouter client, supprimer client ...
+     * @return
+     */
+    //TODO Rechercher client
+    public JPanel getButtons() {
+        if(panelButtons == null){
+            panelButtons = new JPanel();
+
+            btn_supprimerClient = new JButton("Supprimer client");
+            btn_supprimerClient.setBackground(new Color(231,76,60));
+            btn_supprimerClient.setForeground(Color.white);
+            btn_supprimerClient.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Suppression client");
+                    ClientController.getInstance().supprimerClient();
+                }
+            });
+
             btn_ajoutClient = new JButton("Ajouter un client");
             btn_ajoutClient.setBackground(new Color(39,174,96));
             btn_ajoutClient.setForeground(Color.white);
@@ -183,8 +201,10 @@ public class GeneralController {
                     frameAjoutClient();
                 }
             });
+            panelButtons.add(btn_ajoutClient);
+            panelButtons.add(btn_supprimerClient);
         }
-        return btn_ajoutClient;
+        return panelButtons;
     }
 
     public JPanel getPanel_client_result() {

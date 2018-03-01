@@ -20,12 +20,32 @@ public class CltManager {
      * */
     public void insertClient(Client client) throws BLLException{
         try{
-            validerClient(client);
             daoClient.insert(client);
         }catch(DALException e){
             throw new BLLException("Echec insertClient-client : "+client, e);
         }
     }
+
+    public void deleteClient(Client client) throws BLLException{
+        try{
+            daoClient.delete(client);
+        }catch(DALException e) {
+            throw new BLLException("Echec deleteClient-client : " + client, e);
+        }
+    }
+
+    public Client getFirst() throws BLLException {
+        Client clients = null;
+
+        try{
+            clients = daoClient.selectFirstClient();
+        }catch(DALException e){
+            e.printStackTrace();
+            throw new BLLException("Erreur récupération catalogue", e);
+        }
+        return clients;
+    }
+
     /**
      * Récupération du catalogue des Cliens
      * @return
