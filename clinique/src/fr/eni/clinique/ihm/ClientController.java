@@ -11,17 +11,9 @@ import java.util.List;
 public class ClientController {
 
     private static ClientController instance;
-    private static CltManager clientM;
+    private CltManager clientM = new CltManager();
 
-    static {
-        try {
-            clientM = new CltManager();
-        } catch (BLLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static GeneralController controllerBase;
+    private GeneralController controllerBase;
 
     // constructeur
     private ClientController() throws BLLException {
@@ -53,7 +45,7 @@ public class ClientController {
 
 
     // initialisation de l'onglet client
-    public static void init(){
+    public void init(){
         controllerBase.getPanel_client().setVisible(true);
         try{
             displayResult(clientM.getCatalogue());
@@ -63,7 +55,7 @@ public class ClientController {
     }
 
     // affichage des clients sous forme de liste sur l'IHM
-    public static void displayResult(List<Client> listeClient) {
+    public void displayResult(List<Client> listeClient) {
         // NOUVEAU PANEL
         GridBagConstraints gbc = new GridBagConstraints();
         int gridy = 0;
