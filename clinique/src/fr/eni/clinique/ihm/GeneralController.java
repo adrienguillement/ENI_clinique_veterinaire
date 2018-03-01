@@ -88,14 +88,15 @@ public class GeneralController {
     public void setupMainJFrame(){
         // Parametres de la fenetre
         this.main_jframe = new JFrame();
+        JFrame frame = new JFrame();
         this.main_jframe.setTitle("Clinique vétérinaire");
         this.main_jframe.setSize(new Dimension(4000,2000));
         this.main_jframe.setLocationRelativeTo(null);
         this.main_jframe.setResizable(false);
         this.main_jframe.setJMenuBar(this.getJMenuBar());
 
-        this.main_jframe.add(this.getPanel_client());
         this.main_jframe.add(this.getPanel_personnel());
+        this.main_jframe.add(this.getPanel_client());
 
         main_jframe.setVisible(true);
     }

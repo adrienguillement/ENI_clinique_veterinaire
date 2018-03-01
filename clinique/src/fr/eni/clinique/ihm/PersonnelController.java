@@ -54,8 +54,8 @@ public class PersonnelController {
       * Initialisation du menu personnel
       */
     public static void init(){
-        controllerBase.getPanel_personnel().setVisible(true);
         controllerBase.getPanel_client().setVisible(false);
+        controllerBase.getPanel_personnel().setVisible(true);
         try{
             displayResult(personnelM.getPersonnels());
         }catch(BLLException e){
