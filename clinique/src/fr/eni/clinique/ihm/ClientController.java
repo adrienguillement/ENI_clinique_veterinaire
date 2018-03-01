@@ -61,42 +61,20 @@ public class ClientController {
         // AFFICHAGE DES DONNEES
         for (Client client : listeClient) {
             JPanel panel = new JPanel();//LIGNE
-            panel.setLayout(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(20, 10, 10, 10);
-            gbc.gridwidth = 1;
+            panel.setLayout(new GridLayout(0 , 2));
+            GridLayout gbc = new GridLayout(0, 2);
 
-            gbc.gridy = 0;
-            gbc.gridx = 0;
-            panel.add(new JLabel("Code : "),gbc);
-            gbc.gridy = 0;
-            gbc.gridx = 1;
+            panel.add(new JLabel("Code : "));
+
             panel.add(new JLabel(String.valueOf(client.getCode())));
-
-            gbc.gridy = 1;
-            gbc.gridx = 0;
             panel.add(new JLabel("Nom : "));
-            gbc.gridy = 1;
-            gbc.gridx = 1;
             panel.add(new JTextField(client.getNom()));
-
-            gbc.gridy = 2;
-            gbc.gridx = 0;
             panel.add(new JLabel("Prenom : "));
-            gbc.gridy = 2;
-            gbc.gridx = 1;
             panel.add(new JTextField(client.getPrenomClient()));
-
-
-            gbc.gridy = 3;
-            gbc.gridx = 0;
             panel.add(new JLabel("Email : "));
-            gbc.gridy = 3;
-            gbc.gridx = 1;
             panel.add(new JTextField(client.getEmail()));
-            
 
-            controllerBase.getPanel_client_result().add(panel, gbc);//AJOUT DE LA LIGNE
+            controllerBase.getPanel_client_result().add(panel);//AJOUT DE LA LIGNE
         }
         //Actualisation
         controllerBase.getPanel_client().revalidate();

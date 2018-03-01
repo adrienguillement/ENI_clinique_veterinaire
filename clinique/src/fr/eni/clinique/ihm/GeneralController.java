@@ -160,16 +160,14 @@ public class GeneralController {
             // Mise en place Layout
             panel_client.setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(5, 5, 5, 5);
+
             gbc.gridx = 0;
             gbc.gridy = 0;
-            gbc.gridwidth = 3;
-            gbc.gridx = 1;
+            panel_client.add(getButton_ajout_client(), gbc);
+            gbc.gridx = 0;
             gbc.gridy = 1;
-
-
             panel_client.add(getPanel_client_result(),gbc);
-            panel_client.add(getButton_ajout_client());
+
         }
         return panel_client;
     }
