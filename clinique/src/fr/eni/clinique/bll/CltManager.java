@@ -43,6 +43,17 @@ public class CltManager {
         return clients;
     }
 
+    public List<Client> getClientById(int id) throws  BLLException {
+        List<Client> clients = null;
+
+        try {
+            clients = daoClient.selectById(id);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+        return clients;
+    }
+
     /**
      * Valider les données d'un client
      * @param client

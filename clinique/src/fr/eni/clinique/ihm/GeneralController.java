@@ -203,7 +203,7 @@ public class GeneralController {
         this.ajout_client.setTitle(" Clients ");
         this.ajout_client.setSize(new Dimension(600,600));
         this.ajout_client.setLocationRelativeTo(null);
-        this.ajout_client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.ajout_client.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.ajout_client.setResizable(true);
 
         this.nomLabel = new JLabel("Nom: ");
@@ -325,6 +325,7 @@ public class GeneralController {
                     else {
                         JOptionPane.showMessageDialog(null, "Les champs ne sont pas correctement complétés", null, JOptionPane.WARNING_MESSAGE);
                     }
+                    instance.getPanel_client().revalidate();
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Problème lors de l'ajout", null, JOptionPane.ERROR_MESSAGE);
