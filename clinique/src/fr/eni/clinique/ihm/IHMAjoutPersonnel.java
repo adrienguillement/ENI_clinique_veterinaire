@@ -110,7 +110,7 @@ public class IHMAjoutPersonnel extends JFrame {
                 try {
                     personnel = new Personnel(nomTextField.getText(), SHA512.getSHA512(motPasse.getText(), "toto"), roleTextField.getText(), false);
                     personnelManager = new PersonnelManager();
-                    personnelManager.insertPersonnel(personnel);
+                    personnelManager.insert(personnel);
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                 }
