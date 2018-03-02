@@ -30,4 +30,40 @@ public class PersonnelManager {
         }
         return personnels;
     }
+
+    public Personnel insertPersonnel(Personnel personnel) throws  BLLException{
+        try{
+            validerPersonnel(personnel);
+            daoPersonnel.insert(personnel);
+        } catch (DALException e){
+            throw new BLLException("Echec insert personnel", e);
+        }
+        return personnel;
+    }
+
+    public void validerPersonnel(Personnel personnel) throws BLLException{
+        boolean valide = true;
+        StringBuffer sb = new StringBuffer();
+
+        if(null==personnel){
+            valide=false;
+            sb.append("personnel null");
+        }
+        if(null==personnel.getNom() || 0==personnel.getNom().trim().length()){
+            valide=false;
+            sb.append("nom du personnel null");
+        }
+        if(null==personnel.getRole() || 0==personnel.getRole().trim().length()){
+            valide=false;
+            sb.append("role personnel null");
+        }
+        if(null==personnel.getMotPasse() || 0==personnel.getMotPasse().trim().length()){
+            valide=false;
+            sb.append("mot de passe null");
+        }
+
+        if(!valide){
+            throw new BLLException(sb.toString());
+        }
+    }
 }
