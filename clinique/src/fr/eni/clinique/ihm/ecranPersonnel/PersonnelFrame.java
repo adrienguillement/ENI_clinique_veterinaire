@@ -8,6 +8,7 @@ import java.util.List;
 
 public class PersonnelFrame extends JInternalFrame{
     private PersonnelTable personnelTable;
+    private JButton ajouter,modifier,supprimer;
 
     public PersonnelFrame(){
         //Ecran avec un titre, redimensionable, fermable, agrandissable, iconifiable
@@ -39,9 +40,9 @@ public class PersonnelFrame extends JInternalFrame{
 
     private JPanel getPanelButton(){
         JPanel panelButton = new JPanel();
-        panelButton.add(new JButton("Ajouter"));
-        panelButton.add(new JButton("Modifier"));
-        panelButton.add(new JButton("Supprimer"));
+        ajouter = new JButton("Ajouter");
+        modifier = new JButton("Modifier");
+        supprimer = new JButton("Supprimer");
         return panelButton;
     }
 }
