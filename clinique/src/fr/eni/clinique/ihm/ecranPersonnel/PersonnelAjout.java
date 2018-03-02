@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PersonnelAjout {
+public class PersonnelAjout extends JDialog{
     private JLabel nomLabel, roleLabel, motPasseLabel;
     private JTextField nomTextField, roleTextField;
     private JPasswordField motPasse;
@@ -18,11 +18,13 @@ public class PersonnelAjout {
     private Personnel personnel;
     private PersonnelManager personnelManager;
 
-    public PersonnelAjout(){
-        setAjoutPersonnel();
-    }
 
-    private void setAjoutPersonnel() {
+    public PersonnelAjout(Frame parent) {
+        super(parent, "Ajout personnel", true);
+        //
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         nomLabel = new JLabel("nom: ");
         nomTextField = new JTextField(10);
@@ -36,10 +38,6 @@ public class PersonnelAjout {
         valider = new JButton("valider");
         annuler = new JButton("annuler");
 
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(20, 10,10,10);
         gbc.gridwidth = 1;
 
@@ -82,6 +80,7 @@ public class PersonnelAjout {
                     personnel = new Personnel(nomTextField.getText(), SHA512.getSHA512(motPasse.getText(), "toto"), roleTextField.getText(), false);
                     personnelManager = new PersonnelManager();
                     personnelManager.insertPersonnel(personnel);
+                    dispose();
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                 }
@@ -90,8 +89,16 @@ public class PersonnelAjout {
         annuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                dispose();
             }
         });
+        getContentPane().add(panel, BorderLayout.CENTER);
+
+        pack();
+        setResizable(false);
+        setLocationRelativeTo(parent);
+        this.setContentPane(panel);
+        this.setVisible(true);
     }
+
 }

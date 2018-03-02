@@ -44,9 +44,8 @@ public class PersonnelFrame extends JInternalFrame{
     }
 
     public PersonnelAjout getPersonnelAjout(){
-        if(personnelAjout==null){
-            personnelAjout = new PersonnelAjout();
-        }
+        final JFrame frame = new JFrame("Authentification");
+        personnelAjout = new PersonnelAjout(frame);
         return personnelAjout;
     }
 
@@ -56,8 +55,8 @@ public class PersonnelFrame extends JInternalFrame{
         ajouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("ouverture ajout personnel");
                 getPersonnelAjout();
+                System.out.println("ouverture ajout personnel");
             }
         });
         modifier = new JButton("Modifier");
