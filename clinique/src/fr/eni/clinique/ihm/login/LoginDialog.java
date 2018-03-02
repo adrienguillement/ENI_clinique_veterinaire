@@ -13,8 +13,6 @@ public class LoginDialog extends JDialog {
     private JLabel lbUsername;
     private JLabel lbPassword;
     private JButton btnLogin;
-    private JButton btnCancel;
-    private boolean succeeded;
 
     public LoginDialog(Frame parent) {
         super(parent, "Login", true);
@@ -44,7 +42,7 @@ public class LoginDialog extends JDialog {
 
         pfPassword = new JPasswordField(20);
         cs.gridx = 1;
-        cs.gridy = 1;
+        cs.gridy = 2;
         cs.gridwidth = 2;
         panel.add(pfPassword, cs);
         panel.setBorder(new LineBorder(Color.GRAY));
@@ -55,7 +53,9 @@ public class LoginDialog extends JDialog {
 
             public void actionPerformed(ActionEvent e) {
                 login.connect(getUsername(), getPassword());
-                dispose();
+                if(login.getConnectionSucceed()){
+                    dispose();
+                }
             }
         });
 
