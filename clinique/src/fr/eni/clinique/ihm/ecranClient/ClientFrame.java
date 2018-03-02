@@ -24,21 +24,27 @@ public class ClientFrame extends JInternalFrame {
 
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setBounds(0, 0, 900, 600);
-        setContentPane(getPanelClient(idClient));
+        setContentPane(getPanelSearchClient());
     }
 
     /**
      * Initialisation panel client
      * @return
      */
-    private JPanel getPanelClient(int idClient) {
+    private JPanel getPanelSearchClient() {
         JPanel panelClient = new JPanel();
         panelClient.setOpaque(true);
         panelClient.setLayout(new BorderLayout());
         panelClient.add(getPanelSearchButton(), BorderLayout.PAGE_START);
         panelClient.add(getPanelSearch(), BorderLayout.LINE_START);
-
         return panelClient;
+    }
+
+    private JPanel getPanelClient(int idClient){
+        JPanel panel = new JPanel();
+        panel.add(getPanelButton());
+        panel.setVisible(true);
+        return panel;
     }
 
     /**
@@ -77,17 +83,19 @@ public class ClientFrame extends JInternalFrame {
 
         if(rechercherField.getText().trim().length() != 0) {
             System.out.println("rechercherField non null" + rechercherField.getText());
-            panelSearch = new ClientTable(rechercherField.getText());
+            panelSearch = new ClientTable(this, rechercherField.getText());
 
         } else {
-            panelSearch = new ClientTable();
+            panelSearch = new ClientTable(this);
         }
 
         return panelSearch;
     }
 
-    public static void getSelectedClientFromTable(Client client){
-        System.out.println(client.toString());
+    public void getClientSelected(Client client){
+        this.getPanelSearch().setVisible(false);
+        getPanelClient(client.getCode());
     }
+
 
 }

@@ -12,8 +12,11 @@ public class ClientTable extends JTable {
 
     private Client clientSelected;
     private ClientTableModel model;
+    private ClientFrame clientFrame;
+    public boolean click = false;
 
-    public ClientTable(){
+    public ClientTable(ClientFrame clientFrame){
+        this.clientFrame = clientFrame;
         try {
             CltManager clientManager = new CltManager();
 
@@ -26,7 +29,8 @@ public class ClientTable extends JTable {
         }
     }
 
-    public ClientTable(String searchValue){
+    public ClientTable(ClientFrame clientFrame, String searchValue){
+        this.clientFrame = clientFrame;
         try {
             CltManager clientManager = new CltManager();
 
@@ -49,7 +53,8 @@ public class ClientTable extends JTable {
                 try {
                     clientSelected = clientManager.getClientById(codeClient);
                     clientSelected.setCode(codeClient);
-                    ClientFrame.getSelectedClientFromTable(clientSelected);
+                    clientFrame.getClientSelected(clientSelected);
+                    click = true;
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                 }
@@ -57,4 +62,7 @@ public class ClientTable extends JTable {
         });
     }
 
+    public Client getClientSelected() {
+        return clientSelected;
+    }
 }

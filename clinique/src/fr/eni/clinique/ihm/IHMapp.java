@@ -52,7 +52,6 @@ public class IHMapp extends JFrame implements ActionListener {
         //Frame interne exemple
         desktopPane.add(getPersonnelFrame());
         desktopPane.add(getClientSearch());
-
     }
 
     // Lancement de l'application
