@@ -1,10 +1,21 @@
 package fr.eni.clinique.dal;
 
+import fr.eni.clinique.dal.JDBC.AnimalDAOJdbcImpl;
 import fr.eni.clinique.dal.JDBC.ConnectionDAOJdbcImpl;
 import fr.eni.clinique.dal.JDBC.ClientDAOJdbcImpl;
 import fr.eni.clinique.dal.JDBC.PersonneDAOJdbcImpl;
 
 public class DAOFactory {
+
+    public static DAOAnimal getAnimalDAO(){
+        DAOAnimal animalDAO = null;
+        try{
+            animalDAO = new AnimalDAOJdbcImpl();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return animalDAO;
+    }
 
     public static DAORace getRaceDAO()  {
         DAORace racesDAO=null;

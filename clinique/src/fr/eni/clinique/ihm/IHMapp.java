@@ -1,7 +1,9 @@
 package fr.eni.clinique.ihm;
 
+import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelFrame;
+import fr.eni.clinique.ihm.login.LoginDialog;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,8 +20,17 @@ public class IHMapp extends JFrame implements ActionListener {
     private JMenuBar menuBarre;
     private JMenu menuAgenda;
     private PersonnelFrame personnelFrame;
+
+    private static Personnel utilisateurEnCours;
+    private static IHMapp instance;
     private ClientFrame clientFrame;
 
+    public static IHMapp getInstance(){
+        if(IHMapp.instance == null){
+            IHMapp.instance = new IHMapp();
+        }
+        return IHMapp.instance;
+    }
 
     public IHMapp() {
 
@@ -51,6 +62,11 @@ public class IHMapp extends JFrame implements ActionListener {
             public void run() {
                 IHMapp ecran = new IHMapp();
 
+                //JDialog pour login (modal)
+                final JFrame frame = new JFrame("Authentification");
+                LoginDialog loginDlg = new LoginDialog(frame);
+                loginDlg.setVisible(true);
+
                 JDialog login = new JDialog(ecran, "fezfez", Dialog.ModalityType.DOCUMENT_MODAL);
                 login.setModal(true);
                 ecran.setVisible(true);
@@ -58,6 +74,7 @@ public class IHMapp extends JFrame implements ActionListener {
         });
 
     }
+
 
     public void createMenuBar() {
 
@@ -111,7 +128,6 @@ public class IHMapp extends JFrame implements ActionListener {
             case "fermer":
                 System.exit(0);
                 break;
-
             case "gestionPersonnel":
                 getPersonnelFrame().setVisible(true);
                 break;
@@ -149,6 +165,10 @@ public class IHMapp extends JFrame implements ActionListener {
         return personnelFrame;
     }
 
+    public void setUtilisateurEnCours(Personnel utilisateurEnCours) {
+        this.utilisateurEnCours = utilisateurEnCours;
+    }
+
     /**
      * Getter frame client
      * @return
@@ -159,6 +179,5 @@ public class IHMapp extends JFrame implements ActionListener {
         }
         return clientFrame;
     }
-
 
 }
