@@ -63,15 +63,15 @@ public class CltManager {
         return clients;
     }
 
-    public List<Client> getClientById(int id) throws  BLLException {
-        List<Client> clients = null;
+    public Client getClientById(int id) throws  BLLException {
+        Client client = null;
 
         try {
-            clients = daoClient.selectById(id);
+            client = daoClient.selectById(id);
         } catch (DALException e) {
             e.printStackTrace();
         }
-        return clients;
+        return client;
     }
 
     /**

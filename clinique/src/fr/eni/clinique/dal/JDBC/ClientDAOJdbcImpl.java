@@ -197,13 +197,13 @@ public class ClientDAOJdbcImpl implements DAOClient {
      * @return
      * @throws DALException
      */
-    public List<Client> selectById(int idClient) throws DALException {
+    public Client selectById(int idClient) throws DALException {
 
         Connection cnx = null;
         PreparedStatement rqt = null;
         ResultSet rs = null;
 
-        List<Client> listeClients = new ArrayList<Client>();
+        Client client = null;
 
         try{
             cnx = JdbcTools.getConnection();
@@ -211,9 +211,9 @@ public class ClientDAOJdbcImpl implements DAOClient {
             rqt.setInt(1, idClient);
             rs = rqt.executeQuery();
 
-            Client client = null;
 
-            while(rs.next()){
+
+            if(rs.next()){
                 client = new Client(rs.getInt("codeClient"),
                         rs.getString("nomClient"),
                         rs.getString("prenomClient"),
@@ -226,7 +226,6 @@ public class ClientDAOJdbcImpl implements DAOClient {
                         rs.getString("email"),
                         rs.getString("remarque"),
                         rs.getBoolean("archive"));
-                listeClients.add(client);
             }
         } catch (SQLException e) {
             throw new DALException("selectByID failed - " , e);
@@ -245,6 +244,6 @@ public class ClientDAOJdbcImpl implements DAOClient {
                 throw new DALException("close failed " , e);
             }
         }
-        return listeClients;
+        return client;
     }
 }

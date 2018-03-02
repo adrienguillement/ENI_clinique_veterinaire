@@ -3,7 +3,6 @@ package fr.eni.clinique.ihm.login;
 import fr.eni.clinique.bll.ConnectionManager;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.ihm.GeneralController;
 import fr.eni.clinique.ihm.IHMapp;
 
 import javax.swing.*;
