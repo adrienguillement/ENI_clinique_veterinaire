@@ -25,6 +25,7 @@ public class PersonnelAjout extends JDialog{
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.CENTER;
 
         nomLabel = new JLabel("nom: ");
         nomTextField = new JTextField(10);

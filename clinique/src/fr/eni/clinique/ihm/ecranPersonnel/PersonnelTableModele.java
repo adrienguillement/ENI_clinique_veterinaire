@@ -6,7 +6,12 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class PersonnelTableModele extends AbstractTableModel{
-    private final List<Personnel> personnels;
+    private List<Personnel> personnels;
+
+    public void setPersonnels(List<Personnel> personnels) {
+        this.personnels = personnels;
+        fireTableDataChanged();
+    }
 
     public PersonnelTableModele(List<Personnel> personnels){
         this.personnels = personnels;
