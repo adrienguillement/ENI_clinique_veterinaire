@@ -12,7 +12,7 @@ public class ClientFrame extends JInternalFrame {
 
     private JButton ajouter, rechercher;
     private JTextField rechercherField;
-    private ClientForm panelForm;
+    private ClientTable panelSearch;
 
 
     /**
@@ -33,10 +33,8 @@ public class ClientFrame extends JInternalFrame {
     private JPanel getPanelClient(int idClient) {
         JPanel panelClient = new JPanel();
         panelClient.setOpaque(true);
-        panelClient.setLayout(new BorderLayout());
-        panelClient.add(getPanelButton(), BorderLayout.PAGE_START);
-        panelClient.add(getPanelForm(idClient), BorderLayout.LINE_START);
-        panelClient.add(new JLabel("cc"), BorderLayout.LINE_END);
+
+        panelClient.add(getPanelSearch(), BorderLayout.LINE_START);
         return panelClient;
     }
 
@@ -47,13 +45,11 @@ public class ClientFrame extends JInternalFrame {
     private JPanel getPanelButton() {
         JPanel panelBoutton = new JPanel();
 
-        //Boutton ajouter
+        // Bouton ajouter
         ajouter = new JButton("Ajouter client");
         ajouter.addActionListener(e -> System.out.println("Ajouter client"));
 
-        //Champ et boutton rechercher
-        rechercherField = new JTextField();
-        rechercherField.setPreferredSize(new Dimension(150,25));
+        // Bouton rechercher
         rechercher = new JButton("Rechercher client");
         rechercher.addActionListener(e -> System.out.println("rechercher client"));
 
@@ -63,10 +59,10 @@ public class ClientFrame extends JInternalFrame {
         return panelBoutton;
     }
 
-    private ClientForm getPanelForm(int idClient) {
-        if(panelForm == null) {
-            panelForm = new ClientForm(idClient);
+    private ClientTable getPanelSearch() {
+        if(panelSearch == null) {
+            panelSearch = new ClientTable();
         }
-        return panelForm;
+        return panelSearch;
     }
 }

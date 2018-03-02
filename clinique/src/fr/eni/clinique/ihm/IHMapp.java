@@ -2,7 +2,7 @@ package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
-import fr.eni.clinique.ihm.ecranClient.ClientSearch;
+import fr.eni.clinique.ihm.ecranClient.ClientTable;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelFrame;
 import fr.eni.clinique.ihm.login.LoginDialog;
 
@@ -24,7 +24,7 @@ public class IHMapp extends JFrame implements ActionListener {
 
     private static Personnel utilisateurEnCours;
     private static IHMapp instance;
-    private ClientSearch clientSearch;
+    private ClientFrame clientPanel;
 
     public static IHMapp getInstance(){
         if(IHMapp.instance == null){
@@ -174,11 +174,11 @@ public class IHMapp extends JFrame implements ActionListener {
      * Getter frame client
      * @return
      */
-    public ClientSearch getClientSearch() {
-        if(clientSearch == null) {
-            clientSearch = new ClientSearch();
+    public ClientFrame getClientSearch() {
+        if(clientPanel == null) {
+            clientPanel = new ClientFrame(2);
         }
-        return clientSearch;
+        return clientPanel;
     }
 
 }
