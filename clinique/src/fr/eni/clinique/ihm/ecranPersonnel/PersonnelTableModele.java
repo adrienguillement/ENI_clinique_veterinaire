@@ -19,7 +19,7 @@ public class PersonnelTableModele extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -27,9 +27,12 @@ public class PersonnelTableModele extends AbstractTableModel{
         Object ret = null;
         switch (columnIndex){
             case 0:
-                ret=personnels.get(rowIndex).getNom();
+                ret=personnels.get(rowIndex).getCodePers();
                 break;
             case 1:
+                ret=personnels.get(rowIndex).getNom();
+                break;
+            case 2:
                 ret=personnels.get(rowIndex).getRole();
                 break;
         }
