@@ -112,7 +112,7 @@ public class IHMapp extends JFrame implements ActionListener {
         menuGestionRDV.add(menuGestionClient);
 
         // Menu personnel
-        menuItem = new JMenuItem("Gestion Personnel");
+        menuItem = new JMenuItem("Gestion du Personnel");
         menuBarre.add(menuItem);
         menuItem.setActionCommand("gestionPersonnel");
         menuItem.addActionListener(this);
@@ -161,7 +161,7 @@ public class IHMapp extends JFrame implements ActionListener {
 
     public PersonnelFrame getPersonnelFrame() {
         if(personnelFrame== null){
-            personnelFrame = new PersonnelFrame();
+            personnelFrame = new PersonnelFrame(this);
         }
         return personnelFrame;
     }

@@ -6,7 +6,12 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class PersonnelTableModele extends AbstractTableModel{
-    private final List<Personnel> personnels;
+    private List<Personnel> personnels;
+
+    public void setPersonnels(List<Personnel> personnels) {
+        this.personnels = personnels;
+        fireTableDataChanged();
+    }
 
     public PersonnelTableModele(List<Personnel> personnels){
         this.personnels = personnels;
@@ -19,7 +24,7 @@ public class PersonnelTableModele extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -27,9 +32,12 @@ public class PersonnelTableModele extends AbstractTableModel{
         Object ret = null;
         switch (columnIndex){
             case 0:
-                ret=personnels.get(rowIndex).getNom();
+                ret=personnels.get(rowIndex).getCodePers();
                 break;
             case 1:
+                ret=personnels.get(rowIndex).getNom();
+                break;
+            case 2:
                 ret=personnels.get(rowIndex).getRole();
                 break;
         }

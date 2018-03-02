@@ -14,13 +14,16 @@ public class PersonnelFrame extends JInternalFrame{
     private PersonnelTable personnelTable;
     private PersonnelAjout personnelAjout;
     private JButton ajouter,modifier,supprimer;
+    private JFrame parent;
 
-    public PersonnelFrame(){
+    public PersonnelFrame(JFrame parent){
         //Ecran avec un titre, redimensionable, fermable, agrandissable, iconifiable
-        super("Personnel", true, true, true,true);
-
+        super("Gestion du Personnel", true, true, true,true);
+        this.parent = parent;
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-        setBounds(100, 100,400, 200);
+        //setBounds(100, 100,400, 600);
+        setLayout(null);
+        setSize(400,600);
         setContentPane(getPanelPersonnel());
     }
 
@@ -31,24 +34,35 @@ public class PersonnelFrame extends JInternalFrame{
         JPanel panel_personnel = new JPanel();
         panel_personnel.setOpaque(true);
         panel_personnel.setLayout(new FlowLayout());
-        panel_personnel.add(getPanelButton());
         panel_personnel.add(getPersonnelTable());
+        panel_personnel.add(getPanelButton());
         return panel_personnel;
     }
 
     public PersonnelTable getPersonnelTable() {
-        if(personnelTable==null){
-            personnelTable = new PersonnelTable();
-        }
+        //if(personnelTable==null){
+            personnelTable = PersonnelTable.getInstance();
+        //}
         return personnelTable;
     }
 
     public PersonnelAjout getPersonnelAjout(){
-        final JFrame frame = new JFrame("Authentification");
-        personnelAjout = new PersonnelAjout(frame);
+        personnelAjout = new PersonnelAjout(parent);
+        PersonnelManager personnelManager = null;
+        try {
+            personnelManager = new PersonnelManager();
+            getPersonnelTable().getModele().setPersonnels(personnelManager.getPersonnels());
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
+
         return personnelAjout;
     }
 
+    /**
+     * Panel modale d'ajout de personnel
+     * @return
+     */
     private JPanel getPanelButton(){
         JPanel panelButton = new JPanel();
         ajouter = new JButton("Ajouter");
