@@ -1,18 +1,13 @@
 package fr.eni.clinique.ihm;
 
+import fr.eni.clinique.ihm.ecranClient.ClientFrame;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelFrame;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 
 public class IHMapp extends JFrame implements ActionListener {
@@ -23,6 +18,7 @@ public class IHMapp extends JFrame implements ActionListener {
     private JMenuBar menuBarre;
     private JMenu menuAgenda;
     private PersonnelFrame personnelFrame;
+    private ClientFrame clientFrame;
 
 
     public IHMapp() {
@@ -43,6 +39,7 @@ public class IHMapp extends JFrame implements ActionListener {
 
         //Frame interne exemple
         desktopPane.add(getPersonnelFrame());
+        desktopPane.add(getClientFrame());
 
     }
 
@@ -54,8 +51,8 @@ public class IHMapp extends JFrame implements ActionListener {
             public void run() {
                 IHMapp ecran = new IHMapp();
 
-
-
+                JDialog login = new JDialog(ecran, "fezfez", Dialog.ModalityType.DOCUMENT_MODAL);
+                login.setModal(true);
                 ecran.setVisible(true);
             }
         });
@@ -80,7 +77,23 @@ public class IHMapp extends JFrame implements ActionListener {
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        // Menu Agenda
+        // Menu Gestion RDV
+        JMenu menuGestionRDV = new JMenu("Gestion rendez vous");
+        menuBarre.add(menuGestionRDV);
+
+        // Sous menu prise rdv
+        JMenuItem menuItemPriseRDV = new JMenuItem("Prise de rendez vous");
+        menuItemPriseRDV.setActionCommand("priseRdv");
+        menuItemPriseRDV.addActionListener(this);
+        menuGestionRDV.add(menuItemPriseRDV);
+
+        // Sous menu gestion client
+        JMenuItem menuGestionClient = new JMenuItem("Gestion des clients");
+        menuGestionClient.setActionCommand("gestionClient");
+        menuGestionClient.addActionListener(this);
+        menuGestionRDV.add(menuGestionClient);
+
+        // Menu personnel
         menuItem = new JMenuItem("Gestion Personnel");
         menuBarre.add(menuItem);
         menuItem.setActionCommand("gestionPersonnel");
@@ -102,6 +115,13 @@ public class IHMapp extends JFrame implements ActionListener {
             case "gestionPersonnel":
                 getPersonnelFrame().setVisible(true);
                 break;
+
+            case "priseRdv":
+                System.out.println("oui");
+                break;
+
+            case "gestionClient":
+                getClientFrame().setVisible(true);
 
             default:
                 System.out.println("Probleme e=" + e);
@@ -127,6 +147,17 @@ public class IHMapp extends JFrame implements ActionListener {
             personnelFrame = new PersonnelFrame();
         }
         return personnelFrame;
+    }
+
+    /**
+     * Getter frame client
+     * @return
+     */
+    public ClientFrame getClientFrame() {
+        if(clientFrame == null) {
+            clientFrame = new ClientFrame();
+        }
+        return clientFrame;
     }
 
 
