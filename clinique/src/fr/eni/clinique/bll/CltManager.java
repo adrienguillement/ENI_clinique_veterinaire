@@ -8,11 +8,24 @@ import java.util.List;
 
 public class CltManager {
 
+    private Client selected;
     private static DAOClient daoClient;
 
     public CltManager() throws BLLException{
 
         daoClient = DAOFactory.getClientDAO();
+    }
+
+    public List<Client> searchClient(String searchValue) throws BLLException {
+        List<Client> clients = null;
+
+        try {
+            clients = daoClient.searchClient(searchValue);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+
+        return clients;
     }
 
     /**

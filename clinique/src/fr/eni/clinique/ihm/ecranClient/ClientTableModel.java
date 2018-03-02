@@ -42,4 +42,8 @@ public class ClientTableModel extends AbstractTableModel {
         }
         return data;
     }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
 }
