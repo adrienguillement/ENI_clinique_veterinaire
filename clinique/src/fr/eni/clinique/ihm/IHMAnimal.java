@@ -17,7 +17,6 @@ public class IHMAnimal extends JFrame{
     //GLOBAL
     private AnimalManager animalManager;
     private RaceManager raceManager;
-    //private ModeleDynamiqueObjetAnimal modele = new ModeleDynamiqueObjetAnimal();
 
     //SetIHMAjoutOuModification
     private JLabel clientLabel, codeLabel, nomLabel, couleurLabel, especeLabel, raceLabel, tatouageLabel, sexeLabel;
@@ -51,9 +50,9 @@ public class IHMAnimal extends JFrame{
             e.printStackTrace();
         }
 
-        //List<Animal> animaux = animalManager.getListeAnimaux();
+        List<Animal> animaux = animalManager.getListeAnimaux();
 
-        setIHMAnimal(null);
+        setIHMAnimal(animaux);
     }
 
     private void setIHMAjoutOuModifcationAnimal(Animal animal, Boolean estModification){
@@ -75,7 +74,7 @@ public class IHMAnimal extends JFrame{
     }
 
 
-    private void setIHMAnimal(List<Animal> Animaux) {
+    private void setIHMAnimal(List<Animal> animaux) {
         this.setTitle("Liste animaux pour 1 client ");
         this.setSize(new Dimension(400,200));
         this.setLocationRelativeTo(null);
@@ -92,7 +91,9 @@ public class IHMAnimal extends JFrame{
                 {1, "Ludo", "M", "Bleu", "Labrador", "Chien"},
                 {21, "Jack Souslo", "F", "Violet", "Poisson papillon", "Poisson"},
         };
-        table = new JTable(data, columns);
+
+        //TODO: Creation de la classe model
+        //table = new JTable(animaux);
         //add the table to the frame
         this.add(new JScrollPane(table));
 
