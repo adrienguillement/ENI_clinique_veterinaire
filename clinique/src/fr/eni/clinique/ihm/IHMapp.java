@@ -1,18 +1,15 @@
 package fr.eni.clinique.ihm;
 
+import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelFrame;
+import fr.eni.clinique.ihm.login.LoginDialog;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 
 public class IHMapp extends JFrame implements ActionListener {
@@ -23,7 +20,15 @@ public class IHMapp extends JFrame implements ActionListener {
     private JMenuBar menuBarre;
     private JMenu menuAgenda;
     private PersonnelFrame personnelFrame;
+    private static Personnel utilisateurEnCours;
+    private static IHMapp instance;
 
+    public static IHMapp getInstance(){
+        if(IHMapp.instance == null){
+            IHMapp.instance = new IHMapp();
+        }
+        return IHMapp.instance;
+    }
 
     public IHMapp() {
 
@@ -55,12 +60,17 @@ public class IHMapp extends JFrame implements ActionListener {
                 IHMapp ecran = new IHMapp();
 
 
+                //JDialog pour login (modal)
+                final JFrame frame = new JFrame("Authentification");
+                LoginDialog loginDlg = new LoginDialog(frame);
+                loginDlg.setVisible(true);
 
                 ecran.setVisible(true);
             }
         });
 
     }
+
 
     public void createMenuBar() {
 
@@ -98,11 +108,9 @@ public class IHMapp extends JFrame implements ActionListener {
             case "fermer":
                 System.exit(0);
                 break;
-
             case "gestionPersonnel":
                 getPersonnelFrame().setVisible(true);
                 break;
-
             default:
                 System.out.println("Probleme e=" + e);
         }
@@ -129,5 +137,7 @@ public class IHMapp extends JFrame implements ActionListener {
         return personnelFrame;
     }
 
-
+    public void setUtilisateurEnCours(Personnel utilisateurEnCours) {
+        this.utilisateurEnCours = utilisateurEnCours;
+    }
 }
