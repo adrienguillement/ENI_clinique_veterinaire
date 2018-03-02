@@ -28,11 +28,11 @@ public class PersonnelFrame extends JInternalFrame{
 
     //PANEL PERSONNEL
     public JPanel getPanelPersonnel(){
-            JPanel panel_personnel = new JPanel();
-            panel_personnel.setOpaque(true);
-            panel_personnel.setLayout(new FlowLayout());
-            panel_personnel.add(getPersonnelTable());
-            panel_personnel.add(getPanelButton());
+        JPanel panel_personnel = new JPanel();
+        panel_personnel.setOpaque(true);
+        panel_personnel.setLayout(new FlowLayout());
+        panel_personnel.add(getPanelButton());
+        panel_personnel.add(getPersonnelTable());
         return panel_personnel;
     }
 
