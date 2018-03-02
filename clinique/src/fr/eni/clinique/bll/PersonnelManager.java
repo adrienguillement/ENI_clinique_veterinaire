@@ -41,6 +41,14 @@ public class PersonnelManager {
         return personnel;
     }
 
+    public void deletePersonnel(Personnel personnel) throws BLLException{
+        try{
+            daoPersonnel.delete(personnel);
+        }catch (DALException e){
+            throw new BLLException("echec delete personnel: "+ personnel, e);
+        }
+    }
+
     public void validerPersonnel(Personnel personnel) throws BLLException{
         boolean valide = true;
         StringBuffer sb = new StringBuffer();
