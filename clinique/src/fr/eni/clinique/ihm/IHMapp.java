@@ -2,6 +2,7 @@ package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
+import fr.eni.clinique.ihm.ecranClient.ClientTable;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelFrame;
 import fr.eni.clinique.ihm.login.LoginDialog;
 
@@ -23,7 +24,7 @@ public class IHMapp extends JFrame implements ActionListener {
 
     private static Personnel utilisateurEnCours;
     private static IHMapp instance;
-    private ClientFrame clientFrame;
+    private ClientFrame clientPanel;
 
     public static IHMapp getInstance(){
         if(IHMapp.instance == null){
@@ -37,7 +38,7 @@ public class IHMapp extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds(0, 0, screenSize.width, screenSize.height);
+        setBounds(0, 0, 900, 700);
 
         // initialiser l'ecran MDI
         desktopPane = new JDesktopPane();
@@ -50,7 +51,7 @@ public class IHMapp extends JFrame implements ActionListener {
 
         //Frame interne exemple
         desktopPane.add(getPersonnelFrame());
-        desktopPane.add(getClientFrame());
+        desktopPane.add(getClientSearch());
 
     }
 
@@ -137,7 +138,7 @@ public class IHMapp extends JFrame implements ActionListener {
                 break;
 
             case "gestionClient":
-                getClientFrame().setVisible(true);
+                getClientSearch().setVisible(true);
 
             default:
                 System.out.println("Probleme e=" + e);
@@ -173,11 +174,11 @@ public class IHMapp extends JFrame implements ActionListener {
      * Getter frame client
      * @return
      */
-    public ClientFrame getClientFrame() {
-        if(clientFrame == null) {
-            clientFrame = new ClientFrame();
+    public ClientFrame getClientSearch() {
+        if(clientPanel == null) {
+            clientPanel = new ClientFrame(2);
         }
-        return clientFrame;
+        return clientPanel;
     }
 
 }
