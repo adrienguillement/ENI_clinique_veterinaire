@@ -75,6 +75,12 @@ public class PersonnelFrame extends JInternalFrame{
         });
         modifier = new JButton("Modifier");
         supprimer = new JButton("Supprimer");
+        supprimer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
 
         panelButton.add(ajouter);
         panelButton.add(modifier);
