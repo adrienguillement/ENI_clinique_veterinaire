@@ -30,6 +30,7 @@ public class PersonnelTableModele extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object ret = null;
+        System.out.println(this.getRowCount());
         switch (columnIndex){
             case 0:
                 ret=personnels.get(rowIndex).getCodePers();
