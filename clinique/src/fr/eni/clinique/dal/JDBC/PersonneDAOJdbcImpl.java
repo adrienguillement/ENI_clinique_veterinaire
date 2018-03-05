@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonneDAOJdbcImpl implements DAOPersonne{
-    private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnel";
+    private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnel WHERE Archive=0 ORDER BY CodePers ASC";
     private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where Nom= ?";
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where CodePers= ?";
     private static final String insert = "insert into Personnel(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
-    private static final String update = "update Personnel set Nom=?, MotPasse=?,Role=?,Archive=? where CodePers=?";
-    private static final String delete = "delete from Personnel where CodePers=?";
+    private static final String update = "update Personnel set Nom=?, MotPasse=?,Role=? where CodePers=?";
+    private static final String delete = "update Personnel set Archive=1 where CodePers=?";
 
     public List<Personnel> selectAll() throws DALException{
         Connection cnx = null;
@@ -136,6 +136,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return personnel;
     }
 
+
     public Personnel insert(Object data) throws DALException{
         Personnel personnel = (Personnel)data;
         Connection cnx = null;
@@ -172,8 +173,8 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return personnel;
     }
 
-    public void update(Object data) throws DALException{
-        Personnel personnel = (Personnel)data;
+    public void update(Personnel personnel) throws DALException{
+        //Personnel personnel = (Personnel)data;
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
@@ -182,7 +183,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
             stt.setString(1, personnel.getNom());
             stt.setString(2, personnel.getMotPasse());
             stt.setString(3, personnel.getRole());
-            stt.setBoolean(4, personnel.isArchive());
+            stt.setInt(4,personnel.getCodePers());
 
             stt.executeUpdate();
         } catch (SQLException e){
