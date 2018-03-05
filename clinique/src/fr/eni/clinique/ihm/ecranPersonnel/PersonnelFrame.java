@@ -66,12 +66,9 @@ public class PersonnelFrame extends JInternalFrame{
     private JPanel getPanelButton(){
         JPanel panelButton = new JPanel();
         ajouter = new JButton("Ajouter");
-        ajouter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                getPersonnelAjout();
-                System.out.println("ouverture ajout personnel");
-            }
+        ajouter.addActionListener(e -> {
+            getPersonnelAjout();
+            System.out.println("ouverture ajout personnel");
         });
         modifier = new JButton("Modifier");
         supprimer = new JButton("Supprimer");

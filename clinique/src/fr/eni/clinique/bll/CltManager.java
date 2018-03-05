@@ -76,6 +76,7 @@ public class CltManager {
         return clients;
     }
 
+
     public Client getClientById(int id) throws  BLLException {
         Client client = null;
 

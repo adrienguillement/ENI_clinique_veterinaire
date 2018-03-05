@@ -180,7 +180,7 @@ public class IHMapp extends JFrame implements ActionListener {
      */
     public ClientFrame getClientSearch() {
         if(clientPanel == null) {
-            clientPanel = new ClientFrame(2);
+            clientPanel = new ClientFrame(this);
         }
         return clientPanel;
     }
