@@ -2,13 +2,9 @@ package fr.eni.clinique.ihm.ecranClient;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.CltManager;
-import fr.eni.clinique.ihm.login.login;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ClientSearchDialog extends JDialog {
 
@@ -32,9 +28,10 @@ public class ClientSearchDialog extends JDialog {
         rechercher.addActionListener(e -> {
             try {
                 CltManager clientManager = new CltManager();
+
+                System.out.println(clientManager.searchClient(rechercherField.getText()));
                 getClientTable().getModele().setClients(clientManager.searchClient(rechercherField.getText()));
                 System.out.println(getClientTable().getModele().getClients());
-                getClientTable().getModele().fireTableDataChanged();
 
             } catch (BLLException e1) {
                 e1.printStackTrace();
