@@ -248,6 +248,11 @@ public class ClientDAOJdbcImpl implements DAOClient {
 
     }
 
+    @Override
+    public void delete(Object data) throws DALException {
+
+    }
+
     /**
      * Retourne un client en fonction de l'ID
      * @param idClient

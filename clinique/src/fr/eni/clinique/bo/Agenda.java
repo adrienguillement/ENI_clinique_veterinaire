@@ -1,6 +1,7 @@
 package fr.eni.clinique.bo;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class Agenda {
     private int codeVeto;

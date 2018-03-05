@@ -62,6 +62,11 @@ public class RaceDAOJdbcImpl implements DAORace {
 
     }
 
+    @Override
+    public void delete(Object data) throws DALException {
+
+    }
+
     public Race selectByRace(String uneRace){
         Connection cnx = null;
         PreparedStatement rqt = null;
