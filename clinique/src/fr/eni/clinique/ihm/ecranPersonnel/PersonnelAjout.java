@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 public class PersonnelAjout extends JDialog{
     private JLabel nomLabel, roleLabel, motPasseLabel;
     private JTextField nomTextField, roleTextField;
+    private JComboBox roleBox;
     private JPasswordField motPasse;
     private JButton valider, annuler;
     private Personnel personnel;
@@ -26,6 +27,9 @@ public class PersonnelAjout extends JDialog{
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.fill = GridBagConstraints.CENTER;
+
+        Object[] role = new Object[]{"adm", "vet", "sec"};
+        roleBox = new JComboBox(role);
 
         nomLabel = new JLabel("nom: ");
         nomTextField = new JTextField(10);
@@ -56,7 +60,7 @@ public class PersonnelAjout extends JDialog{
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        panel.add(roleTextField, gbc);
+        panel.add(roleBox, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -78,7 +82,8 @@ public class PersonnelAjout extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    personnel = new Personnel(nomTextField.getText(), SHA512.getSHA512(motPasse.getText(), "toto"), roleTextField.getText(), false);
+                    Object selected = roleBox.getSelectedItem();
+                    personnel = new Personnel(nomTextField.getText(), SHA512.getSHA512(motPasse.getText(), "toto"),selected.toString(), false);
                     personnelManager = new PersonnelManager();
                     personnelManager.insertPersonnel(personnel);
                     dispose();
