@@ -96,6 +96,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return personnel;
     }
 
+
     public Personnel selectById(int CodePers) throws DALException{
         Connection cnx = null;
         PreparedStatement stt = null;
@@ -200,18 +201,19 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         }
     }
 
-    public void delete(int CodePers) throws DALException{
+    @Override
+    public void delete(Personnel personnel) throws DALException {
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
             cnx = JdbcTools.getConnection();
             stt = cnx.prepareStatement(delete);
-            stt.setInt(1, CodePers);
+            stt.setInt(1,personnel.getCodePers());
             stt.executeUpdate();
         } catch (SQLException e){
-            throw new DALException("delete personnels failed -", e);
+            throw new DALException("delete personnel failed -", e);
         } finally {
-            try {
+            try{
                 if(stt != null){
                     stt.close();
                 }
