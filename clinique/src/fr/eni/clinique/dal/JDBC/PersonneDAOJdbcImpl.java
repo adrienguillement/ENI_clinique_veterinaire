@@ -96,6 +96,11 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return personnel;
     }
 
+    @Override
+    public void delete(Personnel personnel) throws DALException {
+
+    }
+
     public Personnel selectById(int CodePers) throws DALException{
         Connection cnx = null;
         PreparedStatement stt = null;
@@ -198,6 +203,11 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void delete(Object data) throws DALException {
+
     }
 
     public void delete(int CodePers) throws DALException{
