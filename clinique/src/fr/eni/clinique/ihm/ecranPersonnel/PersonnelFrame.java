@@ -8,11 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class PersonnelFrame extends JInternalFrame{
     private PersonnelTable personnelTable;
     private PersonnelAjout personnelAjout;
+    private PersonnelEdit personnelEdit;
     private JButton ajouter,modifier,supprimer;
     private JFrame parent;
     private Personnel personnel;
@@ -60,6 +60,18 @@ public class PersonnelFrame extends JInternalFrame{
         return personnelAjout;
     }
 
+    public PersonnelEdit getPersonnelEdit(Personnel personnel){
+        personnelEdit = new PersonnelEdit(parent);
+        PersonnelManager personnelManager = null;
+        try{
+            personnelManager = new PersonnelManager();
+            getPersonnelTable().getModele().setPersonnels(personnelManager.getPersonnels());
+        } catch (BLLException e){
+            e.printStackTrace();
+        }
+        return personnelEdit;
+    }
+
     /**
      * Panel modale d'ajout de personnel
      * @return
@@ -78,7 +90,16 @@ public class PersonnelFrame extends JInternalFrame{
         modifier.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try{
+                    int numSelected = PersonnelTable.getInstance().getSelectedRow();
+                    Personnel personnel = PersonnelTable.getInstance().listePersonnels.get(numSelected);
+                    PersonnelManager personnelManager = new PersonnelManager();
+                    getPersonnelEdit(personnel);
+                } catch (BLLException e2){
+                    e2.printStackTrace();
+                }
+                //getPersonnelEdit(personnel);
+                System.out.println("Personnel editer");
             }
         });
         supprimer = new JButton("Supprimer");
