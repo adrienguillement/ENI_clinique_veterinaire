@@ -63,8 +63,6 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         return liste;
     }
 
-    private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where CodeAnimal=?";
-
 
     @Override
     public List<Animal> selectAll() throws DALException {
