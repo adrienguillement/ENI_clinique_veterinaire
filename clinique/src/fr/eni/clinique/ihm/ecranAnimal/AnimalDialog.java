@@ -75,7 +75,8 @@ public class AnimalDialog extends JDialog{
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
-        cs.insets = new Insets(5,5,5,5);
+        cs.insets = new Insets(5, 5, 5, 5);
+
 
         TitledBorder border = new TitledBorder("Client");
         border.setTitleJustification(TitledBorder.CENTER);
