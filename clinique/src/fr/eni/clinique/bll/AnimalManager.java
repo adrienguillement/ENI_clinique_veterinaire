@@ -42,6 +42,7 @@ public class AnimalManager {
 
     public void insert(Animal animal){
         try {
+            System.out.println(animal);
             daoAnimal.insert(animal);
         } catch (DALException e) {
             e.printStackTrace();
@@ -54,5 +55,15 @@ public class AnimalManager {
         } catch (DALException e) {
             e.printStackTrace();
         }
+    }
+
+    public Animal getFromCode(int code) {
+        Animal animal = null;
+        try {
+            animal = daoAnimal.selectByCode(code);
+        } catch (DALException e){
+            e.printStackTrace();
+        }
+        return animal;
     }
 }

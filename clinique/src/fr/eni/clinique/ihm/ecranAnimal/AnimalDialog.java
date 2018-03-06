@@ -5,6 +5,7 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.CltManager;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Race;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
 
@@ -98,11 +99,13 @@ public class AnimalDialog extends JDialog{
             }
 
             clientTextField = new JTextField(client.getNom() + " " + client.getPrenomClient());
-            panel.add(couleurTextField, cs);
+            clientTextField.setEditable(false);
+            panel.add(clientTextField, cs);
         }
         else{
             clientComboBox = new JComboBox();
             panel.add(clientComboBox, cs);
+
         }
 
         codeLabel = new JLabel("Code ");
@@ -112,7 +115,8 @@ public class AnimalDialog extends JDialog{
         panel.add(codeLabel, cs);
 
         cs.gridx = 1;
-        codeTextField = new JTextField(10);
+        codeTextField = new JTextField("automatique à l'insertion");
+        codeTextField.setEditable(false);
         panel.add(codeTextField, cs);
 
         cs.gridx = 0;
@@ -122,7 +126,7 @@ public class AnimalDialog extends JDialog{
 
         cs.gridx = 1;
         nomTextfield = new JTextField(10);
-        panel.add(codeTextField,cs);
+        panel.add(nomTextfield,cs);
 
         //combo box sexe
         cs.gridx = 3;
@@ -163,6 +167,8 @@ public class AnimalDialog extends JDialog{
 
         cs.gridx = 0;
         cs.gridy = 6;
+        //chargement liste clients
+
         ajouterButton = new JButton();
         ajouterButton.addActionListener(new ActionListener() {
             @Override
@@ -174,7 +180,9 @@ public class AnimalDialog extends JDialog{
                     animalManager.update(animal);
                 }
                 else{
-                    animalManager.insert(animal);
+                    Race race = new Race(raceComboBox.getSelectedItem().toString(), especeComboBox.getSelectedItem().toString());
+                    Animal newAnimal = new Animal(nomTextfield.getText(), sexeComboBox.getSelectedItem().toString(), couleurTextField.getText(), race, clientComboBox.getSelectedIndex(), tatouageTextField.getText(), null, false);
+                    animalManager.insert(newAnimal);
                 }
             }
         });

@@ -8,6 +8,7 @@ import java.util.List;
 public interface DAOAnimal extends DAO{
 
     public List<Animal> selectByClient(Client client) throws DALException;
+    public Animal selectByCode(int code) throws DALException;
 
 
 }

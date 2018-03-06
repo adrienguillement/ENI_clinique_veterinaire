@@ -2,6 +2,7 @@ package fr.eni.clinique.ihm.ecranAnimal;
 
 import fr.eni.clinique.bll.AnimalManager;
 import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelTableModele;
 
@@ -9,6 +10,8 @@ import javax.swing.*;
 
 public class AnimalTable extends JTable {
     private AnimalTableModele modele;
+    private Animal animalSelected;
+    private AnimalManager animalManager;
     public AnimalTable(Client client){
         try {
             AnimalManager animalManager = new AnimalManager();
@@ -18,7 +21,6 @@ public class AnimalTable extends JTable {
             e.printStackTrace();
         }
     }
-
     public AnimalTableModele getModele() {
         return modele;
     }
