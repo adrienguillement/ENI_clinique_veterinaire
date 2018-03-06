@@ -42,7 +42,7 @@ public class PersonnelFrame extends JInternalFrame{
 
     public PersonnelTable getPersonnelTable() {
         //if(personnelTable==null){
-            personnelTable = PersonnelTable.getInstance();
+            personnelTable = PersonnelTable.setPersonnelTable();
         //}
         return personnelTable;
     }
@@ -92,8 +92,8 @@ public class PersonnelFrame extends JInternalFrame{
             public void actionPerformed(ActionEvent e) {
 
                 try{
-                    int numSelected = PersonnelTable.getInstance().getSelectedRow();
-                    Personnel personnel = PersonnelTable.getInstance().listePersonnels.get(numSelected);
+                    int numSelected = PersonnelTable.setPersonnelTable().getSelectedRow();
+                    Personnel personnel = PersonnelTable.setPersonnelTable().listePersonnels.get(numSelected);
                     PersonnelManager personnelManager = new PersonnelManager();
                     getPersonnelEdit(personnel);
                     System.out.println(personnel);
@@ -109,8 +109,8 @@ public class PersonnelFrame extends JInternalFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int numSelected = PersonnelTable.getInstance().getSelectedRow();
-                    Personnel personnel = PersonnelTable.getInstance().listePersonnels.get(numSelected);
+                    int numSelected = PersonnelTable.setPersonnelTable().getSelectedRow();
+                    Personnel personnel = PersonnelTable.setPersonnelTable().listePersonnels.get(numSelected);
                     PersonnelManager personnelManager = new PersonnelManager();
                     personnelManager.deletePersonnel(personnel);
                     getPersonnelTable().getModele().setPersonnels(personnelManager.getPersonnels());
