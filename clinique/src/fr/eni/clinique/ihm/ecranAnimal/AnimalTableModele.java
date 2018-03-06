@@ -7,6 +7,7 @@ import java.util.List;
 
 public class AnimalTableModele extends AbstractTableModel {
     private final List<Animal> animaux;
+    private String[] titreColonnes = {"Numero", "Nom", "Sexe", "Couleur", "Race", "Espece", "Tatouage"};
 
     public AnimalTableModele(List<Animal> animaux){
         this.animaux = animaux;
@@ -20,6 +21,11 @@ public class AnimalTableModele extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         return 2;
+    }
+
+    @Override
+    public String getColumnName(int index) {
+        return titreColonnes[index];
     }
 
     @Override
