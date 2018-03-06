@@ -74,6 +74,7 @@ public class IHMapp extends JFrame implements ActionListener {
                 //JDialog pour login (modal)
                 final JFrame frame = new JFrame("Authentification");
                 LoginDialog loginDlg = new LoginDialog(frame);
+                loginDlg.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 loginDlg.setVisible(true);
 
                 JDialog login = new JDialog(ecran, "fezfez", Dialog.ModalityType.DOCUMENT_MODAL);
