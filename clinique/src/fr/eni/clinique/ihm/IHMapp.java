@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm;
 
+import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
@@ -30,14 +31,14 @@ public class IHMapp extends JFrame implements ActionListener {
 
     private PriseRendezVousFrame rendezVousFrame;
 
-    public static IHMapp getInstance(){
+    public static IHMapp getInstance() throws BLLException{
         if(IHMapp.instance == null){
             IHMapp.instance = new IHMapp();
         }
         return IHMapp.instance;
     }
 
-    public IHMapp() {
+    public IHMapp() throws BLLException{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -56,6 +57,7 @@ public class IHMapp extends JFrame implements ActionListener {
         //Frame interne exemple
         desktopPane.add(getPersonnelFrame());
         desktopPane.add(getClientSearch());
+        desktopPane.add(getPriseRendezVousFrame());
     }
 
     // Lancement de l'application
@@ -64,7 +66,12 @@ public class IHMapp extends JFrame implements ActionListener {
 
             @Override
             public void run() {
-                IHMapp ecran = new IHMapp();
+                IHMapp ecran = null;
+                try {
+                    ecran = new IHMapp();
+                } catch (BLLException e) {
+                    e.printStackTrace();
+                }
 
                 //JDialog pour login (modal)
                 final JFrame frame = new JFrame("Authentification");
@@ -137,7 +144,11 @@ public class IHMapp extends JFrame implements ActionListener {
                 break;
 
             case "priseRdv":
-                getPriseRendezVousFrame().setVisible(true);
+                try {
+                    getPriseRendezVousFrame().setVisible(true);
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             case "gestionClient":
@@ -184,7 +195,7 @@ public class IHMapp extends JFrame implements ActionListener {
         return clientPanel;
     }
 
-    public PriseRendezVousFrame getPriseRendezVousFrame(){
+    public PriseRendezVousFrame getPriseRendezVousFrame() throws BLLException{
         if(rendezVousFrame == null){
             rendezVousFrame = new PriseRendezVousFrame(this);
         }
