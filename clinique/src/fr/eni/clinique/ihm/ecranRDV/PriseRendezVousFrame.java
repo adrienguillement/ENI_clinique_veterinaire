@@ -11,7 +11,9 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
 
     private JLabel clientLabel, animalLabel, veterinaireLabel, heureLabel;
     private JComboBox clientComboBox, animalComboBox, veterinaireComboBox, dateComboBox;
+    private JButton validerButton, supprimerButton, ajouterClientButton, ajouterAnimalauClientButton;
     private JFrame parent;
     private AgendaTable agendaTable;
     private CltManager clientManager;
@@ -59,18 +62,36 @@ public class PriseRendezVousFrame extends JInternalFrame {
         this.parent = parent;
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLayout(null);
-        setSize(400,600);
+        setSize(800,600);
         setContentPane(getPanelPriseRendezVous());
     }
 
     public JPanel getPanelPriseRendezVous() throws BLLException{
-        JPanel panelPriseRendezVous = new JPanel();
-        panelPriseRendezVous.add(getPanelPour());
-        panelPriseRendezVous.add(getPanelPar());
-        panelPriseRendezVous.add(getPanelQuand());
-        panelPriseRendezVous.add(getPanelTable());
+        JPanel panelPriseRendezVous = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        panelPriseRendezVous.add(getPanelPour(), gbc);
+
+        gbc.gridx = 1;
+        panelPriseRendezVous.add(getPanelPar(), gbc);
+
+        gbc.gridx = 2;
+        panelPriseRendezVous.add(getPanelQuand(), gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 3;
+        panelPriseRendezVous.add(getPanelTable(), gbc);
         LoadListes();
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panelPriseRendezVous.add(getValiderSupprimerPanel(), gbc);
 
         return panelPriseRendezVous;
     }
@@ -91,22 +112,45 @@ public class PriseRendezVousFrame extends JInternalFrame {
     }
 
     public JPanel getPanelPour(){
-        JPanel panelPour = new JPanel();
+        JPanel panelPour = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+
         TitledBorder border = new TitledBorder("Pour");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
-        panelPour.setBorder(border);
 
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         clientLabel = new JLabel("Client");
+        panelPour.add(clientLabel, gbc);
+
+        gbc.gridx = 1;
         clientComboBox = new JComboBox();
-        panelPour.add(clientLabel);
-        panelPour.add(clientComboBox);
+        panelPour.add(clientComboBox, gbc);
 
+        gbc.gridx = 2;
+        ajouterClientButton = new JButton("+");
+        panelPour.add(ajouterClientButton, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         animalLabel = new JLabel("Animal");
-        animalComboBox = new JComboBox();
-        panelPour.add(animalLabel);
-        panelPour.add(animalComboBox);
+        panelPour.add(animalLabel, gbc);
 
+        gbc.gridx = 1;
+        animalComboBox = new JComboBox();
+        panelPour.add(animalComboBox, gbc);
+
+        gbc.gridx = 2;
+        ajouterAnimalauClientButton = new JButton("+");
+        panelPour.add(ajouterAnimalauClientButton, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        JLabel pad = new JLabel("bfh");
+        panelPour.add(pad, gbc);
+        panelPour.setBorder(border);
         return panelPour;
     }
 
@@ -128,10 +172,10 @@ public class PriseRendezVousFrame extends JInternalFrame {
     public JPanel getPanelTable(){
         System.out.println("> getPanelTable");
         JPanel panelTable = new JPanel();
-        panelTable.setLayout(new GridLayout(0, 1));
+        panelTable.setLayout(new BorderLayout());
         agendaTable = getAgendaTable();
-        panelTable.add(this.agendaTable.getTableHeader());
-        panelTable.add(getAgendaTable());
+        panelTable.add(this.agendaTable.getTableHeader(),BorderLayout.NORTH);
+        panelTable.add(agendaTable);
 
         return panelTable;
     }
@@ -139,6 +183,16 @@ public class PriseRendezVousFrame extends JInternalFrame {
     public AgendaTable getAgendaTable(){
         agendaTable = new AgendaTable();
         return agendaTable;
+    }
+
+    public JPanel getValiderSupprimerPanel(){
+        JPanel panelValiderSupprimerPanel = new JPanel();
+        validerButton = new JButton("Valider");
+        supprimerButton = new JButton("Supprimer");
+        panelValiderSupprimerPanel.add(validerButton);
+        panelValiderSupprimerPanel.add(supprimerButton);
+
+        return panelValiderSupprimerPanel;
     }
 
     public void LoadListes() throws BLLException{
