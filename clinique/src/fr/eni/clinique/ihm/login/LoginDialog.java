@@ -71,6 +71,9 @@ public class LoginDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
+
+
+
     public String getUsername() {
         return tfUsername.getText().trim();
     }

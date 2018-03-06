@@ -11,23 +11,23 @@ public class Animal {
     private String antecedents;
     private boolean archive;
 
-    public Animal(int codeAnimal, String nomAnimal, String sexe, String couleur, String race, int codeClient, String tatouage, String antecedents, boolean archive) {
+    public Animal(int codeAnimal, String nomAnimal, String sexe, String couleur, Race race, int codeClient, String tatouage, String antecedents, boolean archive) {
         this.code = codeAnimal;
         this.nom = nomAnimal;
         this.sexe = sexe;
         this.couleur = couleur;
-        this.race.setRace(race);
+        this.race = race;
         this.codeClient = codeClient;
         this.tatouage = tatouage;
         this.antecedents = antecedents;
         this.archive = archive;
     }
 
-    public Animal(String nomAnimal, String sexe, String couleur, String race, int codeClient, String tatouage, String antecedents, boolean archive) {
+    public Animal(String nomAnimal, String sexe, String couleur, Race race, int codeClient, String tatouage, String antecedents, boolean archive) {
         this.nom = nomAnimal;
         this.sexe = sexe;
         this.couleur = couleur;
-        this.race.setRace(race);
+        this.race = race;
         this.codeClient = codeClient;
         this.tatouage = tatouage;
         this.antecedents = antecedents;
