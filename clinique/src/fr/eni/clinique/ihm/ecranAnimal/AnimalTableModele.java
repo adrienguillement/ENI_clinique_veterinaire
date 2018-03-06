@@ -20,7 +20,7 @@ public class AnimalTableModele extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 2;
+        return 6;
     }
 
     @Override
@@ -54,5 +54,9 @@ public class AnimalTableModele extends AbstractTableModel {
                 break;
         }
         return ret;
+    }
+
+    public Animal getValueByRow(int row){
+        return this.animaux.get(row);
     }
 }

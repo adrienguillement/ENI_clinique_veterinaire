@@ -9,4 +9,5 @@ public interface DAOClient extends DAO {
     public void delete(Client client) throws DALException;
     public Client selectFirstClient() throws DALException;
     public List<Client> searchClient(String searchValue) throws DALException;
+    public void updateClient(Client client) throws DALException;
 }

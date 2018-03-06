@@ -97,6 +97,10 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     }
 
 
+    @Override
+    public void delete(Personnel personnel) throws DALException {
+
+    }
 
 
     public Personnel selectById(int CodePers) throws DALException{
