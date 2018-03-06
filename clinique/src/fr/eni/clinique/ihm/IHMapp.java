@@ -28,7 +28,6 @@ public class IHMapp extends JFrame implements ActionListener {
     private static Personnel utilisateurEnCours;
     private static IHMapp instance;
     private ClientFrame clientPanel;
-
     private PriseRendezVousFrame rendezVousFrame;
 
     public static IHMapp getInstance() throws BLLException{
@@ -39,7 +38,6 @@ public class IHMapp extends JFrame implements ActionListener {
     }
 
     public IHMapp() throws BLLException{
-
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -61,7 +59,7 @@ public class IHMapp extends JFrame implements ActionListener {
     }
 
     // Lancement de l'application
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BLLException {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
@@ -152,7 +150,11 @@ public class IHMapp extends JFrame implements ActionListener {
                 break;
 
             case "gestionClient":
-                getClientSearch().setVisible(true);
+                try {
+                    getClientSearch().setVisible(true);
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
 
             default:
                 System.out.println("Probleme e=" + e);
@@ -188,9 +190,9 @@ public class IHMapp extends JFrame implements ActionListener {
      * Getter frame client
      * @return
      */
-    public ClientFrame getClientSearch() {
+    public ClientFrame getClientSearch() throws BLLException {
         if(clientPanel == null) {
-            clientPanel = new ClientFrame(2);
+            clientPanel = new ClientFrame(this);
         }
         return clientPanel;
     }

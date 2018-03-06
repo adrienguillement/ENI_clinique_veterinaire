@@ -16,6 +16,14 @@ public class CltManager {
         daoClient = DAOFactory.getClientDAO();
     }
 
+    public void updateClient(Client client) throws BLLException {
+        try {
+            daoClient.updateClient(client);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Client> searchClient(String searchValue) throws BLLException {
         List<Client> clients = null;
 
@@ -75,6 +83,7 @@ public class CltManager {
         }
         return clients;
     }
+
 
     public Client getClientById(int id) throws  BLLException {
         Client client = null;

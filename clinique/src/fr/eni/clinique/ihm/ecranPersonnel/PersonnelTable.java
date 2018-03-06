@@ -36,4 +36,6 @@ public class PersonnelTable extends JTable{
         }
         return instance;
     }
+
+
 }
