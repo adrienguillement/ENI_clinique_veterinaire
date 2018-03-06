@@ -70,7 +70,7 @@ public class ClientAddDialog extends JDialog {
                     }
                 } catch (BLLException e1) {
                     e1.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Problème lors de l'ajout", null, JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Problème lors de l'ajout, vérifier que tout les champs sont complétés correctement.", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

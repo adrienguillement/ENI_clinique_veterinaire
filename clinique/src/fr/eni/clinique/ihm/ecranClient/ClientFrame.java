@@ -51,8 +51,8 @@ public class ClientFrame extends JInternalFrame {
         return panel;
     }
 
-    private JPanel getPanelFormClient(int idClient) {
-        JPanel panel = new JPanel();
+    private ClientForm getPanelFormClient(int idClient) {
+        ClientForm panel = new ClientForm(idClient);
         return panel;
     }
 
@@ -84,23 +84,7 @@ public class ClientFrame extends JInternalFrame {
         // Bouton ajouter
         ajouter = new JButton("Ajouter client");
         ajouter.addActionListener(e -> {
-            /**try{
-                client = new Client(nomTextField.getText(), prenomTextField.getText(), adresseTextField.getText(), null, codePostalTextField.getText(), villeTextField.getText(), numTextField.getText(), assuranceTextField.getText(), eMailTextField.getText(), null, false);
-                clientManager = new CltManager();
-
-                if(clientManager.validerClient(client) == true) {
-                    clientManager.insertClient(client);
-                    JOptionPane.showMessageDialog(null, "Utilisateur ajouté", null, JOptionPane.INFORMATION_MESSAGE);
-                }
-                else {
-                    JOptionPane.showMessageDialog(null, "Les champs ne sont pas correctement complétés", null, JOptionPane.WARNING_MESSAGE);
-                }
-            } catch (BLLException e1) {
-                e1.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Problème lors de l'ajout", null, JOptionPane.ERROR_MESSAGE);
-            }**/
             getClientAddDialog();
-
         });
 
         panelBoutton.add(ajouter);
