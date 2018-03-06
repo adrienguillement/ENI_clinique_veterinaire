@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PersonneDAOJdbcImpl implements DAOPersonne{
     private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnel WHERE Archive=0 ORDER BY CodePers ASC";
-    private static final String selectByNom = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where Nom= ?";
+    private static final String selectByVet = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where Role= vet";
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where CodePers= ?";
     private static final String insert = "insert into Personnel(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
     private static final String update = "update Personnel set Nom=?, MotPasse=?,Role=? where CodePers=?";
@@ -57,44 +57,46 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return liste;
     }
 
-    public Personnel selectByNom(String Nom) throws DALException{
+    public List<Personnel> selectByVet() throws DALException{
         Connection cnx = null;
-        PreparedStatement stt = null;
+        Statement stt = null;
         ResultSet rs = null;
-
-        Personnel personnel = null;
+        List<Personnel> liste = new ArrayList<Personnel>();
         try{
             cnx = JdbcTools.getConnection();
-            stt = cnx.prepareStatement(selectByNom);
-            stt.setString(1, Nom);
+            stt = cnx.createStatement();
+            rs = stt.executeQuery(selectByVet);
+            Personnel per = null;
 
-            rs = stt.executeQuery();
-            if(rs.next()){
-                personnel = new Personnel(rs.getInt("CodePers"),
+            while (rs.next()) {
+                per = new Personnel(rs.getInt("CodePers"),
                         rs.getString("Nom"),
                         rs.getString("MotPasse"),
                         rs.getString("Role"),
                         rs.getBoolean("Archive"));
+                liste.add(per);
             }
         } catch (SQLException e){
-            throw new DALException("select by nom failed = "+ Nom, e);
+            throw new DALException("Select all failed - ", e);
         } finally {
-            try {
-                if (rs != null) {
+            try{
+                if (rs != null){
                     rs.close();
                 }
-                if (cnx != null) {
-                    cnx.close();
-                }
-                if (stt != null) {
+                if (stt != null){
                     stt.close();
+                }
+                if (cnx != null){
+                    cnx.close();
                 }
             } catch (SQLException e){
                 e.printStackTrace();
             }
         }
-        return personnel;
+        return liste;
     }
+
+
 
 
     public Personnel selectById(int CodePers) throws DALException{
@@ -173,14 +175,10 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return personnel;
     }
 
-<<<<<<< HEAD
-    public void update(Object data) throws DALException{
-        Personnel personnel = (Personnel)data;
-=======
+
     @Override
     public void update(Object unPersonnel) throws DALException{
         Personnel personnel = (Personnel)unPersonnel;
->>>>>>> origin/Alexandre
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
@@ -209,13 +207,8 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     }
 
     @Override
-<<<<<<< HEAD
-    public void delete(Object data) throws DALException {
-        Personnel personnel = (Personnel)data;
-=======
     public void delete(Object unPersonnel) throws DALException {
         Personnel personnel = (Personnel)unPersonnel;
->>>>>>> origin/Alexandre
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
