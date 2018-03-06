@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AgendaTableModele extends AbstractTableModel{
 
-    private List<Agenda> listeAgenda = new ArrayList<>();
+    private List<Agenda> listeAgenda;
     private String[] agendaColonnes = {"Heure", "Nom du client", "Animal", "Race"};
 
     public AgendaTableModele(List<Agenda> listeAgenda){
@@ -22,16 +22,33 @@ public class AgendaTableModele extends AbstractTableModel{
 
     @Override
     public int getRowCount() {
-        return 0;
+        return listeAgenda.size();
     }
 
     @Override
     public int getColumnCount() {
-        return 0;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return null;
+        Object ret = null;
+        switch (columnIndex){
+            case 0:
+                ret=listeAgenda.get(rowIndex).getCodeVeto();
+                break;
+            case 1:
+                ret=listeAgenda.get(rowIndex).getDateRdv();
+                break;
+            case 2:
+                ret=listeAgenda.get(rowIndex).getCodeAnimal();
+                break;
+            case 3:
+                //ret=listeAgenda.get(rowIndex).getCouleur();
+                break;
+            default:
+                break;
+        }
+        return ret;
     }
 }

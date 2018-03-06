@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.ecranClient;
 
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Personnel;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -45,5 +46,9 @@ public class ClientTableModel extends AbstractTableModel {
 
     public void setClients(List<Client> clients) {
         this.clients = clients;
+    }
+
+    public List<Client> getClients() {
+        return this.clients;
     }
 }

@@ -13,53 +13,44 @@ public class ClientTable extends JTable {
     private Client clientSelected;
     private ClientTableModel model;
     private ClientFrame clientFrame;
-    public boolean click = false;
 
-    public ClientTable(ClientFrame clientFrame){
+    public ClientTable(){
         this.clientFrame = clientFrame;
         try {
             CltManager clientManager = new CltManager();
 
             model = new ClientTableModel(clientManager.getCatalogue());
 
-            addListListener(clientManager);
+            //Add listener onclick sur ligne
+            ListSelectionModel cellSelectionModel = getSelectionModel();
+            cellSelectionModel.addListSelectionListener(e -> {
+                int codeClient = (int)(getValueAt(getSelectedRow(), 0));
+                if(codeClient != 0){
+                    try {
+                        clientSelected = clientManager.getClientById(codeClient);
+                        clientSelected.setCode(codeClient);
+                        clientFrame.getClientSelected(clientSelected);
+                    } catch (BLLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
+
             this.setModel(model);
         } catch (BLLException e) {
             e.printStackTrace();
         }
     }
 
-    public ClientTable(ClientFrame clientFrame, String searchValue){
-        this.clientFrame = clientFrame;
-        try {
-            CltManager clientManager = new CltManager();
 
-            model = new ClientTableModel(clientManager.searchClient(searchValue));
-            model.fireTableDataChanged();
-            addListListener(clientManager);
-
-        } catch (BLLException e) {
-            e.printStackTrace();
-        }
+    public ClientTableModel getModele() {
+        return model;
     }
 
     private void addListListener(CltManager clientManager){
 
         // Clic sur une ligne
-        ListSelectionModel cellSelectionModel = getSelectionModel();
-        cellSelectionModel.addListSelectionListener(e -> {
-            int codeClient = (int)(getValueAt(getSelectedRow(), 0));
-            if(codeClient != 0){
-                try {
-                    clientSelected = clientManager.getClientById(codeClient);
-                    clientSelected.setCode(codeClient);
-                    clientFrame.getClientSelected(clientSelected);
-                    click = true;
-                } catch (BLLException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        });
+
     }
 
     public Client getClientSelected() {
