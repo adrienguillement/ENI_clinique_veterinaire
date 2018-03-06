@@ -5,6 +5,7 @@ import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
 import fr.eni.clinique.ihm.ecranClient.ClientTable;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelFrame;
+import fr.eni.clinique.ihm.ecranRDV.PriseRendezVousFrame;
 import fr.eni.clinique.ihm.login.LoginDialog;
 
 import java.awt.*;
@@ -26,6 +27,8 @@ public class IHMapp extends JFrame implements ActionListener {
     private static Personnel utilisateurEnCours;
     private static IHMapp instance;
     private ClientFrame clientPanel;
+
+    private PriseRendezVousFrame rendezVousFrame;
 
     public static IHMapp getInstance(){
         if(IHMapp.instance == null){
@@ -134,11 +137,7 @@ public class IHMapp extends JFrame implements ActionListener {
                 break;
 
             case "priseRdv":
-                System.out.println("oui");
-                final JFrame frame = new JFrame("Ajout animal");
-                AnimalDialog animalDialog = new AnimalDialog(frame);
-                animalDialog.setVisible(true);
-
+                getPriseRendezVousFrame().setVisible(true);
                 break;
 
             case "gestionClient":
@@ -183,6 +182,13 @@ public class IHMapp extends JFrame implements ActionListener {
             clientPanel = new ClientFrame(2);
         }
         return clientPanel;
+    }
+
+    public PriseRendezVousFrame getPriseRendezVousFrame(){
+        if(rendezVousFrame == null){
+            rendezVousFrame = new PriseRendezVousFrame(this);
+        }
+        return rendezVousFrame;
     }
 
 }

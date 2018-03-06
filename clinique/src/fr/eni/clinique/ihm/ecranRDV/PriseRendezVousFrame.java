@@ -1,17 +1,18 @@
 package fr.eni.clinique.ihm.ecranRDV;
 
-
-import javafx.scene.control.DatePicker;
-import org.jdatepicker.JDatePicker;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import java.util.Properties;
 
 public class PriseRendezVousFrame extends JInternalFrame {
 
     private JLabel clientLabel, animalLabel, veterinaireLabel, heureLabel;
     private JComboBox clientComboBox, animalComboBox, veterinaireComboBox, dateComboBox;
     private JFrame parent;
+    private AgendaTable agendaTable;
 
     public PriseRendezVousFrame(JFrame parent){
         //Ecran avec un titre, redimensionable, fermable, agrandissable, iconifiable
@@ -20,17 +21,35 @@ public class PriseRendezVousFrame extends JInternalFrame {
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLayout(null);
         setSize(400,600);
-        setIHM();
+        setContentPane(getPanelPriseRendezVous());
     }
 
 
-    public void setIHM(){
+    public JPanel getPanelPriseRendezVous(){
+        JPanel panelPriseRendezVous = new JPanel();
+        panelPriseRendezVous.add(getPanelPour());
+        panelPriseRendezVous.add(getPanelPar());
+        panelPriseRendezVous.add(getPanelQuand());
+        panelPriseRendezVous.add(getPanelTable());
+        return panelPriseRendezVous;
+    }
 
-        /*DatePicker picker = new JDatePicker();
-        picker.setTextEditable(true);
-        picker.setShowYearButtons(true);
-        jPanel.add((JComponent) picker);*/
+    public JPanel getPanelPar(){
+        JPanel panelPar = new JPanel();
+        TitledBorder border = new TitledBorder("Par");
+        border.setTitleJustification(TitledBorder.LEFT);
+        border.setTitlePosition(TitledBorder.TOP);
+        panelPar.setBorder(border);
 
+        veterinaireLabel = new JLabel("Vétérinaire");
+        veterinaireComboBox = new JComboBox();
+        panelPar.add(veterinaireLabel);
+        panelPar.add(veterinaireComboBox);
+
+        return panelPar;
+    }
+
+    public JPanel getPanelPour(){
         JPanel panelPour = new JPanel();
         TitledBorder border = new TitledBorder("Pour");
         border.setTitleJustification(TitledBorder.LEFT);
@@ -42,26 +61,33 @@ public class PriseRendezVousFrame extends JInternalFrame {
         panelPour.add(clientLabel);
         panelPour.add(clientComboBox);
 
-        JPanel panelPar = new JPanel();
-        border = new TitledBorder("Par");
+        return panelPour;
+    }
+
+    public JPanel getPanelQuand(){
+        UtilDateModel model = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        JDatePanelImpl panelQuand = new JDatePanelImpl(model, p);
+        TitledBorder border = new TitledBorder("Quand");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
-        panelPour.setBorder(border);
+        panelQuand.setBorder(border);
 
-        veterinaireLabel = new JLabel("Vétérinaire");
-        veterinaireComboBox = new JComboBox();
-        panelPar.add(veterinaireLabel);
-        panelPar.add(veterinaireComboBox);
-        
-        JPanel panelQuand = new JPanel();
-        border = new TitledBorder("Quand");
+        return panelQuand;
+    }
+
+    public JPanel getPanelTable(){
+        JPanel panelTable = new JPanel();
+        agendaTable = new AgendaTable();
+        panelTable.add(agendaTable);
+        TitledBorder border = new TitledBorder("liste agenda");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
-        panelPour.setBorder(border);
+        panelTable.setBorder(border);
 
-        DatePicker picker = new JDatePicker();
-        picker.setTextEditable(true);
-        picker.setShowYearButtons(true);
-
+        return panelTable;
     }
 }
