@@ -1,5 +1,6 @@
 package fr.eni.clinique.ihm;
 
+import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
@@ -27,14 +28,14 @@ public class IHMapp extends JFrame implements ActionListener {
     private static IHMapp instance;
     private ClientFrame clientPanel;
 
-    public static IHMapp getInstance(){
+    public static IHMapp getInstance() throws BLLException {
         if(IHMapp.instance == null){
             IHMapp.instance = new IHMapp();
         }
         return IHMapp.instance;
     }
 
-    public IHMapp() {
+    public IHMapp() throws BLLException {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -56,12 +57,17 @@ public class IHMapp extends JFrame implements ActionListener {
     }
 
     // Lancement de l'application
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BLLException {
         SwingUtilities.invokeLater(new Runnable() {
 
             @Override
             public void run() {
-                IHMapp ecran = new IHMapp();
+                IHMapp ecran = null;
+                try {
+                    ecran = new IHMapp();
+                } catch (BLLException e) {
+                    e.printStackTrace();
+                }
 
                 //JDialog pour login (modal)
                 final JFrame frame = new JFrame("Authentification");
@@ -142,7 +148,11 @@ public class IHMapp extends JFrame implements ActionListener {
                 break;
 
             case "gestionClient":
-                getClientSearch().setVisible(true);
+                try {
+                    getClientSearch().setVisible(true);
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
 
             default:
                 System.out.println("Probleme e=" + e);
@@ -178,9 +188,9 @@ public class IHMapp extends JFrame implements ActionListener {
      * Getter frame client
      * @return
      */
-    public ClientFrame getClientSearch() {
+    public ClientFrame getClientSearch() throws BLLException {
         if(clientPanel == null) {
-            clientPanel = new ClientFrame(2);
+            clientPanel = new ClientFrame(this);
         }
         return clientPanel;
     }

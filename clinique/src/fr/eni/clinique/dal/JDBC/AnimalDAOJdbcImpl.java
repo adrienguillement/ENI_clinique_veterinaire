@@ -1,6 +1,7 @@
 package fr.eni.clinique.dal.JDBC;
 
 import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOAnimal;
@@ -13,7 +14,57 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 
     private static final String sqlSelectAll = "SELECT * FROM ANIMAL";
     private static final String sqlInsert = "INSERT INTO ANIMAL(CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+
+    private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where id=?";
+    private static final String sqlSelectByClient = "SELECT * FROM ANIMAL WHERE CodeClient = ?";
+
+    public List<Animal> selectByClient(Client client) throws DALException {
+        Connection cnx = null;
+        PreparedStatement rqt = null;
+        ResultSet rs = null;
+
+        List<Animal> liste = new ArrayList<Animal>();
+        try {
+            cnx = JdbcTools.getConnection();
+            rqt = cnx.prepareStatement(sqlSelectByClient);
+            rqt.setInt(1, client.getCode());
+            rs = rqt.executeQuery();
+            Animal animal = null;
+
+            while (rs.next()) {
+                animal = new Animal(rs.getInt("codeAnimal"),
+                        rs.getString("NomAnimal"),
+                        rs.getString("Sexe"),
+                        rs.getString("Couleur"),
+                        rs.getString("Race"),
+                        rs.getInt("CodeClient"),
+                        rs.getString("Tatouage"),
+                        rs.getString("Antecedents"),
+                        rs.getBoolean("Archive"));
+                liste.add(animal);
+            }
+        } catch (SQLException e) {
+            throw new DALException("selectAll failed - " , e);
+        } finally {
+            try {
+                if (rs != null){
+                    rs.close();
+                }
+                if (rqt != null){
+                    rqt.close();
+                }
+                if(cnx!=null){
+                    cnx.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return liste;
+    }
+
     private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where CodeAnimal=?";
+
 
     @Override
     public List<Animal> selectAll() throws DALException {

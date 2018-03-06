@@ -16,6 +16,47 @@ public class ClientDAOJdbcImpl implements DAOClient {
     private static final String sqlDelete = "UPDATE client SET archive = 1 WHERE CodeClient = ?";
     private static final String sqlFirstClient = "SELECT TOP 1 * FROM client WHERE archive = 0";
     private static final String sqlSearchClient = "SELECT * FROM client WHERE NomClient LIKE ?";
+    private static final String sqlUpdateClient = "UPDATE client set NomClient = ?, PrenomClient = ?, Adresse1 = ?, CodePostal = ?, Ville = ?, NumTel = ?, Assurance = ?, Email = ?, Remarque = ? WHERE CodeClient = ?";
+
+    /**
+     * Mettre à jour les informations d'un client
+     * @param client
+     * @throws DALException
+     */
+    public void updateClient(Client client) throws DALException {
+        Connection cnx = null;
+        PreparedStatement rqt = null;
+
+        try{
+            cnx = JdbcTools.getConnection();
+            rqt = cnx.prepareStatement(sqlUpdateClient);
+            rqt.setString(1, client.getNom());
+            rqt.setString(2, client.getPrenomClient());
+            rqt.setString(3, client.getAdresse1());
+            rqt.setString(4, client.getCodePostal());
+            rqt.setString(5, client.getVille());
+            rqt.setString(6, client.getNumTel());
+            rqt.setString(7, client.getAssurance());
+            rqt.setString(8, client.getEmail());
+            rqt.setString(9, client.getRemarque());
+            rqt.setInt(10, client.getCode());
+
+            rqt.executeUpdate();
+        }catch (SQLException e) {
+            throw new DALException("Delete article failed - client = " + client, e);
+        } finally {
+            try {
+                if (rqt != null){
+                    rqt.close();
+                }
+                if(cnx!=null){
+                    cnx.close();
+                }
+            } catch (SQLException e) {
+                throw new DALException("close failed " , e);
+            }
+        }
+    }
 
 
     public List<Client> searchClient(String searchValue) throws DALException {
