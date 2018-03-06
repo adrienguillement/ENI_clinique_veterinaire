@@ -90,16 +90,18 @@ public class PersonnelFrame extends JInternalFrame{
         modifier.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try{
                     int numSelected = PersonnelTable.getInstance().getSelectedRow();
                     Personnel personnel = PersonnelTable.getInstance().listePersonnels.get(numSelected);
                     PersonnelManager personnelManager = new PersonnelManager();
                     getPersonnelEdit(personnel);
+                    System.out.println(personnel);
                 } catch (BLLException e2){
                     e2.printStackTrace();
                 }
                 //getPersonnelEdit(personnel);
-                System.out.println("Personnel editer");
+                System.out.println("modification terminer");
             }
         });
         supprimer = new JButton("Supprimer");
