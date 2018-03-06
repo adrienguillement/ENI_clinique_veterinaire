@@ -12,8 +12,7 @@ import java.util.List;
 public class RaceDAOJdbcImpl implements DAORace {
 
     private static final String sqlSelectAll = "SELECT * from race";
-    private static final String sqlSelectByRace =   "SELECT TOP 1 * FROM RACE" +
-                                                    "WHERE Espece = ?";
+    private static final String sqlSelectByRace =   "SELECT TOP 1 * FROM RACE WHERE Race = ?";
 
     @Override
     public List<Race> selectAll() throws DALException {
