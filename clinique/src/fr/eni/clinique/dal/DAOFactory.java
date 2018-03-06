@@ -1,9 +1,6 @@
 package fr.eni.clinique.dal;
 
-import fr.eni.clinique.dal.JDBC.AnimalDAOJdbcImpl;
-import fr.eni.clinique.dal.JDBC.ConnectionDAOJdbcImpl;
-import fr.eni.clinique.dal.JDBC.ClientDAOJdbcImpl;
-import fr.eni.clinique.dal.JDBC.PersonneDAOJdbcImpl;
+import fr.eni.clinique.dal.JDBC.*;
 
 public class DAOFactory {
 
@@ -15,6 +12,17 @@ public class DAOFactory {
             e.printStackTrace();
         }
         return animalDAO;
+    }
+
+    public static DAOAgenda getAgendaDAO(){
+        DAOAgenda agendaDAO = null;
+
+        try{
+            agendaDAO = new AgendaDAOJdbcImpl();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return agendaDAO;
     }
 
     public static DAORace getRaceDAO()  {

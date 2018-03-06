@@ -13,7 +13,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 
     private static final String sqlSelectAll = "SELECT * FROM ANIMAL";
     private static final String sqlInsert = "INSERT INTO ANIMAL(CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
-    private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where id=?";
+    private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where CodeAnimal=?";
 
     @Override
     public List<Animal> selectAll() throws DALException {
@@ -138,5 +138,10 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void delete(Object data) throws DALException {
+
     }
 }
