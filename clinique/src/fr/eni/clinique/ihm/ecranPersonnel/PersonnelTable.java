@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonnelTable extends JTable{
-    private static PersonnelTable instance;
+    private static PersonnelTable setPersonnelTable;
     private PersonnelTableModele modele;
-   public List<Personnel> listePersonnels = new ArrayList<>();
-    private PersonnelTable(){
+    public List<Personnel> listePersonnels = new ArrayList<>();
+    public PersonnelTable(){
         try {
             PersonnelManager personnelManager = new PersonnelManager();
             GridBagConstraints gbc = new GridBagConstraints();
             modele = new PersonnelTableModele(personnelManager.getPersonnels());
             this.listePersonnels = personnelManager.getPersonnels();
             this.setModel(modele);
-            instance=this;
+            setPersonnelTable=this;
         } catch (BLLException e) {
             e.printStackTrace();
         }
@@ -30,11 +30,9 @@ public class PersonnelTable extends JTable{
         return modele;
     }
 
-    public static PersonnelTable getInstance() {
-        if(instance==null){
-            instance= new PersonnelTable();
-        }
-        return instance;
+    public static PersonnelTable setPersonnelTable() {
+        setPersonnelTable= new PersonnelTable();
+        return setPersonnelTable;
     }
 
 
