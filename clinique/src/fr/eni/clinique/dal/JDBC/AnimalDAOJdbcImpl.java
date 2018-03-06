@@ -2,6 +2,7 @@ package fr.eni.clinique.dal.JDBC;
 
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Race;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOAnimal;
@@ -11,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalDAOJdbcImpl implements DAOAnimal {
+
+    private RaceDAOJdbcImpl raceDAOJdbc = new RaceDAOJdbcImpl();
+    private Race race = null;
 
     private static final String sqlSelectAll = "SELECT * FROM ANIMAL";
     private static final String sqlInsert = "INSERT INTO ANIMAL(CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
@@ -32,11 +36,12 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
             Animal animal = null;
 
             while (rs.next()) {
+                race = raceDAOJdbc.selectByRace(rs.getString("Race"));
                 animal = new Animal(rs.getInt("codeAnimal"),
                         rs.getString("NomAnimal"),
                         rs.getString("Sexe"),
                         rs.getString("Couleur"),
-                        rs.getString("Race"),
+                        race,
                         rs.getInt("CodeClient"),
                         rs.getString("Tatouage"),
                         rs.getString("Antecedents"),
@@ -78,11 +83,12 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
             Animal animal = null;
 
             while (rs.next()) {
+                race = raceDAOJdbc.selectByRace(rs.getString("Race"));
                 animal = new Animal(rs.getInt("codeAnimal"),
                         rs.getString("NomAnimal"),
                         rs.getString("Sexe"),
                         rs.getString("Couleur"),
-                        rs.getString("Race"),
+                        race,
                         rs.getInt("CodeClient"),
                         rs.getString("Tatouage"),
                         rs.getString("Antecedents"),
