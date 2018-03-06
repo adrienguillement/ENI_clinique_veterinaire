@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm.ecranClient;
 
 import com.sun.xml.internal.messaging.saaj.soap.JpegDataContentHandler;
+import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.ihm.IHMapp;
 
 import javax.swing.*;
@@ -23,19 +24,27 @@ public class ClientFrame extends JInternalFrame {
 
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setBounds(0, 0, 900, 600);
-        setContentPane(getPanelClient(idClient));
+        setContentPane(getPanelSearchClient());
     }
 
     /**
      * Initialisation panel client
      * @return
      */
-    private JPanel getPanelClient(int idClient) {
+    private JPanel getPanelSearchClient() {
         JPanel panelClient = new JPanel();
         panelClient.setOpaque(true);
-
+        panelClient.setLayout(new BorderLayout());
+        panelClient.add(getPanelSearchButton(), BorderLayout.PAGE_START);
         panelClient.add(getPanelSearch(), BorderLayout.LINE_START);
         return panelClient;
+    }
+
+    private JPanel getPanelClient(int idClient){
+        JPanel panel = new JPanel();
+        panel.add(getPanelButton());
+        panel.setVisible(true);
+        return panel;
     }
 
     /**
@@ -49,20 +58,44 @@ public class ClientFrame extends JInternalFrame {
         ajouter = new JButton("Ajouter client");
         ajouter.addActionListener(e -> System.out.println("Ajouter client"));
 
-        // Bouton rechercher
-        rechercher = new JButton("Rechercher client");
-        rechercher.addActionListener(e -> System.out.println("rechercher client"));
-
-        panelBoutton.add(rechercherField);
         panelBoutton.add(rechercher);
         panelBoutton.add(ajouter);
         return panelBoutton;
     }
 
+    private JPanel getPanelSearchButton() {
+        JPanel panelBoutton = new JPanel();
+
+        // Field rechercher
+        rechercherField = new JTextField();
+        rechercherField.setPreferredSize(new Dimension(150,25));
+
+        // Bouton rechercher
+        rechercher = new JButton("Rechercher client");
+        rechercher.addActionListener(e -> getPanelSearch());
+
+        panelBoutton.add(rechercherField);
+        panelBoutton.add(rechercher);
+        return panelBoutton;
+    }
+
     private ClientTable getPanelSearch() {
-        if(panelSearch == null) {
-            panelSearch = new ClientTable();
+
+        if(rechercherField.getText().trim().length() != 0) {
+            System.out.println("rechercherField non null" + rechercherField.getText());
+            panelSearch = new ClientTable(this, rechercherField.getText());
+
+        } else {
+            panelSearch = new ClientTable(this);
         }
+
         return panelSearch;
     }
+
+    public void getClientSelected(Client client){
+        this.getPanelSearch().setVisible(false);
+        getPanelClient(client.getCode());
+    }
+
+
 }

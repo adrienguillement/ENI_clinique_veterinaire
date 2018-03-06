@@ -15,7 +15,59 @@ public class ClientDAOJdbcImpl implements DAOClient {
     private static final String sqlSelectById = "SELECT * from client WHERE CodeClient = ? AND archive = 0";
     private static final String sqlDelete = "UPDATE client SET archive = 1 WHERE CodeClient = ?";
     private static final String sqlFirstClient = "SELECT TOP 1 * FROM client WHERE archive = 0";
+    private static final String sqlSearchClient = "SELECT * FROM client WHERE NomClient LIKE ?";
 
+
+    public List<Client> searchClient(String searchValue) throws DALException {
+        searchValue = "%" + searchValue + "%";
+        Connection cnx = null;
+        PreparedStatement rqt = null;
+        ResultSet rs = null;
+
+        List<Client> liste = new ArrayList<Client>();
+
+        try{
+            cnx = JdbcTools.getConnection();
+            rqt = cnx.prepareStatement(sqlSearchClient);
+            rqt.setString(1, searchValue);
+            rs = rqt.executeQuery();
+
+            Client client = null;
+
+            while (rs.next()) {
+                client = new Client(rs.getInt("codeClient"),
+                        rs.getString("nomClient"),
+                        rs.getString("prenomClient"),
+                        rs.getString("adresse1"),
+                        rs.getString("adresse2"),
+                        rs.getString("codePostal"),
+                        rs.getString("ville"),
+                        rs.getString("numTel"),
+                        rs.getString("assurance"),
+                        rs.getString("email"),
+                        rs.getString("remarque"),
+                        rs.getBoolean("archive"));
+                liste.add(client);
+            }
+        } catch (SQLException e) {
+            throw new DALException("sqlSearch failed - " , e);
+        } finally {
+            try {
+                if (rs != null){
+                    rs.close();
+                }
+                if (rqt != null){
+                    rqt.close();
+                }
+                if(cnx!=null){
+                    cnx.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return liste;
+    }
 
     @Override
     public List<Client> selectAll() throws DALException {
@@ -189,6 +241,11 @@ public class ClientDAOJdbcImpl implements DAOClient {
         }
 
         return client;
+    }
+
+    @Override
+    public void update(Object data) throws DALException {
+
     }
 
     /**

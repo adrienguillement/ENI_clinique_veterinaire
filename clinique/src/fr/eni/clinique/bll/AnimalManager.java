@@ -25,4 +25,20 @@ public class AnimalManager {
         }
         return animaux;
     }
+
+    public void insert(Animal animal){
+        try {
+            daoAnimal.insert(animal);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(Animal animal){
+        try {
+            daoAnimal.update(animal);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
 import fr.eni.clinique.ihm.ecranClient.ClientTable;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelFrame;
@@ -52,7 +53,6 @@ public class IHMapp extends JFrame implements ActionListener {
         //Frame interne exemple
         desktopPane.add(getPersonnelFrame());
         desktopPane.add(getClientSearch());
-
     }
 
     // Lancement de l'application
@@ -135,6 +135,10 @@ public class IHMapp extends JFrame implements ActionListener {
 
             case "priseRdv":
                 System.out.println("oui");
+                final JFrame frame = new JFrame("Ajout animal");
+                AnimalDialog animalDialog = new AnimalDialog(frame);
+                animalDialog.setVisible(true);
+
                 break;
 
             case "gestionClient":

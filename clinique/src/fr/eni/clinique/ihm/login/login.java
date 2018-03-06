@@ -8,6 +8,7 @@ import fr.eni.clinique.ihm.IHMapp;
 import javax.swing.*;
 
 public class login {
+    private static boolean connectionSucceed;
     /**
      * méthode demande de connection
      */
@@ -24,14 +25,18 @@ public class login {
             if(personnel != null){
                 System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
                 //init l'utilisateur en cours
-
+                connectionSucceed = true;
                 IHMapp.getInstance().setUtilisateurEnCours(personnel);
             }
             else{
-                JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.ERROR_MESSAGE);
             }
         }catch (Exception e1){
             e1.printStackTrace();
         }
+    }
+
+    public static boolean getConnectionSucceed(){
+        return connectionSucceed;
     }
 }
