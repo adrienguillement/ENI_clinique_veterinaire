@@ -12,8 +12,8 @@ import java.awt.event.ActionListener;
 
 public class PersonnelEdit extends JDialog{
     private JLabel nomLabel, roleLabel, motPasseLabel;
-    private JTextField nomTextField, roleTextField;
-    private JComboBox roleBox;
+    private JTextField nomTextModif, roleTextModif;
+    private JComboBox roleBoxModif;
     private JPasswordField motPasse;
     private JButton valider, annuler;
     private Personnel personnel;
@@ -21,7 +21,7 @@ public class PersonnelEdit extends JDialog{
 
 
     public PersonnelEdit(Frame parent) {
-        super(parent, "Edition personnel", true);
+        super(parent, "Edition Personnel", true);
         //
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -29,13 +29,13 @@ public class PersonnelEdit extends JDialog{
         gbc.fill = GridBagConstraints.CENTER;
 
         Object[] role = new Object[]{"adm", "vet", "sec"};
-        roleBox = new JComboBox(role);
+        roleBoxModif = new JComboBox(role);
 
         nomLabel = new JLabel("nom: ");
-        nomTextField = new JTextField(10);
+        nomTextModif = new JTextField(10);
 
         roleLabel = new JLabel("role: ");
-        roleTextField = new JTextField(10);
+        roleTextModif = new JTextField(10);
 
         motPasseLabel = new JLabel("mot de passe : ");
         motPasse = new JPasswordField(10);
@@ -52,7 +52,7 @@ public class PersonnelEdit extends JDialog{
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        panel.add(nomTextField, gbc);
+        panel.add(nomTextModif, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -60,7 +60,7 @@ public class PersonnelEdit extends JDialog{
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        panel.add(roleBox, gbc);
+        panel.add(roleBoxModif, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -82,9 +82,10 @@ public class PersonnelEdit extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Object selected = roleBox.getSelectedItem();
-                    personnel = new Personnel(nomTextField.getText(), SHA512.getSHA512(motPasse.getText(), "toto"),selected.toString(), false);
+                    Object selected = roleBoxModif.getSelectedItem();
+                    personnel = new Personnel(nomTextModif.getText(), SHA512.getSHA512(motPasse.getText(), "toto"),selected.toString(), false);
                     personnelManager = new PersonnelManager();
+                    System.out.println(personnel);
                     personnelManager.updatePersonnel(personnel);
                     dispose();
                 } catch (BLLException e1) {
