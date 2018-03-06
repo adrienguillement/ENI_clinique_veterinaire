@@ -1,11 +1,16 @@
 package fr.eni.clinique.ihm.ecranClient;
 
 import com.sun.xml.internal.messaging.saaj.soap.JpegDataContentHandler;
+import fr.eni.clinique.bll.AnimalManager;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.CltManager;
 import fr.eni.clinique.bll.PersonnelManager;
+import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.ihm.IHMapp;
+import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
+import fr.eni.clinique.ihm.ecranAnimal.AnimalTable;
+import fr.eni.clinique.ihm.ecranAnimal.AnimalTableModele;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelAjout;
 import fr.eni.clinique.ihm.login.LoginDialog;
 
@@ -17,42 +22,150 @@ import java.beans.PropertyChangeListener;
 
 public class ClientFrame extends JInternalFrame {
 
-    private JButton ajouter, rechercher;
+    private JButton ajouter, rechercher, modifier;
+    private JButton ajouterAnimal, modifierAnimal;
     private JTextField rechercherField;
     private ClientTable panelSearch;
     private JPanel panel_client;
     private JPanel panel_client_result, panel_client_buttons;
     private JPanel panel_client_add;
-
     private Client client;
+    private JTextField code, nom, prenom, adresse, ville, codePostal, assurance, email, numTel, remarque;
+
+    private AnimalTable animalTable;
+    private Animal selectedAnimal;
+    private AnimalTableModele animalTableModel;
+
     private CltManager clientManager;
     private ClientSearchDialog clientSearch;
     private ClientAddDialog clientAddDialog;
+    private AnimalDialog animalDialog;
     private JFrame parent;
 
     /**
      * Constructeur
      */
-    public ClientFrame(JFrame parent) {
+    public ClientFrame(JFrame parent) throws BLLException {
         super("Gestion des client", true, true, true,true);
         this.parent = parent;
+
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setBounds(0, 0, 900, 600);
-        setContentPane(getPanelClient(2));
+        clientManager = new CltManager();
+        setContentPane(getPanelClient(clientManager.getFirst().getCode()));
     }
 
 
     private JPanel getPanelClient(int idClient){
         JPanel panel = new JPanel();
-        panel.add(getPanelButton());
-        panel.add(getPanelFormClient(2));
+        panel.setLayout(new BorderLayout());
+        panel.add(getPanelButton(), BorderLayout.PAGE_START);
+
+        try {
+            client = clientManager.getFirst();
+            panel.add(getPanelFormClient(client.getCode()), BorderLayout.LINE_START);
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
+
+        panel.add(getPanelAnimaux());
 
         panel.setVisible(true);
         return panel;
     }
 
-    private ClientForm getPanelFormClient(int idClient) {
-        ClientForm panel = new ClientForm(idClient);
+    private JPanel getPanelAnimaux() {
+        JPanel panelAnimal = new JPanel();
+        panelAnimal.setLayout(new GridLayout(0,1));
+
+        panelAnimal.add(getTableAnimal());
+        panelAnimal.add(getPanelButtonAnimal());
+        return panelAnimal;
+    }
+
+    private JPanel getPanelButtonAnimal() {
+        JPanel panelButton = new JPanel();
+
+        // Bouton ajouter un animal
+        ajouterAnimal = new JButton("Ajouter");
+        ajouterAnimal.addActionListener(e -> getAnimalDialog());
+
+        // Bouton modifier un animal
+        modifierAnimal = new JButton("Modifier");
+        modifierAnimal.addActionListener(e -> getAnimalDialog(animalTableModel.getValueByRow(animalTable.getSelectedRow())));
+
+        panelButton.add(ajouterAnimal);
+        panelButton.add(modifierAnimal);
+
+        return panelButton;
+    }
+
+    private AnimalDialog getAnimalDialog() {
+        animalDialog = new AnimalDialog(parent);
+        animalDialog.setVisible(true);
+        return animalDialog;
+    }
+
+    private AnimalDialog getAnimalDialog(Animal selectedAnimal) {
+        animalDialog = new AnimalDialog(parent, selectedAnimal);
+        animalDialog.setVisible(true);
+        return animalDialog;
+    }
+
+    private AnimalTable getTableAnimal() {
+        animalTable = new AnimalTable(client);
+        return animalTable;
+    }
+
+    private JPanel getPanelFormClient(int idClient) throws BLLException {
+        JPanel panel = new JPanel();
+
+        CltManager personnelManager = new CltManager();
+        Client clientById = personnelManager.getClientById(idClient);
+
+        panel.setLayout(new GridLayout(0, 2));
+        panel.add(new JLabel("Code : "));
+
+        this.code = new JTextField(String.valueOf(clientById.getCode()));
+        this.code.setEditable(false);
+        JTextField codeClient = this.code;
+        panel.add(codeClient);
+
+        panel.add(new JLabel("Nom : "));
+        this.nom = new JTextField(clientById.getNom());
+        panel.add(this.nom);
+
+        panel.add(new JLabel("Prenom : "));
+        this.prenom = new JTextField(clientById.getPrenomClient());
+        panel.add(this.prenom);
+
+        panel.add(new JLabel("Email : "));
+        this.email = new JTextField(clientById.getEmail());
+        panel.add(this.email);
+
+        panel.add(new JLabel("Adresse : "));
+        this.adresse = new JTextField(clientById.getAdresse1());
+        panel.add(this.adresse);
+
+        panel.add(new JLabel("Code postal : "));
+        this.codePostal = new JTextField(clientById.getCodePostal());
+        panel.add(this.codePostal);
+
+        panel.add(new JLabel("Ville : "));
+        this.ville = new JTextField(clientById.getVille());
+        panel.add(this.ville);
+
+        panel.add(new JLabel("Assurance : "));
+        this.assurance = new JTextField(clientById.getAssurance());
+        panel.add(this.assurance);
+
+        panel.add(new JLabel("Numéro tel : "));
+        this.numTel = new JTextField(clientById.getNumTel());
+        panel.add(this.numTel);
+
+        panel.add(new JLabel("Remarque : "));
+        this.remarque = new JTextField(clientById.getRemarque());
+        panel.add(this.remarque);
         return panel;
     }
 
@@ -87,24 +200,31 @@ public class ClientFrame extends JInternalFrame {
             getClientAddDialog();
         });
 
+        // Bouton modifier
+        modifier = new JButton("Modifier");
+        modifier.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    client = new Client(Integer.valueOf(code.getText()), nom.getText(), prenom.getText(), adresse.getText(), null, codePostal.getText(), ville.getText(), numTel.getText(), assurance.getText(), email.getText(), remarque.getText(), false);
+                    clientManager = new CltManager();
+
+                    if(clientManager.validerClient(client) == true) {
+                        clientManager.updateClient(client);
+                        JOptionPane.showMessageDialog(null, "Utilisateur modifié", null, JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Les champs ne sont pas correctement complétés", null, JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Problème lors de l'ajout, vérifier que tout les champs sont complétés correctement.", null, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        panelBoutton.add(rechercher);
         panelBoutton.add(ajouter);
-        panelBoutton.add(rechercher);
-        return panelBoutton;
-    }
-
-    private JPanel getPanelSearchButton() {
-        JPanel panelBoutton = new JPanel();
-
-        // Field rechercher
-        rechercherField = new JTextField();
-        rechercherField.setPreferredSize(new Dimension(150,25));
-
-        // Bouton rechercher
-        rechercher = new JButton("Rechercher client");
-        rechercher.addActionListener(e -> getPanelSearch());
-
-        panelBoutton.add(rechercherField);
-        panelBoutton.add(rechercher);
+        panelBoutton.add(modifier);
         return panelBoutton;
     }
 

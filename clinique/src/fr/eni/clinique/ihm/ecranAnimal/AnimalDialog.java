@@ -75,6 +75,7 @@ public class AnimalDialog extends JDialog{
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.fill = GridBagConstraints.HORIZONTAL;
+        cs.insets = new Insets(5,5,5,5);
 
         TitledBorder border = new TitledBorder("Client");
         border.setTitleJustification(TitledBorder.CENTER);
@@ -212,7 +213,7 @@ public class AnimalDialog extends JDialog{
                 e.printStackTrace();
             }
             for(Client elt:clients){
-                clientComboBox.addItem(elt.getNom() + "" + elt.getPrenomClient());
+                clientComboBox.addItem(elt.getNom() + " " + elt.getPrenomClient());
             }
 
             //maj listes
