@@ -36,7 +36,17 @@ public class PersonnelManager {
             validerPersonnel(personnel);
             daoPersonnel.insert(personnel);
         } catch (DALException e){
-            throw new BLLException("Echec insert personnel", e);
+            throw new BLLException("Echec insert personnel"+ personnel, e);
+        }
+        return personnel;
+    }
+
+    public Personnel updatePersonnel(Personnel personnel) throws BLLException{
+        try{
+            validerPersonnel(personnel);
+            daoPersonnel.update(personnel);
+        } catch (DALException e){
+            throw new BLLException("echec update personnel: "+personnel, e);
         }
         return personnel;
     }

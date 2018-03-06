@@ -10,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PersonnelAjout extends JDialog{
+public class PersonnelEdit extends JDialog{
     private JLabel nomLabel, roleLabel, motPasseLabel;
     private JTextField nomTextField, roleTextField;
     private JComboBox roleBox;
@@ -20,8 +20,8 @@ public class PersonnelAjout extends JDialog{
     private PersonnelManager personnelManager;
 
 
-    public PersonnelAjout(Frame parent) {
-        super(parent, "Ajout personnel", true);
+    public PersonnelEdit(Frame parent) {
+        super(parent, "Edition personnel", true);
         //
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -85,7 +85,7 @@ public class PersonnelAjout extends JDialog{
                     Object selected = roleBox.getSelectedItem();
                     personnel = new Personnel(nomTextField.getText(), SHA512.getSHA512(motPasse.getText(), "toto"),selected.toString(), false);
                     personnelManager = new PersonnelManager();
-                    personnelManager.insertPersonnel(personnel);
+                    personnelManager.updatePersonnel(personnel);
                     dispose();
                 } catch (BLLException e1) {
                     e1.printStackTrace();
