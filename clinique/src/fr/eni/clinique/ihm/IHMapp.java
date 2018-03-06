@@ -6,6 +6,7 @@ import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
 import fr.eni.clinique.ihm.ecranClient.ClientTable;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelFrame;
+import fr.eni.clinique.ihm.ecranRDV.PriseRendezVousFrame;
 import fr.eni.clinique.ihm.login.LoginDialog;
 
 import java.awt.*;
@@ -27,16 +28,16 @@ public class IHMapp extends JFrame implements ActionListener {
     private static Personnel utilisateurEnCours;
     private static IHMapp instance;
     private ClientFrame clientPanel;
+    private PriseRendezVousFrame rendezVousFrame;
 
-    public static IHMapp getInstance() throws BLLException {
+    public static IHMapp getInstance() throws BLLException{
         if(IHMapp.instance == null){
             IHMapp.instance = new IHMapp();
         }
         return IHMapp.instance;
     }
 
-    public IHMapp() throws BLLException {
-
+    public IHMapp() throws BLLException{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -54,6 +55,7 @@ public class IHMapp extends JFrame implements ActionListener {
         //Frame interne exemple
         desktopPane.add(getPersonnelFrame());
         desktopPane.add(getClientSearch());
+        desktopPane.add(getPriseRendezVousFrame());
     }
 
     // Lancement de l'application
@@ -140,11 +142,11 @@ public class IHMapp extends JFrame implements ActionListener {
                 break;
 
             case "priseRdv":
-                System.out.println("oui");
-                final JFrame frame = new JFrame("Ajout animal");
-                AnimalDialog animalDialog = new AnimalDialog(frame);
-                animalDialog.setVisible(true);
-
+                try {
+                    getPriseRendezVousFrame().setVisible(true);
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
                 break;
 
             case "gestionClient":
@@ -193,6 +195,13 @@ public class IHMapp extends JFrame implements ActionListener {
             clientPanel = new ClientFrame(this);
         }
         return clientPanel;
+    }
+
+    public PriseRendezVousFrame getPriseRendezVousFrame() throws BLLException{
+        if(rendezVousFrame == null){
+            rendezVousFrame = new PriseRendezVousFrame(this);
+        }
+        return rendezVousFrame;
     }
 
 }
