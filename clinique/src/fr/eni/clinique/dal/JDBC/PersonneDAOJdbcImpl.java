@@ -173,8 +173,8 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return personnel;
     }
 
-    public void update(Personnel personnel) throws DALException{
-        //Personnel personnel = (Personnel)data;
+    public void update(Object data) throws DALException{
+        Personnel personnel = (Personnel)data;
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
@@ -203,7 +203,8 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     }
 
     @Override
-    public void delete(Personnel personnel) throws DALException {
+    public void delete(Object data) throws DALException {
+        Personnel personnel = (Personnel)data;
         Connection cnx = null;
         PreparedStatement stt = null;
         try{
