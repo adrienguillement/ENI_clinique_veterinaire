@@ -58,7 +58,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
 
     public PriseRendezVousFrame(JFrame parent) throws BLLException{
         //Ecran avec un titre, redimensionable, fermable, agrandissable, iconifiable
-        super("Gestion du Personnel", true, true, true,true);
+        super("Prise de rendez-vous", true, true, true,true);
         this.parent = parent;
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         setLayout(null);
@@ -74,7 +74,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-
         panelPriseRendezVous.add(getPanelPour(), gbc);
 
         gbc.gridx = 1;
@@ -146,11 +145,9 @@ public class PriseRendezVousFrame extends JInternalFrame {
         ajouterAnimalauClientButton = new JButton("+");
         panelPour.add(ajouterAnimalauClientButton, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        JLabel pad = new JLabel("bfh");
-        panelPour.add(pad, gbc);
+
         panelPour.setBorder(border);
+        panelPour.setPreferredSize(new Dimension(1000, 1000));
         return panelPour;
     }
 
