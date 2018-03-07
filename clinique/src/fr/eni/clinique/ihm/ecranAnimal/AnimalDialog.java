@@ -130,7 +130,6 @@ public class AnimalDialog extends JDialog{
                     return this;
                 }
             } );
-
             panel.add(clientComboBox, cs);
         }
 
@@ -213,7 +212,7 @@ public class AnimalDialog extends JDialog{
 
                     animalManager.insert(newAnimal);
                 }
-                clientFrame.getAnimalTable().getModele().fireTableDataChanged();
+                clientFrame.getAnimalTable().getModele().setAnimaux(animalManager.getFromClient(clientFrame.getClient()));
             }
         });
         panel.add(ajouterButton, cs);
@@ -242,7 +241,6 @@ public class AnimalDialog extends JDialog{
                 e.printStackTrace();
             }
 
-
             //maj listes
             for(Animal elt:animaux){
                 //liste races
@@ -267,13 +265,9 @@ public class AnimalDialog extends JDialog{
                 }
             }
         }
-
         getContentPane().add(panel, BorderLayout.CENTER);
 
         pack();
         setResizable(true);
     }
-
-
-
 }

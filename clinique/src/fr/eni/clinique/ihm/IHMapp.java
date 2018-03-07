@@ -80,7 +80,6 @@ public class IHMapp extends JFrame implements ActionListener {
             login.setModal(true);
             ecran.setVisible(true);
         });
-
     }
 
 
