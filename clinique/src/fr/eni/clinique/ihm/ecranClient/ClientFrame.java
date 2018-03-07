@@ -23,7 +23,7 @@ import java.beans.PropertyChangeListener;
 public class ClientFrame extends JInternalFrame {
 
     private JButton ajouter, rechercher, modifier, supprimer;
-    private JButton ajouterAnimal, modifierAnimal;
+    private JButton ajouterAnimal, modifierAnimal, supprimerAnimal;
     private JTextField rechercherField;
     private ClientTable panelSearch;
     private JPanel panel_client;
@@ -105,7 +105,24 @@ public class ClientFrame extends JInternalFrame {
             getAnimalDialog(selectedAnimal);
         });
 
+        supprimerAnimal = new JButton("Supprimer");
+        supprimerAnimal.addActionListener(e -> {
+            try{
+                AnimalManager animalManager = new AnimalManager();
+                selectedAnimal = animalTable.getModele().getAnimaux().get(animalTable.getSelectedRow());
+                animalManager.deleteAnimal(selectedAnimal);
+                JOptionPane.showMessageDialog(null, "Animal supprimé.", null, JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (BLLException error){
+                error.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Problème lors de la suppression du client.", null, JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        });
+
         panelButton.add(ajouterAnimal);
+        panelButton.add(supprimerAnimal);
         panelButton.add(modifierAnimal);
 
         return panelButton;

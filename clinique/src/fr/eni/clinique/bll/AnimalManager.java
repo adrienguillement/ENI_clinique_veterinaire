@@ -16,6 +16,14 @@ public class AnimalManager {
         daoAnimal = new DAOFactory().getAnimalDAO();
     }
 
+    public void deleteAnimal(Animal animal) {
+        try {
+            daoAnimal.delete(animal);
+        } catch (DALException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public List<Animal> getFromClient(Client client) {
         List<Animal> animauxClient = null;
