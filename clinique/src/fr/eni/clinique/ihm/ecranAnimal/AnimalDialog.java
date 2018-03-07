@@ -9,6 +9,7 @@ import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Race;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.ihm.ecranClient.ClientFrame;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -16,20 +17,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 
 public class AnimalDialog extends JDialog{
 
     private JLabel clientLabel, codeLabel, nomLabel, couleurLabel, especeLabel, raceLabel, tatouageLabel, sexeLabel;
     private JTextField clientTextField, codeTextField, nomTextfield, couleurTextField, tatouageTextField;
     private JComboBox sexeComboBox, especeComboBox, raceComboBox, clientComboBox;
-    private JButton ajouterButton, annulerButton;
+    public JButton ajouterButton, annulerButton;
     private boolean estModification = false;
     private List<Client> clients = new ArrayList<>();
     private List<String> sexes = new ArrayList<>();
     private List<String> especes = new ArrayList<>();
     private List<String> races = new ArrayList<>();
     private List<Animal> animaux = new ArrayList<>();
+    private ClientFrame clientFrame;
 
     private AnimalManager animalManager;
 
@@ -54,17 +58,19 @@ public class AnimalDialog extends JDialog{
     //creation d'un param optionnel
     private Animal animal = null;
 
-    public AnimalDialog(Frame parent, Animal animal){
+    public AnimalDialog(Frame parent, Animal animal, ClientFrame clientFrame){
         super(parent, "Animal", true);
         this.animal = animal;
+        this.clientFrame = clientFrame;
         setIHM();
 
 
     }
 
     //methode avec parametre optinnel
-    public AnimalDialog(Frame parent){
+    public AnimalDialog(Frame parent, ClientFrame clientFrame){
         super(parent, "Animal", true);
+        this.clientFrame = clientFrame;
         setIHM();
     }
 
@@ -104,7 +110,27 @@ public class AnimalDialog extends JDialog{
             panel.add(clientTextField, cs);
         }
         else{
-            clientComboBox = new JComboBox();
+            //chargement liste clients
+            try {
+                clients = clientManager.getCatalogue();
+            } catch (BLLException e) {
+                e.printStackTrace();
+            }
+
+            //affichage d'une comboBox avec properties spécifiques à l'objet
+            clientComboBox = new JComboBox(new DefaultComboBoxModel(clients.toArray()));
+            clientComboBox.setRenderer(new DefaultListCellRenderer() {
+                @Override
+                public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                    Client client = (Client) value;
+                    setText(client.getNom() + "-" + client.getPrenomClient());
+
+                    return this;
+                }
+            } );
+
             panel.add(clientComboBox, cs);
 
         }
@@ -168,7 +194,6 @@ public class AnimalDialog extends JDialog{
 
         cs.gridx = 0;
         cs.gridy = 6;
-        //chargement liste clients
 
         ajouterButton = new JButton();
         ajouterButton.addActionListener(new ActionListener() {
@@ -183,10 +208,13 @@ public class AnimalDialog extends JDialog{
                 }
                 else{
                     Race race = new Race(raceComboBox.getSelectedItem().toString(), especeComboBox.getSelectedItem().toString());
+                    System.out.println(clientComboBox.getSelectedItem());
+                    Client client = (Client)clientComboBox.getSelectedItem();
+                    Animal newAnimal = new Animal(nomTextfield.getText(), sexeComboBox.getSelectedItem().toString(), couleurTextField.getText(), race, client.getCode(), tatouageTextField.getText(), null, false);
 
-                    Animal newAnimal = new Animal(nomTextfield.getText(), sexeComboBox.getSelectedItem().toString(), couleurTextField.getText(), race, clientComboBox.getSelectedIndex(), tatouageTextField.getText(), null, false);
                     animalManager.insert(newAnimal);
                 }
+                clientFrame.getAnimalTable().getModele().fireTableDataChanged();
             }
         });
         panel.add(ajouterButton, cs);
@@ -215,15 +243,6 @@ public class AnimalDialog extends JDialog{
                 e.printStackTrace();
             }
 
-            //chargement liste clients
-            try {
-                clients = clientManager.getCatalogue();
-            } catch (BLLException e) {
-                e.printStackTrace();
-            }
-            for(Client elt:clients){
-                clientComboBox.addItem(elt.getNom() + " " + elt.getPrenomClient());
-            }
 
             //maj listes
             for(Animal elt:animaux){

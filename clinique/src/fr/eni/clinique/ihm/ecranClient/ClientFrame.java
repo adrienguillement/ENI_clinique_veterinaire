@@ -133,8 +133,9 @@ public class ClientFrame extends JInternalFrame {
      * @return
      */
     private AnimalDialog getAnimalDialog() {
-        animalDialog = new AnimalDialog(parent);
+        animalDialog = new AnimalDialog(parent, this);
         animalDialog.setVisible(true);
+
         return animalDialog;
     }
 
@@ -144,7 +145,8 @@ public class ClientFrame extends JInternalFrame {
      * @return
      */
     private AnimalDialog getAnimalDialog(Animal selectedAnimal) {
-        animalDialog = new AnimalDialog(parent, selectedAnimal);
+        System.out.println(selectedAnimal);
+        animalDialog = new AnimalDialog(parent, selectedAnimal, this);
         animalDialog.setVisible(true);
         return animalDialog;
     }
@@ -299,6 +301,10 @@ public class ClientFrame extends JInternalFrame {
 
     public Client getClient() {
         return client;
+    }
+
+    public AnimalTable getAnimalTable(){
+        return animalTable;
     }
 
     public void setClient(Client client) {
