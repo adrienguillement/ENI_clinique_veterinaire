@@ -3,6 +3,7 @@ package fr.eni.clinique.ihm.ecranAnimal;
 import fr.eni.clinique.bll.AnimalManager;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.CltManager;
+import fr.eni.clinique.bll.RaceManager;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Race;
@@ -203,12 +204,14 @@ public class AnimalDialog extends JDialog{
                 //Ajout ou modification d'un animal
                 if(estModification){
                     animalManager.update(animal);
+                    JOptionPane.showMessageDialog(null, "Animal modifié", null, JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
                     Race race = new Race(raceComboBox.getSelectedItem().toString(), especeComboBox.getSelectedItem().toString());
                     System.out.println(clientComboBox.getSelectedItem());
                     Client client = (Client)clientComboBox.getSelectedItem();
                     Animal newAnimal = new Animal(nomTextfield.getText(), sexeComboBox.getSelectedItem().toString(), couleurTextField.getText(), race, client.getCode(), tatouageTextField.getText(), null, false);
+
                     animalManager.insert(newAnimal);
                 }
                 clientFrame.getAnimalTable().getModele().fireTableDataChanged();
@@ -219,11 +222,8 @@ public class AnimalDialog extends JDialog{
         cs.gridx = 1;
         cs.gridy = 6;
         annulerButton = new JButton("Annuler");
-        annulerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Annuler
-            }
+        annulerButton.addActionListener(e -> {
+            this.dispose();
         });
         panel.add(annulerButton, cs);
 

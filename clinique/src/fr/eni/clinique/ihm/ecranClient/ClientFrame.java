@@ -22,8 +22,8 @@ import java.beans.PropertyChangeListener;
 
 public class ClientFrame extends JInternalFrame {
 
-    private JButton ajouter, rechercher, modifier;
-    private JButton ajouterAnimal, modifierAnimal;
+    private JButton ajouter, rechercher, modifier, supprimer;
+    private JButton ajouterAnimal, modifierAnimal, supprimerAnimal;
     private JTextField rechercherField;
     private ClientTable panelSearch;
     private JPanel panel_client;
@@ -74,6 +74,10 @@ public class ClientFrame extends JInternalFrame {
         return panel;
     }
 
+    /**
+     * Panel correspondant à la gestion des animaux
+     * @return
+     */
     private JPanel getPanelAnimaux() {
         JPanel panelAnimal = new JPanel();
         panelAnimal.setLayout(new GridLayout(0,1));
@@ -83,6 +87,10 @@ public class ClientFrame extends JInternalFrame {
         return panelAnimal;
     }
 
+    /**
+     * Boutons pour gérer les animaux
+     * @return
+     */
     private JPanel getPanelButtonAnimal() {
         JPanel panelButton = new JPanel();
 
@@ -97,12 +105,33 @@ public class ClientFrame extends JInternalFrame {
             getAnimalDialog(selectedAnimal);
         });
 
+        supprimerAnimal = new JButton("Supprimer");
+        supprimerAnimal.addActionListener(e -> {
+            try{
+                AnimalManager animalManager = new AnimalManager();
+                selectedAnimal = animalTable.getModele().getAnimaux().get(animalTable.getSelectedRow());
+                animalManager.deleteAnimal(selectedAnimal);
+                JOptionPane.showMessageDialog(null, "Animal supprimé.", null, JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (BLLException error){
+                error.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Problème lors de la suppression du client.", null, JOptionPane.ERROR_MESSAGE);
+
+            }
+
+        });
+
         panelButton.add(ajouterAnimal);
+        panelButton.add(supprimerAnimal);
         panelButton.add(modifierAnimal);
 
         return panelButton;
     }
 
+    /**
+     * JDialog ajout animal sans animal sélectionné
+     * @return
+     */
     private AnimalDialog getAnimalDialog() {
         animalDialog = new AnimalDialog(parent, this);
         animalDialog.setVisible(true);
@@ -110,6 +139,11 @@ public class ClientFrame extends JInternalFrame {
         return animalDialog;
     }
 
+    /**
+     * JDialog ajout animal avec animal sélectionné
+     * @param selectedAnimal
+     * @return
+     */
     private AnimalDialog getAnimalDialog(Animal selectedAnimal) {
         System.out.println(selectedAnimal);
         animalDialog = new AnimalDialog(parent, selectedAnimal, this);
@@ -186,6 +220,16 @@ public class ClientFrame extends JInternalFrame {
         return clientAddDialog;
     }
 
+    private void getClientDelete(){
+        try {
+            client = new Client(Integer.valueOf(code.getText()), nom.getText(), prenom.getText(), adresse.getText(), null, codePostal.getText(), ville.getText(), numTel.getText(), assurance.getText(), email.getText(), remarque.getText(), false);
+            clientManager.deleteClient(client);
+            JOptionPane.showMessageDialog(null, "Utilisateur supprimé", null, JOptionPane.INFORMATION_MESSAGE);
+        } catch (BLLException e) {
+            JOptionPane.showMessageDialog(null, "Problème lors de la suppression du client.", null, JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     /**
      * Initialisation panel button
      * @return
@@ -203,6 +247,11 @@ public class ClientFrame extends JInternalFrame {
         ajouter = new JButton("Ajouter client");
         ajouter.addActionListener(e -> {
             getClientAddDialog();
+        });
+
+        supprimer = new JButton("Supprimer client");
+        supprimer.addActionListener(e -> {
+            getClientDelete();
         });
 
         // Bouton modifier
@@ -229,6 +278,7 @@ public class ClientFrame extends JInternalFrame {
         });
         panelBoutton.add(rechercher);
         panelBoutton.add(ajouter);
+        panelBoutton.add(supprimer);
         panelBoutton.add(modifier);
         return panelBoutton;
     }
@@ -238,11 +288,9 @@ public class ClientFrame extends JInternalFrame {
         if(rechercherField.getText().trim().length() != 0) {
             System.out.println("rechercherField non null" + rechercherField.getText());
             panelSearch = new ClientTable();
-
         } else {
             panelSearch = new ClientTable();
         }
-
         return panelSearch;
     }
 
