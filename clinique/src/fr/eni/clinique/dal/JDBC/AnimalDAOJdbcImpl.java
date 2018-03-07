@@ -19,7 +19,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
     private static final String sqlSelectAll = "SELECT * FROM ANIMAL";
     private static final String sqlInsert = "INSERT INTO ANIMAL(NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where id=?";
+    private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where CodeAnimal=?";
     private static final String sqlSelectByClient = "SELECT * FROM ANIMAL WHERE CodeClient = ?";
     private static final String sqlSelectByCode = "SELECT * FROM ANIMAL WHERE CodeAnimal = ?";
 
@@ -172,9 +172,9 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
             rqt.setString(1, animal.getNomAnimal());
             rqt.setString(2, animal.getSexe());
             rqt.setString(3, animal.getCouleur());
-            rqt.setString(4, animal.getRace().getRace().toString());
-            rqt.setString(5, animal.getRace().getEspece().toString());
-            rqt.setInt(6, animal.getCodeClient());
+            rqt.setString(4, animal.getRace().getRace());
+            rqt.setString(5, animal.getRace().getEspece());
+            rqt.setInt(6, animal.getCodeClient()+1);
             rqt.setString(7, animal.getTatouage());
             rqt.setString(8, animal.getAntecedents());
             rqt.setBoolean(9, animal.isArchive());
@@ -219,11 +219,10 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
             rqt.setString(3, animal.getCouleur());
             rqt.setString(4, animal.getRace().getRace());
             rqt.setString(5, animal.getRace().getEspece());
-            rqt.setInt(6, animal.getCodeClient());
+            rqt.setInt(6, animal.getCodeClient()+1);
             rqt.setString(7, animal.getTatouage());
             rqt.setString(8, animal.getAntecedents());
             rqt.setBoolean(9, animal.isArchive());
-
             rqt.executeUpdate();
         } catch (SQLException e) {
             throw new DALException("Update animal failed - " + animal, e);
