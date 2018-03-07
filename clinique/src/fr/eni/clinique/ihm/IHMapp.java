@@ -60,27 +60,25 @@ public class IHMapp extends JFrame implements ActionListener {
 
     // Lancement de l'application
     public static void main(String[] args) throws BLLException {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                IHMapp ecran = null;
-                try {
-                    ecran = new IHMapp();
-                } catch (BLLException e) {
-                    e.printStackTrace();
-                }
-
-                //JDialog pour login (modal)
-                final JFrame frame = new JFrame("Authentification");
-                LoginDialog loginDlg = new LoginDialog(frame);
-                loginDlg.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                loginDlg.setVisible(true);
-
-                JDialog login = new JDialog(ecran, "fezfez", Dialog.ModalityType.DOCUMENT_MODAL);
-                login.setModal(true);
-                ecran.setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            IHMapp ecran = null;
+            try {
+                ecran = new IHMapp();
+            } catch (BLLException e) {
+                e.printStackTrace();
             }
+
+
+            //JDialog pour login (modal)
+            final JFrame frame = new JFrame("Authentification");
+            LoginDialog loginDlg = new LoginDialog(frame);
+            loginDlg.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            loginDlg.setVisible(true);
+
+
+            JDialog login = new JDialog(ecran, "fezfez", Dialog.ModalityType.DOCUMENT_MODAL);
+            login.setModal(true);
+            ecran.setVisible(true);
         });
 
     }

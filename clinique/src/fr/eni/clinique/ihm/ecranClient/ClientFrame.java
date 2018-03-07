@@ -92,7 +92,10 @@ public class ClientFrame extends JInternalFrame {
 
         // Bouton modifier un animal
         modifierAnimal = new JButton("Modifier");
-        modifierAnimal.addActionListener(e -> getAnimalDialog(animalTableModel.getValueByRow(animalTable.getSelectedRow())));
+        modifierAnimal.addActionListener(e -> {
+            selectedAnimal = animalTable.getModele().getAnimaux().get(animalTable.getSelectedRow());
+            getAnimalDialog(selectedAnimal);
+        });
 
         panelButton.add(ajouterAnimal);
         panelButton.add(modifierAnimal);
@@ -107,6 +110,7 @@ public class ClientFrame extends JInternalFrame {
     }
 
     private AnimalDialog getAnimalDialog(Animal selectedAnimal) {
+        System.out.println(selectedAnimal);
         animalDialog = new AnimalDialog(parent, selectedAnimal);
         animalDialog.setVisible(true);
         return animalDialog;

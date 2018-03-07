@@ -17,10 +17,56 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
     private Race race = null;
 
     private static final String sqlSelectAll = "SELECT * FROM ANIMAL";
-    private static final String sqlInsert = "INSERT INTO ANIMAL(CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+    private static final String sqlInsert = "INSERT INTO ANIMAL(NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where id=?";
     private static final String sqlSelectByClient = "SELECT * FROM ANIMAL WHERE CodeClient = ?";
+    private static final String sqlSelectByCode = "SELECT * FROM ANIMAL WHERE CodeAnimal = ?";
+
+    public Animal selectByCode(int codeAnimal) throws DALException {
+        Connection cnx = null;
+        PreparedStatement rqt = null;
+        ResultSet rs = null;
+        Animal animal = null;
+
+        try {
+            cnx = JdbcTools.getConnection();
+            rqt = cnx.prepareStatement(sqlSelectByCode);
+            rqt.setInt(1, codeAnimal);
+            rs = rqt.executeQuery();
+
+
+            while (rs.next()) {
+                race = raceDAOJdbc.selectByRace(rs.getString("Race"));
+                animal = new Animal(rs.getInt("codeAnimal"),
+                        rs.getString("NomAnimal"),
+                        rs.getString("Sexe"),
+                        rs.getString("Couleur"),
+                        race,
+                        rs.getInt("CodeClient"),
+                        rs.getString("Tatouage"),
+                        rs.getString("Antecedents"),
+                        rs.getBoolean("Archive"));
+            }
+        } catch (SQLException e) {
+            throw new DALException("selectAll failed - " , e);
+        } finally {
+            try {
+                if (rs != null){
+                    rs.close();
+                }
+                if (rqt != null){
+                    rqt.close();
+                }
+                if(cnx!=null){
+                    cnx.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return animal;
+    }
 
     public List<Animal> selectByClient(Client client) throws DALException {
         Connection cnx = null;
@@ -126,8 +172,8 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
             rqt.setString(1, animal.getNomAnimal());
             rqt.setString(2, animal.getSexe());
             rqt.setString(3, animal.getCouleur());
-            rqt.setString(4, animal.getRace().getRace());
-            rqt.setString(5, animal.getRace().getEspece());
+            rqt.setString(4, animal.getRace().getRace().toString());
+            rqt.setString(5, animal.getRace().getEspece().toString());
             rqt.setInt(6, animal.getCodeClient());
             rqt.setString(7, animal.getTatouage());
             rqt.setString(8, animal.getAntecedents());

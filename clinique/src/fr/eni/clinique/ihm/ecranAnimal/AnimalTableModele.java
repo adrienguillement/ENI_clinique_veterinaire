@@ -56,6 +56,10 @@ public class AnimalTableModele extends AbstractTableModel {
         return ret;
     }
 
+    public List<Animal> getAnimaux() {
+        return animaux;
+    }
+
     public Animal getValueByRow(int row){
         return this.animaux.get(row);
     }

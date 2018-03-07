@@ -156,7 +156,7 @@ public class ClientAddDialog extends JDialog {
 
         getContentPane().add(panel, BorderLayout.CENTER);
 
-        setSize(new Dimension(parent.getWidth(),parent.getHeight()));
+        setSize(new Dimension(500,600));
         //setResizable(false);
         setLocationRelativeTo(parent);
         this.setVisible(true);
