@@ -14,6 +14,17 @@ public class PersonnelManager {
         daoPersonnel = DAOFactory.getPersonneDAO();
     }
 
+    public Personnel getPersonnelById(int id) {
+        Personnel personnel = null;
+
+        try{
+            personnel = DAOFactory.getPersonneDAO().selectById(id);
+        }catch(DALException e){
+            e.printStackTrace();
+        }
+        return personnel;
+    }
+
     /**
      *
      * @return

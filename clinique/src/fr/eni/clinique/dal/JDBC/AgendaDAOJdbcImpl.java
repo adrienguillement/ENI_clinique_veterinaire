@@ -7,6 +7,7 @@ import fr.eni.clinique.dal.DAOAgenda;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class AgendaDAOJdbcImpl implements DAOAgenda{
@@ -29,11 +30,18 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
             rs = rqt.executeQuery(sqlSelectAll);
             Agenda agenda = null;
 
+            Timestamp timestamp;
+            java.util.Date date;
+
             while (rs.next()) {
+                timestamp = rs.getTimestamp("DateRdv");
+                date =  new java.sql.Date(timestamp.getTime());
                 agenda = new Agenda(rs.getInt("CodeVeto"),
-                        rs.getDate("DateRdv"),
+                        date,
                         rs.getInt("CodeAnimal"));
                 liste.add(agenda);
+
+                System.out.println(date);
             }
         } catch (SQLException e) {
             throw new DALException("selectAll agenda failed - " , e);
@@ -64,7 +72,7 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
             cnx = JdbcTools.getConnection();
             rqt = cnx.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
             rqt.setInt(1, agenda.getCodeVeto());
-            rqt.setDate(2, agenda.getDateRdv());
+            rqt.setDate(2, (java.sql.Date) agenda.getDateRdv());
             rqt.setInt(3, agenda.getCodeAnimal());
 
             int nbRows = rqt.executeUpdate();
