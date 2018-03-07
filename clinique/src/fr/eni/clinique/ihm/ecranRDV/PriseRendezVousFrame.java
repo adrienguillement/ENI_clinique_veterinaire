@@ -1,9 +1,7 @@
 package fr.eni.clinique.ihm.ecranRDV;
 
-import fr.eni.clinique.bll.AnimalManager;
-import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.CltManager;
-import fr.eni.clinique.bll.PersonnelManager;
+import fr.eni.clinique.bll.*;
+import fr.eni.clinique.bo.Agenda;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
@@ -15,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -103,6 +102,26 @@ public class PriseRendezVousFrame extends JInternalFrame {
 
         veterinaireLabel = new JLabel("Vétérinaire");
         veterinaireComboBox = new JComboBox();
+        //chargement liste clients
+        List<Personnel> personnels = null;
+        try {
+            personnels = personnelManager.getPersonnels();
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
+        //affichage d'une comboBox avec properties spécifiques à l'objet
+        veterinaireComboBox = new JComboBox(new DefaultComboBoxModel(personnels.toArray()));
+        veterinaireComboBox.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                Personnel personnel = (Personnel) value;
+                setText(personnel.getNom());
+                return this;
+            }
+        });
+        panelPar.add(veterinaireComboBox);
+
         panelPar.add(veterinaireLabel);
         panelPar.add(veterinaireComboBox);
 
@@ -138,7 +157,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
             @Override
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                System.out.println(value);
                 Client client = (Client) value;
                 setText(client.getNom() + "-" + client.getPrenomClient());
                 return this;
@@ -218,22 +236,33 @@ public class PriseRendezVousFrame extends JInternalFrame {
     public void addNewReservation() {
         System.out.println("> Nouvelle réservation IHM");
         System.out.println(panelQuand.getModel().getValue());
+        Client client = (Client) clientComboBox.getSelectedItem();
+        System.out.println(panelQuand.getModel().getValue());
+
+        java.util.Date dateUtil = (java.util.Date) panelQuand.getModel().getValue();
+        java.sql.Date dateRDV = new java.sql.Date(dateUtil.getTime());
+
+        Personnel veto = (Personnel) veterinaireComboBox.getSelectedItem();
+        System.out.println(client.getCode());
+        Agenda newRdv = new Agenda(veto.getCodePers(), dateRDV, client.getCode());
+        try {
+            AgendaManager agendaManager = new AgendaManager();
+            agendaManager.insert(newRdv);
+            JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (BLLException e) {
+            JOptionPane.showMessageDialog(null, "Problème lors de la réservation", null, JOptionPane.ERROR_MESSAGE);
+        }
+        System.out.println(newRdv);
 
 
     }
 
     public void LoadListes() throws BLLException{
-
-        List<Client> listeClient = clientManager.getCatalogue();
         List<Animal> listeAnimal = animalManager.getListeAnimaux();
-        List<Personnel> listePersonnel = personnelManager.getPersonnels();
 
         for(Animal elt:listeAnimal){
             animalComboBox.addItem(elt.getNomAnimal());
-        }
-
-        for(Personnel elt:listePersonnel){
-            veterinaireComboBox.addItem(elt.getNom());
         }
     }
 }

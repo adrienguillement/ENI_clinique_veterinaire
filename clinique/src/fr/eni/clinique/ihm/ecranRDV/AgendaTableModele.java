@@ -1,5 +1,7 @@
 package fr.eni.clinique.ihm.ecranRDV;
 
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.PersonnelManager;
 import fr.eni.clinique.bo.Agenda;
 
 import javax.swing.table.AbstractTableModel;
