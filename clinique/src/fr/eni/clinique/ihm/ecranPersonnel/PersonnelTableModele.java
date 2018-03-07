@@ -10,7 +10,11 @@ public class PersonnelTableModele extends AbstractTableModel{
 
     public void setPersonnels(List<Personnel> personnels) {
         this.personnels = personnels;
+<<<<<<< HEAD
         fireTableDataChanged();
+=======
+        this.fireTableDataChanged();
+>>>>>>> master
     }
 
 

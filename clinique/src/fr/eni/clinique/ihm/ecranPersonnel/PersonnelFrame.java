@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 public class PersonnelFrame extends JInternalFrame{
     private PersonnelTable personnelTable;
@@ -16,6 +17,16 @@ public class PersonnelFrame extends JInternalFrame{
     private JButton ajouter,modifier,supprimer;
     private JFrame parent;
     private Personnel personnel;
+    private static PersonnelManager personnelManager;
+
+    static {
+        try {
+            personnelManager = new PersonnelManager();
+
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public PersonnelFrame(JFrame parent){
         //Ecran avec un titre, redimensionable, fermable, agrandissable, iconifiable
@@ -27,8 +38,6 @@ public class PersonnelFrame extends JInternalFrame{
         setSize(400,600);
         setContentPane(getPanelPersonnel());
     }
-
-
 
     //PANEL PERSONNEL
     public JPanel getPanelPersonnel(){
@@ -49,10 +58,8 @@ public class PersonnelFrame extends JInternalFrame{
 
     public PersonnelAjout getPersonnelAjout(){
         personnelAjout = new PersonnelAjout(parent);
-        PersonnelManager personnelManager = null;
         try {
-            personnelManager = new PersonnelManager();
-            getPersonnelTable().getModele().setPersonnels(personnelManager.getPersonnels());
+           personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());
         } catch (BLLException e) {
             e.printStackTrace();
         }
@@ -61,11 +68,9 @@ public class PersonnelFrame extends JInternalFrame{
     }
 
     public PersonnelEdit getPersonnelEdit(Personnel personnel){
-        personnelEdit = new PersonnelEdit(parent);
-        PersonnelManager personnelManager = null;
+        personnelEdit = new PersonnelEdit(parent, personnel);
         try{
-            personnelManager = new PersonnelManager();
-            getPersonnelTable().getModele().setPersonnels(personnelManager.getPersonnels());
+            personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());
         } catch (BLLException e){
             e.printStackTrace();
         }
@@ -91,16 +96,10 @@ public class PersonnelFrame extends JInternalFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                try{
-                    int numSelected = PersonnelTable.setPersonnelTable().getSelectedRow();
-                    Personnel personnel = PersonnelTable.setPersonnelTable().listePersonnels.get(numSelected);
-                    PersonnelManager personnelManager = new PersonnelManager();
-                    getPersonnelEdit(personnel);
-                    System.out.println(personnel);
-                } catch (BLLException e2){
-                    e2.printStackTrace();
-                }
-                //getPersonnelEdit(personnel);
+                int numSelected = personnelTable.getSelectedRow();
+                System.out.println(numSelected);
+                Personnel personnel = personnelTable.setPersonnelTable().listePersonnels.get(numSelected);
+                getPersonnelEdit(personnel);
                 System.out.println("modification terminer");
             }
         });
@@ -109,11 +108,11 @@ public class PersonnelFrame extends JInternalFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int numSelected = PersonnelTable.setPersonnelTable().getSelectedRow();
-                    Personnel personnel = PersonnelTable.setPersonnelTable().listePersonnels.get(numSelected);
-                    PersonnelManager personnelManager = new PersonnelManager();
+                    int numSelected = personnelTable.getSelectedRow();
+                    System.out.println(numSelected);
+                    Personnel personnel = personnelTable.listePersonnels.get(numSelected);
                     personnelManager.deletePersonnel(personnel);
-                    getPersonnelTable().getModele().setPersonnels(personnelManager.getPersonnels());
+                    personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                 }
