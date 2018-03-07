@@ -31,12 +31,13 @@ public class ClientFrame extends JInternalFrame {
     private JPanel panel_client_add;
     private Client client;
     private JTextField code, nom, prenom, adresse, ville, codePostal, assurance, email, numTel, remarque;
+    private CltManager clientManager = new CltManager();
 
     private AnimalTable animalTable;
     private Animal selectedAnimal;
     private AnimalTableModele animalTableModel;
+    private AnimalManager animalManager = new AnimalManager();
 
-    private CltManager clientManager;
     private ClientSearchDialog clientSearch;
     private ClientAddDialog clientAddDialog;
     private AnimalDialog animalDialog;
@@ -49,21 +50,23 @@ public class ClientFrame extends JInternalFrame {
         super("Gestion des client", true, true, true,true);
         this.parent = parent;
 
+        client = clientManager.getClientById(clientManager.getFirst().getCode());
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         setBounds(0, 0, 900, 600);
         clientManager = new CltManager();
-        setContentPane(getPanelClient(clientManager.getFirst().getCode()));
+        setContentPane(getPanelClient());
     }
 
 
-    private JPanel getPanelClient(int idClient){
+    private JPanel getPanelClient(){
+        System.out.printf(client.toString());
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(getPanelButton(), BorderLayout.PAGE_START);
 
         try {
             client = clientManager.getFirst();
-            panel.add(getPanelFormClient(client.getCode()), BorderLayout.LINE_START);
+            panel.add(getPanelFormClient(), BorderLayout.LINE_START);
         } catch (BLLException e) {
             e.printStackTrace();
         }
@@ -156,60 +159,57 @@ public class ClientFrame extends JInternalFrame {
         return animalTable;
     }
 
-    private JPanel getPanelFormClient(int idClient) throws BLLException {
+    private JPanel getPanelFormClient() throws BLLException {
         JPanel panel = new JPanel();
-
-        CltManager personnelManager = new CltManager();
-        Client clientById = personnelManager.getClientById(idClient);
 
         panel.setLayout(new GridLayout(0, 2));
         panel.add(new JLabel("Code : "));
 
-        this.code = new JTextField(String.valueOf(clientById.getCode()));
+        this.code = new JTextField(String.valueOf(client.getCode()));
         this.code.setEditable(false);
         JTextField codeClient = this.code;
         panel.add(codeClient);
 
         panel.add(new JLabel("Nom : "));
-        this.nom = new JTextField(clientById.getNom());
+        this.nom = new JTextField(client.getNom());
         panel.add(this.nom);
 
         panel.add(new JLabel("Prenom : "));
-        this.prenom = new JTextField(clientById.getPrenomClient());
+        this.prenom = new JTextField(client.getPrenomClient());
         panel.add(this.prenom);
 
         panel.add(new JLabel("Email : "));
-        this.email = new JTextField(clientById.getEmail());
+        this.email = new JTextField(client.getEmail());
         panel.add(this.email);
 
         panel.add(new JLabel("Adresse : "));
-        this.adresse = new JTextField(clientById.getAdresse1());
+        this.adresse = new JTextField(client.getAdresse1());
         panel.add(this.adresse);
 
         panel.add(new JLabel("Code postal : "));
-        this.codePostal = new JTextField(clientById.getCodePostal());
+        this.codePostal = new JTextField(client.getCodePostal());
         panel.add(this.codePostal);
 
         panel.add(new JLabel("Ville : "));
-        this.ville = new JTextField(clientById.getVille());
+        this.ville = new JTextField(client.getVille());
         panel.add(this.ville);
 
         panel.add(new JLabel("Assurance : "));
-        this.assurance = new JTextField(clientById.getAssurance());
+        this.assurance = new JTextField(client.getAssurance());
         panel.add(this.assurance);
 
         panel.add(new JLabel("Numéro tel : "));
-        this.numTel = new JTextField(clientById.getNumTel());
+        this.numTel = new JTextField(client.getNumTel());
         panel.add(this.numTel);
 
         panel.add(new JLabel("Remarque : "));
-        this.remarque = new JTextField(clientById.getRemarque());
+        this.remarque = new JTextField(client.getRemarque());
         panel.add(this.remarque);
         return panel;
     }
 
     private ClientSearchDialog getClientSearch(){
-        clientSearch = new ClientSearchDialog(parent);
+        clientSearch = new ClientSearchDialog(parent, this);
 
         return clientSearch;
     }
@@ -285,18 +285,30 @@ public class ClientFrame extends JInternalFrame {
 
     private ClientTable getPanelSearch() {
 
-        if(rechercherField.getText().trim().length() != 0) {
-            System.out.println("rechercherField non null" + rechercherField.getText());
-            panelSearch = new ClientTable();
-        } else {
-            panelSearch = new ClientTable();
-        }
+        panelSearch = new ClientTable(this, null);
+        System.out.printf("De retour dans le clientFrame");
         return panelSearch;
     }
 
     public void getClientSelected(Client client){
         this.getPanelSearch().setVisible(false);
-        getPanelClient(client.getCode());
+        try {
+            this.setClient(clientManager.getClientById(client.getCode()));
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
+
+        //mise à jour de l'interfce graphique
+        this.code.setText(String.valueOf(client.getCode()));
+        this.nom.setText(client.getNom());
+        this.prenom.setText(client.getPrenomClient());
+        this.adresse.setText(client.getAdresse1());
+        this.codePostal.setText(client.getCodePostal());
+        this.ville.setText(client.getVille());
+        this.assurance.setText(client.getAssurance());
+        this.numTel.setText(client.getNumTel());
+
+        animalTable.getModele().setAnimaux(animalManager.getFromClient(client));
     }
 
     public Client getClient() {
@@ -309,5 +321,9 @@ public class ClientFrame extends JInternalFrame {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public void setAnimalTable(AnimalTable animalTable){
+        this.animalTable = animalTable;
     }
 }

@@ -11,12 +11,13 @@ public class ClientSearchDialog extends JDialog {
     private JButton rechercher;
     private JTextField rechercherField;
     private ClientTable clientTable;
+    private ClientFrame clientFrame;
 
 
-    public ClientSearchDialog(Frame parent){
-
-
+    public ClientSearchDialog(Frame parent, ClientFrame clientFrame){
         super(parent, "Rechercher un client", true);
+        this.clientFrame = clientFrame;
+
         JPanel panel = new JPanel();
 
         // Field rechercher
@@ -28,11 +29,7 @@ public class ClientSearchDialog extends JDialog {
         rechercher.addActionListener(e -> {
             try {
                 CltManager clientManager = new CltManager();
-
-                System.out.println(clientManager.searchClient(rechercherField.getText()));
-                getClientTable().getModele().setClients(clientManager.searchClient(rechercherField.getText()));
-                System.out.println(getClientTable().getModele().getClients());
-
+                clientTable.getModele().setClients(clientManager.searchClient(rechercherField.getText()));
             } catch (BLLException e1) {
                 e1.printStackTrace();
             }
@@ -45,7 +42,7 @@ public class ClientSearchDialog extends JDialog {
 
         getContentPane().add(panel, BorderLayout.CENTER);
 
-        setSize(new Dimension(parent.getWidth(),parent.getHeight()));
+        setSize(new Dimension(500, 250));
         //setResizable(false);
         setLocationRelativeTo(parent);
         this.setVisible(true);
@@ -53,7 +50,7 @@ public class ClientSearchDialog extends JDialog {
 
     private ClientTable getClientTable() {
 
-        clientTable = new ClientTable();
+        clientTable = new ClientTable(clientFrame, this);
         return clientTable;
     }
 }

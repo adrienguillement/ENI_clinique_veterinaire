@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class AnimalTableModele extends AbstractTableModel {
-    private final List<Animal> animaux;
+    private List<Animal> animaux;
     private String[] titreColonnes = {"Numero", "Nom", "Sexe", "Couleur", "Race", "Espece", "Tatouage"};
 
     public AnimalTableModele(List<Animal> animaux){
@@ -54,6 +54,11 @@ public class AnimalTableModele extends AbstractTableModel {
                 break;
         }
         return ret;
+    }
+
+    public void setAnimaux(List<Animal> animaux){
+        this.animaux = animaux;
+        this.fireTableDataChanged();
     }
 
     public List<Animal> getAnimaux() {
