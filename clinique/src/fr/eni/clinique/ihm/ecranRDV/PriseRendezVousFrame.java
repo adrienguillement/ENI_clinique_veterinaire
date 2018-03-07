@@ -27,6 +27,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
     private JFrame parent;
     private AgendaTable agendaTable;
     private CltManager clientManager;
+    private JDatePanelImpl panelQuand;
 
     {
         try {
@@ -37,7 +38,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
     }
 
     private PersonnelManager personnelManager;
-
     {
         try {
             personnelManager = new PersonnelManager();
@@ -47,7 +47,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
     }
 
     private AnimalManager animalManager;
-
     {
         try {
             animalManager = new AnimalManager();
@@ -157,7 +156,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
-        JDatePanelImpl panelQuand = new JDatePanelImpl(model, p);
+        panelQuand = new JDatePanelImpl(model, p);
         TitledBorder border = new TitledBorder("Quand");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
@@ -185,11 +184,23 @@ public class PriseRendezVousFrame extends JInternalFrame {
     public JPanel getValiderSupprimerPanel(){
         JPanel panelValiderSupprimerPanel = new JPanel();
         validerButton = new JButton("Valider");
+        validerButton.addActionListener(e -> {
+            addNewReservation();
+        });
+
         supprimerButton = new JButton("Supprimer");
+
         panelValiderSupprimerPanel.add(validerButton);
         panelValiderSupprimerPanel.add(supprimerButton);
 
         return panelValiderSupprimerPanel;
+    }
+
+    public void addNewReservation() {
+        System.out.println("> Nouvelle réservation IHM");
+        System.out.println(panelQuand.getModel().getValue());
+
+
     }
 
     public void LoadListes() throws BLLException{

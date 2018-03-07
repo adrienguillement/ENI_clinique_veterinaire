@@ -106,7 +106,6 @@ public class AnimalDialog extends JDialog{
         else{
             clientComboBox = new JComboBox();
             panel.add(clientComboBox, cs);
-
         }
 
         codeLabel = new JLabel("Code ");
