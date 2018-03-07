@@ -16,7 +16,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where CodePers= ?";
     private static final String insert = "insert into Personnel(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
     private static final String update = "update Personnel set Nom=?, MotPasse=?,Role=? where CodePers=?";
-    private static final String delete = "update Personnel set Archive=1 where CodePers=?";
+    private static final String delete = "update Personnel set Archive=true where CodePers=?";
 
     public List<Personnel> selectAll() throws DALException{
         Connection cnx = null;
