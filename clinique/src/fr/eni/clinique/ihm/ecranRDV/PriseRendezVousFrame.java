@@ -125,6 +125,25 @@ public class PriseRendezVousFrame extends JInternalFrame {
 
         gbc.gridx = 1;
         clientComboBox = new JComboBox();
+        //chargement liste clients
+        List<Client> clients = null;
+        try {
+            clients = clientManager.getCatalogue();
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
+        //affichage d'une comboBox avec properties spécifiques à l'objet
+        clientComboBox = new JComboBox(new DefaultComboBoxModel(clients.toArray()));
+        clientComboBox.setRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                System.out.println(value);
+                Client client = (Client) value;
+                setText(client.getNom() + "-" + client.getPrenomClient());
+                return this;
+            }
+        });
         panelPour.add(clientComboBox, gbc);
 
         gbc.gridx = 2;
@@ -208,10 +227,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
         List<Client> listeClient = clientManager.getCatalogue();
         List<Animal> listeAnimal = animalManager.getListeAnimaux();
         List<Personnel> listePersonnel = personnelManager.getPersonnels();
-
-        for(Client elt:listeClient){
-            clientComboBox.addItem(elt.getNom() + " " + elt.getPrenomClient());
-        }
 
         for(Animal elt:listeAnimal){
             animalComboBox.addItem(elt.getNomAnimal());
