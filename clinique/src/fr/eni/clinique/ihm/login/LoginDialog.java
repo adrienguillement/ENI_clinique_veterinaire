@@ -19,6 +19,7 @@ public class LoginDialog extends JDialog {
         //
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
+        cs.insets = new Insets(5, 5, 5, 5);
 
         cs.fill = GridBagConstraints.HORIZONTAL;
 
