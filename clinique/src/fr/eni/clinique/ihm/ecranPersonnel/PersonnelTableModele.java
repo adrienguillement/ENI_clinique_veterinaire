@@ -7,6 +7,7 @@ import java.util.List;
 
 public class PersonnelTableModele extends AbstractTableModel{
     private List<Personnel> personnels;
+    private String[] titreColonnes = {"CodePers","Nom", "Role"};
 
     public void setPersonnels(List<Personnel> personnels) {
         this.personnels = personnels;
@@ -14,6 +15,10 @@ public class PersonnelTableModele extends AbstractTableModel{
     }
 
 
+    @Override
+    public String getColumnName(int index) {
+        return titreColonnes[index];
+    }
 
     public PersonnelTableModele(List<Personnel> personnels){
         this.personnels = personnels;
@@ -41,6 +46,8 @@ public class PersonnelTableModele extends AbstractTableModel{
                 break;
             case 2:
                 ret=personnels.get(rowIndex).getRole();
+                break;
+            default:
                 break;
         }
         return ret;

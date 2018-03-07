@@ -36,16 +36,25 @@ public class PersonnelFrame extends JInternalFrame{
         //setBounds(100, 100,400, 600);
         setLayout(null);
         setSize(400,600);
-        setContentPane(getPanelPersonnel());
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(getPanelButton(),gbc);
+
+        gbc.gridy = 1;
+        panel.add(getPanelPersonnel(),gbc);
+        setContentPane(panel);
     }
 
     //PANEL PERSONNEL
     public JPanel getPanelPersonnel(){
         JPanel panel_personnel = new JPanel();
         panel_personnel.setOpaque(true);
-        panel_personnel.setLayout(new FlowLayout());
-        panel_personnel.add(getPersonnelTable());
-        panel_personnel.add(getPanelButton());
+        panel_personnel.setLayout(new BorderLayout());
+        getPersonnelTable();
+        panel_personnel.add(this.personnelTable.getTableHeader(),BorderLayout.NORTH);
+        panel_personnel.add(personnelTable);
         return panel_personnel;
     }
 
@@ -91,16 +100,20 @@ public class PersonnelFrame extends JInternalFrame{
                 System.out.println("Personnel ajouter");
             }
         });
-        modifier = new JButton("Modifier");
+        modifier = new JButton("Réinitialiser");
         modifier.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 int numSelected = personnelTable.getSelectedRow();
-                System.out.println(numSelected);
-                Personnel personnel = personnelTable.setPersonnelTable().listePersonnels.get(numSelected);
-                getPersonnelEdit(personnel);
-                System.out.println("modification terminer");
+                if(numSelected != -1) {
+                    System.out.println(numSelected);
+                    Personnel personnel = personnelTable.setPersonnelTable().listePersonnels.get(numSelected);
+                    getPersonnelEdit(personnel);
+                    System.out.println("modification terminer");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Veuiller selectionner la valeur à réinitialiser", null, JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         supprimer = new JButton("Supprimer");
@@ -109,10 +122,14 @@ public class PersonnelFrame extends JInternalFrame{
             public void actionPerformed(ActionEvent e) {
                 try {
                     int numSelected = personnelTable.getSelectedRow();
-                    System.out.println(numSelected);
-                    Personnel personnel = personnelTable.listePersonnels.get(numSelected);
-                    personnelManager.deletePersonnel(personnel);
-                    personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());
+                    if(numSelected != -1) {
+                        System.out.println(numSelected);
+                        Personnel personnel = personnelTable.listePersonnels.get(numSelected);
+                        personnelManager.deletePersonnel(personnel);
+                        personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "veuiller selectionner une valeur à supprimer", null, JOptionPane.ERROR_MESSAGE);
+                    }
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                 }
