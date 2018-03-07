@@ -31,7 +31,7 @@ public class PersonnelTable extends JTable{
     }
 
     public static PersonnelTable setPersonnelTable() {
-        setPersonnelTable= new PersonnelTable();
+        setPersonnelTable = new PersonnelTable();
         return setPersonnelTable;
     }
 
