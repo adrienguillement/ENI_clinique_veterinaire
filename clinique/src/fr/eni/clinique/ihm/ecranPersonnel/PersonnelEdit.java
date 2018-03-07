@@ -20,9 +20,11 @@ public class PersonnelEdit extends JDialog{
     private PersonnelManager personnelManager;
 
 
-    public PersonnelEdit(Frame parent) {
+    public PersonnelEdit(Frame parent, Personnel personnel) {
         super(parent, "Edition Personnel", true);
         //
+        this.personnel = personnel;
+
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -83,7 +85,9 @@ public class PersonnelEdit extends JDialog{
             public void actionPerformed(ActionEvent e) {
                 try {
                     Object selected = roleBoxModif.getSelectedItem();
-                    personnel = new Personnel(nomTextModif.getText(), SHA512.getSHA512(motPasse.getText(), "toto"),selected.toString(), false);
+                    personnel.setNom(nomTextModif.getText());
+                    personnel.setMotPasse((SHA512.getSHA512(motPasse.getText(), "toto")));
+                    personnel.setRole(selected.toString());
                     personnelManager = new PersonnelManager();
                     System.out.println(personnel);
                     personnelManager.updatePersonnel(personnel);
