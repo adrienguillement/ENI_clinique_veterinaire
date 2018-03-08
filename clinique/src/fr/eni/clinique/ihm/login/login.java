@@ -12,7 +12,7 @@ public class login {
     /**
      * méthode demande de connection
      */
-    public static void connect(String login, String password)
+    public static void connect(String login, String password,IHMapp ihmApp)
     {
         ConnectionManager connectionManager = new ConnectionManager();
         Personnel personnel = null;
@@ -26,7 +26,7 @@ public class login {
                 System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
                 //init l'utilisateur en cours
                 connectionSucceed = true;
-                IHMapp.getInstance().setUtilisateurEnCours(personnel);
+                ihmApp.setUtilisateurEnCours(personnel);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.ERROR_MESSAGE);
