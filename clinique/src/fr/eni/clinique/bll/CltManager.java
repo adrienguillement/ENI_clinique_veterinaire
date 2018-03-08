@@ -4,33 +4,54 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOClient;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.bo.Client;
+
+import javax.swing.*;
 import java.util.List;
 
 public class CltManager {
 
-    private Client selected;
+    /**
+     * Attribut
+     */
     private static DAOClient daoClient;
 
-    public CltManager() throws BLLException{
+    /**
+     * Constructeur
+     * @throws BLLException
+     */
+    public CltManager() {
 
         daoClient = DAOFactory.getClientDAO();
     }
 
+    /**
+     * Mise à jour client
+     * @param client
+     * @throws BLLException
+     */
     public void updateClient(Client client) throws BLLException {
         try {
             daoClient.updateClient(client);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de mettre à jour ce rendez-vous.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
+    /**
+     * Recherche client
+     * @param searchValue
+     * @return
+     * @throws BLLException
+     */
     public List<Client> searchClient(String searchValue) throws BLLException {
         List<Client> clients = null;
 
         try {
             clients = daoClient.searchClient(searchValue);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible rechercher un client.", null, JOptionPane.ERROR_MESSAGE);
+
         }
 
         return clients;
@@ -38,23 +59,34 @@ public class CltManager {
 
     /**
      * insert d'un client
-     * */
+     */
     public void insertClient(Client client) throws BLLException{
         try{
             daoClient.insert(client);
         }catch(DALException e){
-            throw new BLLException("Echec insertClient-client : "+client, e);
+            JOptionPane.showMessageDialog(null, "Impossible d'inserer un nouveau client.", null, JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    /**
+     * Suppression client
+     * @param client
+     * @throws BLLException
+     */
     public void deleteClient(Client client) throws BLLException{
         try{
             daoClient.delete(client);
         }catch(DALException e) {
-            throw new BLLException("Echec deleteClient-client : " + client, e);
+            JOptionPane.showMessageDialog(null, "Impossible de supprimer le client.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
+    /**
+     * Récupération premier client DB
+     * @return
+     * @throws BLLException
+     */
     public Client getFirst() throws BLLException {
         Client clients = null;
 
@@ -62,7 +94,8 @@ public class CltManager {
             clients = daoClient.selectFirstClient();
         }catch(DALException e){
             e.printStackTrace();
-            throw new BLLException("Erreur récupération catalogue", e);
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer les clients.", null, JOptionPane.ERROR_MESSAGE);
+
         }
         return clients;
     }
@@ -79,19 +112,27 @@ public class CltManager {
             clients = daoClient.selectAll();
         }catch(DALException e){
             e.printStackTrace();
-            throw new BLLException("Erreur récupération catalogue", e);
+            JOptionPane.showMessageDialog(null, "Impossible de charger les clients.", null, JOptionPane.ERROR_MESSAGE);
+
         }
         return clients;
     }
 
 
+    /**
+     * Récupération client from code
+     * @param id
+     * @return
+     * @throws BLLException
+     */
     public Client getClientById(int id) throws  BLLException {
         Client client = null;
 
         try {
             client = daoClient.selectById(id);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer le client correspondant.", null, JOptionPane.ERROR_MESSAGE);
+
         }
         return client;
     }

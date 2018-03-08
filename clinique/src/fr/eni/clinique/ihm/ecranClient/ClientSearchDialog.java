@@ -14,6 +14,11 @@ public class ClientSearchDialog extends JDialog {
     private ClientFrame clientFrame;
 
 
+    /**
+     * Constructeur
+     * @param parent
+     * @param clientFrame
+     */
     public ClientSearchDialog(Frame parent, ClientFrame clientFrame){
         super(parent, "Rechercher un client", true);
         this.clientFrame = clientFrame;
@@ -31,7 +36,7 @@ public class ClientSearchDialog extends JDialog {
                 CltManager clientManager = new CltManager();
                 clientTable.getModele().setClients(clientManager.searchClient(rechercherField.getText()));
             } catch (BLLException e1) {
-                e1.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Impossible de chercher un client.", null, JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -48,6 +53,10 @@ public class ClientSearchDialog extends JDialog {
         this.setVisible(true);
     }
 
+    /**
+     * JTable clients.
+     * @return
+     */
     private ClientTable getClientTable() {
 
         clientTable = new ClientTable(clientFrame, this);

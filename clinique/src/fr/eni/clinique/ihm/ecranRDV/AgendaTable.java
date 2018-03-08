@@ -8,19 +8,17 @@ import javax.swing.*;
 public class AgendaTable extends JTable{
     private AgendaTableModele modele;
 
+    /**
+     * Constructeur.
+     */
     public AgendaTable(){
         try {
             AgendaManager agendaManager= new AgendaManager();
             modele = new AgendaTableModele(agendaManager.getListeAgenda());
             this.setModel(modele);
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erreur lors de la récupération de l'agenda.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
-
-    public AgendaTableModele getModele() {
-        return modele;
-    }
-
-
 }

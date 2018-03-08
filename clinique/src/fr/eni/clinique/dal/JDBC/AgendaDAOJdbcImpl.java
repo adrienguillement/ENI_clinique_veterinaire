@@ -12,11 +12,19 @@ import java.util.List;
 
 public class AgendaDAOJdbcImpl implements DAOAgenda{
 
+    /**
+     * Attributs
+     */
     private static final String sqlSelectAll = "SELECT * FROM AGENDA";
     private static final String sqlInsert = "INSERT INTO AGENDA (CodeVeto, DateRdv, CodeAnimal) VALUES(?, ?, ?)";
     private static final String sqlUpdate = "UPDATE AGENDA set DateRdv = ?, CodeAnimal = ? WHERE CodeVeto = ?";
     private static final String sqlDelete = "DELETE * FROM AGENDA where CodeVeto = ?";
 
+    /**
+     * SELECTALL
+     * @return
+     * @throws DALException
+     */
     @Override
     public List<Agenda> selectAll() throws DALException {
         Connection cnx = null;
@@ -63,6 +71,12 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
         return liste;
     }
 
+    /**
+     * INSERT
+     * @param unAgenda
+     * @return
+     * @throws DALException
+     */
     @Override
     public Agenda insert(Object unAgenda) throws DALException {
         Agenda agenda = (Agenda) unAgenda;
@@ -102,11 +116,21 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
         return agenda;
     }
 
+    /**
+     * UPDATE
+     * @param data
+     * @throws DALException
+     */
     @Override
     public void update(Object data) throws DALException {
 
     }
 
+    /**
+     * DELETE
+     * @param unAgenda
+     * @throws DALException
+     */
     @Override
     public void delete(Object unAgenda) throws DALException {
         Agenda agenda = (Agenda)unAgenda;

@@ -20,6 +20,11 @@ public class PersonnelEdit extends JDialog{
     private PersonnelManager personnelManager;
 
 
+    /**
+     * Constructeur et initialisation de la fenetre d'édition.
+     * @param parent
+     * @param personnel
+     */
     public PersonnelEdit(Frame parent, Personnel personnel) {
         super(parent, "Edition Personnel", true);
         //
@@ -93,7 +98,8 @@ public class PersonnelEdit extends JDialog{
                     personnelManager.updatePersonnel(personnel);
                     dispose();
                 } catch (BLLException e1) {
-                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Impossible de mettre à jour le client.", null, JOptionPane.ERROR_MESSAGE);
+
                 }
             }
         });
