@@ -81,7 +81,6 @@ public class IHMapp extends JFrame implements ActionListener {
         });
     }
 
-
     public void createMenuBar() {
 
         // Menu Fichier
@@ -140,6 +139,13 @@ public class IHMapp extends JFrame implements ActionListener {
         switch (e.getActionCommand()) {
             case "deconnexion":
                 System.out.println("Deconnexion");
+                //JDialog pour login (modal)
+                setUtilisateurEnCours(null);
+                final JFrame frame = new JFrame("Authentification");
+                LoginDialog loginDlg = new LoginDialog(frame, this);
+                loginDlg.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                loginDlg.setVisible(true);
+
                 break;
             case "fermer":
                 System.exit(0);
@@ -168,7 +174,6 @@ public class IHMapp extends JFrame implements ActionListener {
                 getPersonnelFrame().setVisible(false);
                 try {
                     getClientSearch().setVisible(true);
-                    getPriseRendezVousFrame().setVisible(true);
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                 }
@@ -190,6 +195,7 @@ public class IHMapp extends JFrame implements ActionListener {
         }
         return menuBarre;
     }
+
 
     public PersonnelFrame getPersonnelFrame() {
         if(personnelFrame== null){
@@ -218,6 +224,10 @@ public class IHMapp extends JFrame implements ActionListener {
             rendezVousFrame = new PriseRendezVousFrame(this);
         }
         return rendezVousFrame;
+    }
+
+    public JMenuBar getJMenuBar(){
+        return menuBarre;
     }
 
 }
