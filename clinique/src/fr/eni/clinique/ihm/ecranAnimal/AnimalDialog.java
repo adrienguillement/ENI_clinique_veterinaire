@@ -47,14 +47,7 @@ public class AnimalDialog extends JDialog{
         }
     }
 
-    private CltManager clientManager;
-    {
-        try {
-            clientManager = new CltManager();
-        } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Impossible de charger les clients.", null, JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    private CltManager clientManager = new CltManager();
 
     //creation d'un param optionnel
     private Animal animal = null;

@@ -27,7 +27,7 @@ public class ClientFrame extends JInternalFrame {
     private ClientTable panelSearch;
     private Client client;
     private JTextField code, nom, prenom, adresse, ville, codePostal, assurance, email, numTel, remarque;
-    private CltManager clientManager;
+    private CltManager clientManager = new CltManager();
 
     private AnimalTable animalTable;
     private Animal selectedAnimal;
@@ -58,7 +58,6 @@ public class ClientFrame extends JInternalFrame {
      * @return JPanel
      */
     private JPanel getPanelClient(){
-        System.out.printf(client.toString());
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(getPanelButton(), BorderLayout.PAGE_START);
