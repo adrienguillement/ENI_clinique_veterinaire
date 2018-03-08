@@ -21,7 +21,6 @@ public class AgendaTable extends JTable{
 
         modele = new AgendaTableModele(agendaManager.getListeAgenda());
         this.setModel(modele);
-
     }
 
     public AgendaTableModele getModele() {

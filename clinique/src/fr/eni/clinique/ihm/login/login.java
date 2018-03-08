@@ -25,11 +25,13 @@ public class login {
             if(personnel != null){
                 System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
                 //init l'utilisateur en cours
+                System.out.println(personnel.toString());
                 connectionSucceed = true;
                 ihmApp.setUtilisateurEnCours(personnel);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.ERROR_MESSAGE);
+                connectionSucceed = false;
             }
         }catch (Exception e1){
             e1.printStackTrace();
