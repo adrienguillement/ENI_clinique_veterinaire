@@ -36,9 +36,9 @@ public class PriseRendezVousFrame extends JInternalFrame {
     private JDatePanelImpl panelQuand;
     private CltManager clientManager = new CltManager();
     private AnimalManager animalManager = new AnimalManager();
+    private AgendaManager agendaManager = new AgendaManager();
     private AnimalDialog animalDialog;
     private ClientAddDialog clientAddDialog;
-
 
     private PersonnelManager personnelManager;
     {
@@ -114,6 +114,23 @@ public class PriseRendezVousFrame extends JInternalFrame {
                 return this;
             }
         });
+        veterinaireComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent event) {
+                JComboBox comboBox = (JComboBox) event.getSource();
+
+                // elt affecté par l'event
+                Object item = event.getItem();
+
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+
+                    //refresh du tableau
+                    Personnel personnel = (Personnel)veterinaireComboBox.getSelectedItem();
+                    System.out.println(personnel);
+                    agendaTable.getModele().setListeAgenda(agendaManager.getListeAgendaFromPersonnel(personnel));
+                }
+            }
+        });
         panelPar.add(veterinaireComboBox);
 
         panelPar.add(veterinaireLabel);
@@ -172,8 +189,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
                     for(Animal elt:animaux){
                         animalComboBox.addItem(elt.getNomAnimal());
                     }
-
-                    //refresh du tableau
                 }
             }
         });

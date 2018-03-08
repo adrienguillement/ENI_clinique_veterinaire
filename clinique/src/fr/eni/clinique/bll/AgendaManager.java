@@ -2,10 +2,13 @@ package fr.eni.clinique.bll;
 
 import fr.eni.clinique.bo.Agenda;
 import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOAgenda;
 import fr.eni.clinique.dal.DAOFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AgendaManager {
@@ -48,5 +51,13 @@ public class AgendaManager {
         } catch (DALException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Agenda> getListeAgendaFromPersonnel(Personnel personnel){
+        List<Agenda> liste = new ArrayList<>();
+
+        liste = daoAgenda.selectedByPersonnel(personnel);
+
+        return liste;
     }
 }
