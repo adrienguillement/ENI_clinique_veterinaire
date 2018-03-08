@@ -136,11 +136,19 @@ public class IHMapp extends JFrame implements ActionListener {
                 System.exit(0);
                 break;
             case "gestionPersonnel":
+                try {
+                    getClientSearch().setVisible(false);
+                    getPriseRendezVousFrame().setVisible(false);
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
                 getPersonnelFrame().setVisible(true);
                 break;
 
             case "priseRdv":
+                getPersonnelFrame().setVisible(false);
                 try {
+                    getClientSearch().setVisible(false);
                     getPriseRendezVousFrame().setVisible(true);
                 } catch (BLLException e1) {
                     e1.printStackTrace();
@@ -148,8 +156,10 @@ public class IHMapp extends JFrame implements ActionListener {
                 break;
 
             case "gestionClient":
+                getPersonnelFrame().setVisible(false);
                 try {
                     getClientSearch().setVisible(true);
+                    getPriseRendezVousFrame().setVisible(true);
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                 }
@@ -157,7 +167,6 @@ public class IHMapp extends JFrame implements ActionListener {
             default:
                 System.out.println("Probleme e=" + e);
         }
-
     }
 
     public JDesktopPane getDesktopPane() {

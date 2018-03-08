@@ -35,7 +35,7 @@ public class PersonnelFrame extends JInternalFrame{
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
         //setBounds(100, 100,400, 600);
         setLayout(null);
-        setSize(400,600);
+        setSize(880,640);
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -92,7 +92,10 @@ public class PersonnelFrame extends JInternalFrame{
      */
     private JPanel getPanelButton(){
         JPanel panelButton = new JPanel();
-        ajouter = new JButton("Ajouter");
+        ajouter = new JButton(new ImageIcon("lib/ajouter.png"));
+        ajouter.setText("Ajouter");
+        ajouter.setVerticalTextPosition(SwingConstants.BOTTOM);
+        ajouter.setHorizontalTextPosition(SwingConstants.CENTER);
         ajouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,7 +103,10 @@ public class PersonnelFrame extends JInternalFrame{
                 System.out.println("Personnel ajouter");
             }
         });
-        modifier = new JButton("Réinitialiser");
+        modifier = new JButton(new ImageIcon("lib/unlock.png"));
+        modifier.setText("Réinitialiser");
+        modifier.setVerticalTextPosition(SwingConstants.BOTTOM);
+        modifier.setHorizontalTextPosition(SwingConstants.CENTER);
         modifier.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,11 +118,14 @@ public class PersonnelFrame extends JInternalFrame{
                     getPersonnelEdit(personnel);
                     System.out.println("modification terminer");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Veuiller selectionner la valeur à réinitialiser", null, JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Veuillez selectionner la valeur à réinitialiser", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
-        supprimer = new JButton("Supprimer");
+        supprimer = new JButton(new ImageIcon("lib/moins.png"));
+        supprimer.setText("Supprimer");
+        supprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
+        supprimer.setHorizontalTextPosition(SwingConstants.CENTER);
         supprimer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -128,7 +137,7 @@ public class PersonnelFrame extends JInternalFrame{
                         personnelManager.deletePersonnel(personnel);
                         personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());
                     } else {
-                        JOptionPane.showMessageDialog(null, "veuiller selectionner une valeur à supprimer", null, JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Veuillez selectionner une valeur à supprimer", null, JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (BLLException e1) {
                     e1.printStackTrace();
@@ -137,8 +146,8 @@ public class PersonnelFrame extends JInternalFrame{
         });
 
         panelButton.add(ajouter);
-        panelButton.add(modifier);
         panelButton.add(supprimer);
+        panelButton.add(modifier);
         return panelButton;
     }
 }
