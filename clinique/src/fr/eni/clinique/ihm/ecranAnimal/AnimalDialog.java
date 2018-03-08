@@ -203,8 +203,12 @@ public class AnimalDialog extends JDialog{
 
                 //Ajout ou modification d'un animal
                 if(estModification){
-                    animalManager.update(animal);
+                    Race race = new Race(raceComboBox.getSelectedItem().toString(), especeComboBox.getSelectedItem().toString());
+                    Animal newAnimal = new Animal(nomTextfield.getText(), sexeComboBox.getSelectedItem().toString(), couleurTextField.getText(), race, animal.getCodeClient(), tatouageTextField.getText(), null, false);
+                    newAnimal.setCodeAnimal(Integer.parseInt(codeTextField.getText()));
+                    animalManager.update(newAnimal);
                     JOptionPane.showMessageDialog(null, "Animal modifié", null, JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 }
                 else{
                     Race race = new Race(raceComboBox.getSelectedItem().toString(), especeComboBox.getSelectedItem().toString());
@@ -234,6 +238,9 @@ public class AnimalDialog extends JDialog{
             especeLabel.setText(animal.getRace().getEspece());
             tatouageTextField.setText(animal.getTatouage());
             ajouterButton.setText("Modifier");
+            especeComboBox.addItem(animal.getRace().getEspece());
+            raceComboBox.addItem(animal.getRace().getRace());
+            sexeComboBox.addItem(animal.getSexe());
         }
         else{
             ajouterButton.setText("Ajouter");
