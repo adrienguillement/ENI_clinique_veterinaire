@@ -19,14 +19,9 @@ public class PersonnelEdit extends JDialog{
     private Personnel personnel;
     private PersonnelManager personnelManager;
 
-<<<<<<< HEAD
-    /**
-     * Fenêtre de réinitialisation de personnel
-=======
 
     /**
      * Constructeur et initialisation de la fenetre d'édition.
->>>>>>> master
      * @param parent
      * @param personnel
      */

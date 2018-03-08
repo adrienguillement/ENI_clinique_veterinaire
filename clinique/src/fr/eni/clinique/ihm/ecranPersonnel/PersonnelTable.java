@@ -14,12 +14,10 @@ public class PersonnelTable extends JTable{
     private PersonnelTableModele modele;
     public List<Personnel> listePersonnels = new ArrayList<>();
 
-<<<<<<< HEAD
-=======
+
     /**
      * Constructeur.
      */
->>>>>>> master
     public PersonnelTable(){
         try {
             PersonnelManager personnelManager = new PersonnelManager();

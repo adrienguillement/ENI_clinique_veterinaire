@@ -19,14 +19,9 @@ public class PersonnelAjout extends JDialog{
     private Personnel personnel;
     private PersonnelManager personnelManager;
 
-<<<<<<< HEAD
-    /**
-     * Fenêtre d'ajout d'un personnel
-=======
 
     /**
      * Constructeur avec initialisation de l'IHM.
->>>>>>> master
      * @param parent
      */
     public PersonnelAjout(Frame parent) {
