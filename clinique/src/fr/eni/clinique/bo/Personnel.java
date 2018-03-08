@@ -1,24 +1,12 @@
 package fr.eni.clinique.bo;
 
 public class Personnel {
-
-    /**
-     * Attributs
-     */
     private int code;
     private String nom;
     private String motPasse;
     private String role;
     private boolean archive;
 
-
-    /**
-     * Constructeur sans code
-     * @param nom
-     * @param motPasse
-     * @param role
-     * @param archive
-     */
     public Personnel(String nom, String motPasse, String role, boolean archive) {
         this.nom = nom;
         this.motPasse = motPasse;
@@ -26,14 +14,6 @@ public class Personnel {
         this.archive = archive;
     }
 
-    /**
-     * Constructeur avec code
-     * @param code
-     * @param nom
-     * @param motPasse
-     * @param role
-     * @param archive
-     */
     public Personnel(int code, String nom, String motPasse, String role, boolean archive) {
         this.code = code;
         this.nom = nom;
@@ -44,11 +24,6 @@ public class Personnel {
 
     public Personnel() {
     }
-
-
-    /**
-     * GETTERS AND SETTERS
-     */
 
     public int getCodePers() {
         return this.code;

@@ -10,9 +10,6 @@ import java.util.List;
 
 public class ClientDAOJdbcImpl implements DAOClient {
 
-    /**
-     * ATTRIBUTS
-     */
     private static final String sqlInsert = "INSERT INTO CLIENT(NomClient, PrenomClient, Adresse1, Adresse2, CodePostal, Ville, NumTel, Assurance, Email, Remarque, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String sqlSelectAll = "SELECT * from client WHERE archive = 0";
     private static final String sqlSelectById = "SELECT * from client WHERE CodeClient = ? AND archive = 0";
@@ -62,12 +59,6 @@ public class ClientDAOJdbcImpl implements DAOClient {
     }
 
 
-    /**
-     * Recherche d'un client en fonction d'un String.
-     * @param searchValue
-     * @return
-     * @throws DALException
-     */
     public List<Client> searchClient(String searchValue) throws DALException {
         searchValue = "%" + searchValue + "%";
         Connection cnx = null;
@@ -119,12 +110,6 @@ public class ClientDAOJdbcImpl implements DAOClient {
         return liste;
     }
 
-
-    /**
-     * Retourne tout les clients.
-     * @return
-     * @throws DALException
-     */
     @Override
     public List<Client> selectAll() throws DALException {
         Connection cnx = null;
@@ -225,11 +210,6 @@ public class ClientDAOJdbcImpl implements DAOClient {
         return client;
     }
 
-    /**
-     * Suppression d'un client.
-     * @param client
-     * @throws DALException
-     */
     @Override
     public void delete(Client client) throws DALException {
         Connection cnx = null;
@@ -256,13 +236,6 @@ public class ClientDAOJdbcImpl implements DAOClient {
         }
     }
 
-
-    /**
-     * Ajout d'un nouveau client.
-     * @param data
-     * @return
-     * @throws DALException
-     */
     @Override
     public Client insert(Object data) throws DALException {
         Client client = (Client) data;

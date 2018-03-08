@@ -1,10 +1,6 @@
 package fr.eni.clinique.bo;
 
 public class Animal {
-
-    /**
-     * Attributs
-     */
     private int code;
     private String nom;
     private String sexe;
@@ -15,18 +11,6 @@ public class Animal {
     private String antecedents;
     private boolean archive;
 
-    /**
-     * Constructeur avec code
-     * @param codeAnimal
-     * @param nomAnimal
-     * @param sexe
-     * @param couleur
-     * @param race
-     * @param codeClient
-     * @param tatouage
-     * @param antecedents
-     * @param archive
-     */
     public Animal(int codeAnimal, String nomAnimal, String sexe, String couleur, Race race, int codeClient, String tatouage, String antecedents, boolean archive) {
         this.code = codeAnimal;
         this.nom = nomAnimal;
@@ -39,17 +23,6 @@ public class Animal {
         this.archive = archive;
     }
 
-    /**
-     * Constructeur sans code
-     * @param nomAnimal
-     * @param sexe
-     * @param couleur
-     * @param race
-     * @param codeClient
-     * @param tatouage
-     * @param antecedents
-     * @param archive
-     */
     public Animal(String nomAnimal, String sexe, String couleur, Race race, int codeClient, String tatouage, String antecedents, boolean archive) {
         this.nom = nomAnimal;
         this.sexe = sexe;
@@ -63,11 +36,6 @@ public class Animal {
 
     public Animal() {
     }
-
-
-    /**
-     * GETTERS AND SETTERS
-     */
 
     public int getCodeAnimal() {
         return this.code;

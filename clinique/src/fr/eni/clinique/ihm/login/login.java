@@ -20,7 +20,7 @@ public class login {
             try {
                 personnel = connectionManager.getConnection(login, password);
             } catch (DALException e) {
-                JOptionPane.showMessageDialog(null, "Impossible de trouver le compte correspondant.", null, JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
             if(personnel != null){
                 System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
