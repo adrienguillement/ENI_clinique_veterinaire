@@ -59,7 +59,6 @@ public class ClientFrame extends JInternalFrame {
 
 
     private JPanel getPanelClient(){
-        System.out.printf(client.toString());
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(getPanelButton(), BorderLayout.PAGE_START);

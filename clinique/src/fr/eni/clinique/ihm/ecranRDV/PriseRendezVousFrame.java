@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static javax.swing.text.html.HTML.Tag.HEAD;
+
 public class PriseRendezVousFrame extends JInternalFrame {
 
     private JLabel clientLabel, animalLabel, veterinaireLabel, heureLabel;
@@ -25,30 +27,15 @@ public class PriseRendezVousFrame extends JInternalFrame {
     private JButton validerButton, supprimerButton, ajouterClientButton, ajouterAnimalauClientButton;
     private JFrame parent;
     private AgendaTable agendaTable;
-    private CltManager clientManager;
     private JDatePanelImpl panelQuand;
+    private CltManager clientManager = new CltManager();
+    private AnimalManager animalManager = new AnimalManager();
 
-    {
-        try {
-            clientManager = new CltManager();
-        } catch (BLLException e) {
-            e.printStackTrace();
-        }
-    }
 
     private PersonnelManager personnelManager;
     {
         try {
             personnelManager = new PersonnelManager();
-        } catch (BLLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private AnimalManager animalManager;
-    {
-        try {
-            animalManager = new AnimalManager();
         } catch (BLLException e) {
             e.printStackTrace();
         }
@@ -222,7 +209,11 @@ public class PriseRendezVousFrame extends JInternalFrame {
         JPanel panelValiderSupprimerPanel = new JPanel();
         validerButton = new JButton("Valider");
         validerButton.addActionListener(e -> {
-            addNewReservation();
+            try {
+                addNewReservation();
+            } catch (BLLException e1) {
+                e1.printStackTrace();
+            }
         });
 
         supprimerButton = new JButton("Supprimer");
@@ -233,7 +224,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
         return panelValiderSupprimerPanel;
     }
 
-    public void addNewReservation() {
+    public void addNewReservation() throws BLLException {
         System.out.println("> Nouvelle réservation IHM");
         System.out.println(panelQuand.getModel().getValue());
         Client client = (Client) clientComboBox.getSelectedItem();
@@ -245,17 +236,9 @@ public class PriseRendezVousFrame extends JInternalFrame {
         Personnel veto = (Personnel) veterinaireComboBox.getSelectedItem();
         System.out.println(client.getCode());
         Agenda newRdv = new Agenda(veto.getCodePers(), dateRDV, client.getCode());
-        try {
-            AgendaManager agendaManager = new AgendaManager();
-            agendaManager.insert(newRdv);
-            JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Problème lors de la réservation", null, JOptionPane.ERROR_MESSAGE);
-        }
-        System.out.println(newRdv);
-
-
+        AgendaManager agendaManager = new AgendaManager();
+        agendaManager.insert(newRdv);
+        JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void LoadListes() throws BLLException{
