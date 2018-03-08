@@ -150,6 +150,7 @@ public class IHMapp extends JFrame implements ActionListener {
                     getPriseRendezVousFrame().setVisible(false);
                 } catch (BLLException e1) {
                     JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
+                    e1.printStackTrace();
                 }
                 getPersonnelFrame().setVisible(true);
                 break;

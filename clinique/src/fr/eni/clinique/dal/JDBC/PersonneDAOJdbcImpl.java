@@ -21,7 +21,7 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     private static final String insert = "insert into Personnel(Nom, MotPasse, Role, Archive) values(?,?,?,?)";
     private static final String update = "update Personnel set Nom=?, MotPasse=?,Role=? where CodePers=?";
     private static final String delete = "update Personnel set Archive=true where CodePers=?";
-
+  
 
     /**
      * SELECT ALL

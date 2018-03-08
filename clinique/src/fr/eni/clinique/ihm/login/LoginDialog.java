@@ -27,7 +27,6 @@ public class LoginDialog extends JDialog {
      * @param parent
      */
     public LoginDialog(Frame parent, IHMapp ihmApp) {
-
         super(parent, "Login", true);
         //
         this.IHMapp = IHMapp;

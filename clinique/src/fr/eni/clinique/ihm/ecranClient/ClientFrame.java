@@ -162,6 +162,7 @@ public class ClientFrame extends JInternalFrame {
         return animalTable;
     }
 
+
     /**
      * JPanel des informations client.
      * @return JPanel
@@ -324,6 +325,7 @@ public class ClientFrame extends JInternalFrame {
             this.setClient(clientManager.getClientById(client.getCode()));
         } catch (BLLException e) {
             JOptionPane.showMessageDialog(null, "Impossible de récupérer le client.", null, JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
 
         //mise à jour de l'interfce graphique
