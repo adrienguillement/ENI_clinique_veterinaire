@@ -6,17 +6,20 @@ import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
 import org.jdatepicker.impl.DateComponentFormatter;
+import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
+import fr.eni.clinique.ihm.ecranClient.ClientAddDialog;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,8 @@ public class PriseRendezVousFrame extends JInternalFrame {
     private JPanel panelQuand;
     private CltManager clientManager = new CltManager();
     private AnimalManager animalManager = new AnimalManager();
+    private AnimalDialog animalDialog;
+    private ClientAddDialog clientAddDialog;
 
 
     private PersonnelManager personnelManager;
@@ -77,7 +82,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
         gbc.gridy = 1;
         gbc.gridwidth = 3;
         panelPriseRendezVous.add(getPanelTable(), gbc);
-        LoadListes();
 
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -155,10 +159,48 @@ public class PriseRendezVousFrame extends JInternalFrame {
                 return this;
             }
         });
+        clientComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent event) {
+                JComboBox comboBox = (JComboBox) event.getSource();
+
+                // elt affecté par l'event
+                Object item = event.getItem();
+
+                if (event.getStateChange() == ItemEvent.SELECTED) {
+                    //refresh liste animaux
+                    Client clientSelected = (Client)clientComboBox.getSelectedItem();
+                    List<Animal> animaux = animalManager.getFromClient(clientSelected);
+                    animalComboBox = new JComboBox();
+                    for(Animal elt:animaux){
+                        animalComboBox.addItem(elt.getNomAnimal());
+                    }
+
+                    //refresh du tableau
+                }
+            }
+        });
         panelPour.add(clientComboBox, gbc);
 
         gbc.gridx = 2;
         ajouterClientButton = new JButton("+");
+        ajouterClientButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ouverture ecran ajout client
+                clientAddDialog = new ClientAddDialog(parent);
+                clientAddDialog.setVisible(true);
+                List<Client> clients = null;
+                try {
+                    clients = clientManager.getCatalogue();
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
+                for(Client elt:clients){
+                    clientComboBox.addItem(elt);
+                }
+            }
+        });
         panelPour.add(ajouterClientButton, gbc);
 
         gbc.gridx = 0;
@@ -167,11 +209,32 @@ public class PriseRendezVousFrame extends JInternalFrame {
         panelPour.add(animalLabel, gbc);
 
         gbc.gridx = 1;
+        Client client = (Client)clientComboBox.getSelectedItem();
+        List<Animal> listeAnimal = animalManager.getFromClient(client);
         animalComboBox = new JComboBox();
+        for(Animal elt:listeAnimal){
+            animalComboBox.addItem(elt.getNomAnimal());
+        }
         panelPour.add(animalComboBox, gbc);
 
         gbc.gridx = 2;
         ajouterAnimalauClientButton = new JButton("+");
+        ajouterAnimalauClientButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ouverture pop up ajout d'un animal
+                animalDialog = new AnimalDialog(parent);
+                animalDialog.setVisible(true);
+                List<Animal> listeAnimal  = new ArrayList<>();
+                Client clientSelected = (Client)clientComboBox.getSelectedItem();
+                listeAnimal = animalManager.getFromClient(clientSelected);
+                animalComboBox = new JComboBox();
+                for(Animal elt:listeAnimal){
+                    animalComboBox.addItem(elt.getNomAnimal());
+                }
+                dispose();
+            }
+        });
         panelPour.add(ajouterAnimalauClientButton, gbc);
 
 
@@ -328,11 +391,4 @@ public class PriseRendezVousFrame extends JInternalFrame {
         JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public void LoadListes() throws BLLException{
-        List<Animal> listeAnimal = animalManager.getListeAnimaux();
-
-        for(Animal elt:listeAnimal){
-            animalComboBox.addItem(elt.getNomAnimal());
-        }
-    }
 }
