@@ -28,6 +28,10 @@ public class PersonnelFrame extends JInternalFrame{
         }
     }
 
+    /**
+     *
+     * @param parent
+     */
     public PersonnelFrame(JFrame parent){
         //Ecran avec un titre, redimensionable, fermable, agrandissable, iconifiable
         super("Gestion du Personnel", true, true, true,true);
@@ -48,6 +52,11 @@ public class PersonnelFrame extends JInternalFrame{
     }
 
     //PANEL PERSONNEL
+
+    /**
+     *
+     * @return
+     */
     public JPanel getPanelPersonnel(){
         JPanel panel_personnel = new JPanel();
         panel_personnel.setOpaque(true);
@@ -58,6 +67,10 @@ public class PersonnelFrame extends JInternalFrame{
         return panel_personnel;
     }
 
+    /**
+     *
+     * @return
+     */
     public PersonnelTable getPersonnelTable() {
         //if(personnelTable==null){
             personnelTable = PersonnelTable.setPersonnelTable();
@@ -65,6 +78,10 @@ public class PersonnelFrame extends JInternalFrame{
         return personnelTable;
     }
 
+    /**
+     *
+     * @return
+     */
     public PersonnelAjout getPersonnelAjout(){
         personnelAjout = new PersonnelAjout(parent);
         try {
@@ -76,6 +93,11 @@ public class PersonnelFrame extends JInternalFrame{
         return personnelAjout;
     }
 
+    /**
+     *
+     * @param personnel
+     * @return
+     */
     public PersonnelEdit getPersonnelEdit(Personnel personnel){
         personnelEdit = new PersonnelEdit(parent, personnel);
         try{
@@ -87,7 +109,7 @@ public class PersonnelFrame extends JInternalFrame{
     }
 
     /**
-     * Panel modale d'ajout de personnel
+     * Panel modale des boutons d'intéraction
      * @return
      */
     private JPanel getPanelButton(){

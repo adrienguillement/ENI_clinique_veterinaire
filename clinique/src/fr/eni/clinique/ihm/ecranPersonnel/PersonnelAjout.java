@@ -19,7 +19,10 @@ public class PersonnelAjout extends JDialog{
     private Personnel personnel;
     private PersonnelManager personnelManager;
 
-
+    /**
+     * Fenêtre d'ajout d'un personnel
+     * @param parent
+     */
     public PersonnelAjout(Frame parent) {
         super(parent, "Ajout personnel", true);
         //
@@ -77,7 +80,9 @@ public class PersonnelAjout extends JDialog{
         gbc.gridx = 1;
         gbc.gridy = 4;
         panel.add(annuler, gbc);
-
+        /**
+         * Bouton validation d'ajout de personnel
+         */
         valider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,6 +97,9 @@ public class PersonnelAjout extends JDialog{
                 }
             }
         });
+        /**
+         * Bouton d'annulation d'ajout de personnel
+         */
         annuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

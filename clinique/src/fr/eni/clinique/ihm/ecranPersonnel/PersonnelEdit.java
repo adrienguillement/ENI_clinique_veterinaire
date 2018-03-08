@@ -19,7 +19,11 @@ public class PersonnelEdit extends JDialog{
     private Personnel personnel;
     private PersonnelManager personnelManager;
 
-
+    /**
+     * Fenêtre de réinitialisation de personnel
+     * @param parent
+     * @param personnel
+     */
     public PersonnelEdit(Frame parent, Personnel personnel) {
         super(parent, "Edition Personnel", true);
         //
@@ -79,7 +83,9 @@ public class PersonnelEdit extends JDialog{
         gbc.gridx = 1;
         gbc.gridy = 4;
         panel.add(annuler, gbc);
-
+        /**
+         * bouton valider
+         */
         valider.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,6 +103,9 @@ public class PersonnelEdit extends JDialog{
                 }
             }
         });
+        /**
+         * bouton d'annulation
+         */
         annuler.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

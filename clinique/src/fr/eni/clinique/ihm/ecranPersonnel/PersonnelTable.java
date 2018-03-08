@@ -13,6 +13,7 @@ public class PersonnelTable extends JTable{
     private static PersonnelTable setPersonnelTable;
     private PersonnelTableModele modele;
     public List<Personnel> listePersonnels = new ArrayList<>();
+
     public PersonnelTable(){
         try {
             PersonnelManager personnelManager = new PersonnelManager();
@@ -26,10 +27,18 @@ public class PersonnelTable extends JTable{
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public PersonnelTableModele getModele() {
         return modele;
     }
 
+    /**
+     *
+     * @return
+     */
     public static PersonnelTable setPersonnelTable() {
         setPersonnelTable = new PersonnelTable();
         return setPersonnelTable;
