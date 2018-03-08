@@ -10,12 +10,24 @@ import javax.swing.*;
 import java.util.List;
 
 public class AgendaManager {
+
+    /**
+     * Attributes
+     */
     private static DAOAgenda daoAgenda;
 
-    public AgendaManager() throws BLLException{
+    /**
+     * Constructeurs
+     * @throws BLLException
+     */
+    public AgendaManager() {
         daoAgenda = new DAOFactory().getAgendaDAO();
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public List<Agenda> getListeAgenda(){
         List<Agenda> listeAgenda= null;
 
@@ -28,6 +40,10 @@ public class AgendaManager {
         return listeAgenda;
     }
 
+    /**
+     * Nouveau rdv.
+     * @param agenda
+     */
     public void insert(Agenda agenda){
         try {
             daoAgenda.insert(agenda);
@@ -37,6 +53,10 @@ public class AgendaManager {
         }
     }
 
+    /**
+     * MAJ rdv
+     * @param agenda
+     */
     public void update(Agenda agenda){
         try {
             daoAgenda.update(agenda);
@@ -46,6 +66,10 @@ public class AgendaManager {
         }
     }
 
+    /**
+     * Suppression rdv
+     * @param agenda
+     */
     public void delete(Agenda agenda){
         try {
             daoAgenda.delete(agenda);

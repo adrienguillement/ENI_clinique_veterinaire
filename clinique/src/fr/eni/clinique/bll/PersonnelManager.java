@@ -9,12 +9,25 @@ import javax.swing.*;
 import java.util.List;
 
 public class PersonnelManager {
+
+    /**
+     * Attribut
+     */
     private static DAOPersonne daoPersonnel;
 
+    /**
+     * Constructeur
+     * @throws BLLException
+     */
     public PersonnelManager() throws BLLException{
         daoPersonnel = DAOFactory.getPersonneDAO();
     }
 
+    /**
+     * Retourne un personnel from id
+     * @param id
+     * @return
+     */
     public Personnel getPersonnelById(int id) {
         Personnel personnel = null;
 
@@ -28,7 +41,7 @@ public class PersonnelManager {
     }
 
     /**
-     *
+     * Retourne liste personnels.
      * @return
      * @throws BLLException
      */
@@ -45,6 +58,12 @@ public class PersonnelManager {
         return personnels;
     }
 
+    /**
+     * Ajout d'un nouveau personnel
+     * @param personnel
+     * @return
+     * @throws BLLException
+     */
     public Personnel insertPersonnel(Personnel personnel) throws  BLLException{
         try{
             validerPersonnel(personnel);
@@ -55,6 +74,12 @@ public class PersonnelManager {
         return personnel;
     }
 
+    /**
+     * MAJ d'un personnel.
+     * @param personnel
+     * @return
+     * @throws BLLException
+     */
     public Personnel updatePersonnel(Personnel personnel) throws BLLException{
         try{
             validerPersonnel(personnel);
@@ -66,6 +91,11 @@ public class PersonnelManager {
         return personnel;
     }
 
+    /**
+     * Suppression d'un personnel
+     * @param personnel
+     * @throws BLLException
+     */
     public void deletePersonnel(Personnel personnel) throws BLLException{
         try{
             daoPersonnel.delete(personnel);
@@ -75,6 +105,11 @@ public class PersonnelManager {
         }
     }
 
+    /**
+     * Validation d'un personnel
+     * @param personnel
+     * @throws BLLException
+     */
     public void validerPersonnel(Personnel personnel) throws BLLException{
         boolean valide = true;
         StringBuffer sb = new StringBuffer();

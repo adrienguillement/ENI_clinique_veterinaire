@@ -9,11 +9,23 @@ import javax.swing.*;
 import java.util.List;
 
 public class RaceManager {
+
+    /**
+     * Attribut
+     */
     private static DAORace daoRace;
 
+    /**
+     * Constructeur
+     */
     public RaceManager(){
         daoRace = new DAOFactory().getRaceDAO();
     }
+
+    /*
+
+    INUTILE POUR LE MOMENT
+    TODO::A DELETE
 
     public Race selectByRace(String uneRace){
         Race race = null;
@@ -27,4 +39,5 @@ public class RaceManager {
 
         return race;
     }
+    */
 }

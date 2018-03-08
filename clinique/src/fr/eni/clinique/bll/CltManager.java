@@ -10,14 +10,25 @@ import java.util.List;
 
 public class CltManager {
 
-    private Client selected;
+    /**
+     * Attribut
+     */
     private static DAOClient daoClient;
 
-    public CltManager() throws BLLException{
+    /**
+     * Constructeur
+     * @throws BLLException
+     */
+    public CltManager() {
 
         daoClient = DAOFactory.getClientDAO();
     }
 
+    /**
+     * Mise à jour client
+     * @param client
+     * @throws BLLException
+     */
     public void updateClient(Client client) throws BLLException {
         try {
             daoClient.updateClient(client);
@@ -27,6 +38,12 @@ public class CltManager {
         }
     }
 
+    /**
+     * Recherche client
+     * @param searchValue
+     * @return
+     * @throws BLLException
+     */
     public List<Client> searchClient(String searchValue) throws BLLException {
         List<Client> clients = null;
 
@@ -42,7 +59,7 @@ public class CltManager {
 
     /**
      * insert d'un client
-     * */
+     */
     public void insertClient(Client client) throws BLLException{
         try{
             daoClient.insert(client);
@@ -51,6 +68,11 @@ public class CltManager {
         }
     }
 
+    /**
+     * Suppression client
+     * @param client
+     * @throws BLLException
+     */
     public void deleteClient(Client client) throws BLLException{
         try{
             daoClient.delete(client);
@@ -60,6 +82,11 @@ public class CltManager {
         }
     }
 
+    /**
+     * Récupération premier client DB
+     * @return
+     * @throws BLLException
+     */
     public Client getFirst() throws BLLException {
         Client clients = null;
 
@@ -92,6 +119,12 @@ public class CltManager {
     }
 
 
+    /**
+     * Récupération client from code
+     * @param id
+     * @return
+     * @throws BLLException
+     */
     public Client getClientById(int id) throws  BLLException {
         Client client = null;
 
