@@ -8,25 +8,12 @@ import fr.eni.clinique.utils.SHA512;
 
 public class ConnectionManager{
 
-    /**
-     * Attribut
-     */
     private static DAOConnection daoConnection;
 
-    /**
-     * Constructeur
-     */
     public ConnectionManager() {
         daoConnection = DAOFactory.getConnectionDAO();
     }
 
-    /**
-     * Connection
-     * @param login
-     * @param mdp
-     * @return
-     * @throws DALException
-     */
     public Personnel getConnection(String login, String mdp) throws DALException{
 
         System.out.println("> ConnectionManager");

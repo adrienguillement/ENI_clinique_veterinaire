@@ -6,18 +6,9 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class PersonnelTableModele extends AbstractTableModel{
-
-    /**
-     * Attributs
-     */
     private List<Personnel> personnels;
     private String[] titreColonnes = {"CodePers","Nom", "Role"};
 
-
-    /**
-     * Attribution d'une liste à l'attribut personnels
-     * @param personnels
-     */
     public void setPersonnels(List<Personnel> personnels) {
         this.personnels = personnels;
         this.fireTableDataChanged();

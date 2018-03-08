@@ -11,18 +11,9 @@ import java.util.List;
 
 public class RaceDAOJdbcImpl implements DAORace {
 
-    /**
-     * ATTRIBUTS
-     */
     private static final String sqlSelectAll = "SELECT * from race";
     private static final String sqlSelectByRace =   "SELECT TOP 1 * FROM RACE WHERE Race = ?";
 
-
-    /**
-     * SELECT ALL
-     * @return
-     * @throws DALException
-     */
     @Override
     public List<Race> selectAll() throws DALException {
         Connection cnx = null;
@@ -60,45 +51,21 @@ public class RaceDAOJdbcImpl implements DAORace {
         return liste;
     }
 
-    /**
-     * INSERT
-     * @param data
-     * @return
-     * @throws DALException
-     */
     @Override
     public Object insert(Object data) throws DALException {
         return null;
     }
 
-
-    /**
-     * UPDATE
-     * @param data
-     * @throws DALException
-     */
     @Override
     public void update(Object data) throws DALException {
 
     }
 
-
-    /**
-     * DELETE
-     * @param data
-     * @throws DALException
-     */
     @Override
     public void delete(Object data) throws DALException {
 
     }
 
-
-    /**
-     * SELECT BY RACE (STRING)
-     * @param uneRace
-     * @return
-     */
     public Race selectByRace(String uneRace){
         Connection cnx = null;
         PreparedStatement rqt = null;

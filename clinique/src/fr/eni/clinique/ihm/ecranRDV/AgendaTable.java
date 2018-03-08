@@ -7,13 +7,26 @@ import javax.swing.*;
 
 public class AgendaTable extends JTable{
     private AgendaTableModele modele;
+    private AgendaManager agendaManager;
 
-    /**
-     * Constructeur.
-     */
+    {
+        try {
+            agendaManager = new AgendaManager();
+        } catch (BLLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public AgendaTable(){
-        AgendaManager agendaManager= new AgendaManager();
+
         modele = new AgendaTableModele(agendaManager.getListeAgenda());
         this.setModel(modele);
+
     }
+
+    public AgendaTableModele getModele() {
+        return modele;
+    }
+
+
 }

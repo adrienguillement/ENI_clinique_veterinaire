@@ -3,10 +3,6 @@ package fr.eni.clinique.bo;
 import java.util.List;
 
 public class Client{
-
-    /**
-     * Attributs
-     */
     private int code;
     private String nom;
     private String prenom;
@@ -23,21 +19,6 @@ public class Client{
     //Chaque client possède une liste d'animaux
     private List<Animal> Animaux = null;
 
-    /**
-     * Constructeur avec code
-     * @param codeClient
-     * @param nomClient
-     * @param prenomClient
-     * @param adresse1
-     * @param adresse2
-     * @param codePostal
-     * @param ville
-     * @param numTel
-     * @param assurance
-     * @param email
-     * @param remarque
-     * @param archive
-     */
     public Client(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2, String codePostal, String ville, String numTel, String assurance, String email, String remarque, boolean archive) {
         this.code= codeClient;
         this.nom = nomClient;
@@ -53,20 +34,6 @@ public class Client{
         this.archive = archive;
     }
 
-    /**
-     * Constructeur sans code
-     * @param nomClient
-     * @param prenomClient
-     * @param adresse1
-     * @param adresse2
-     * @param codePostal
-     * @param ville
-     * @param numTel
-     * @param assurance
-     * @param email
-     * @param remarque
-     * @param archive
-     */
     public Client(String nomClient, String prenomClient, String adresse1, String adresse2, String codePostal, String ville, String numTel, String assurance, String email, String remarque, boolean archive) {
         this.nom = nomClient;
         this.prenom = prenomClient;
@@ -84,10 +51,6 @@ public class Client{
     public Client() {
     }
 
-
-    /**
-     * GETTERS AND SETTERS
-     */
     public int getCode() {
         return this.code;
     }

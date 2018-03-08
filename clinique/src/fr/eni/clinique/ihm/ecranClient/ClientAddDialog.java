@@ -19,10 +19,6 @@ public class ClientAddDialog extends JDialog {
     private CltManager clientManager;
     private Client client;
 
-    /**
-     * JDialog d'ajout d'un client.
-     * @param parent
-     */
     public ClientAddDialog(Frame parent) {
         super(parent, "Ajouter un client", true);
 

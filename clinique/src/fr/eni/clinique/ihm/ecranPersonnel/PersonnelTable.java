@@ -13,10 +13,6 @@ public class PersonnelTable extends JTable{
     private static PersonnelTable setPersonnelTable;
     private PersonnelTableModele modele;
     public List<Personnel> listePersonnels = new ArrayList<>();
-
-    /**
-     * Constructeur.
-     */
     public PersonnelTable(){
         try {
             PersonnelManager personnelManager = new PersonnelManager();
@@ -26,22 +22,14 @@ public class PersonnelTable extends JTable{
             this.setModel(modele);
             setPersonnelTable=this;
         } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Impossible de supprimer le personnel.", null, JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
 
-    /**
-     * Getter modele.
-     * @return
-     */
     public PersonnelTableModele getModele() {
         return modele;
     }
 
-    /**
-     * Setter liste table.
-     * @return
-     */
     public static PersonnelTable setPersonnelTable() {
         setPersonnelTable = new PersonnelTable();
         return setPersonnelTable;
