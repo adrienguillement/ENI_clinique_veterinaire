@@ -62,9 +62,9 @@ public class LoginDialog extends JDialog {
                 login.connect(getUsername(), getPassword(), ihmApp);
                 if(login.getConnectionSucceed()){
                     if(ihmApp.getJMenuBar() != null){
-                        ihmApp.getJMenuBar().removeAll();
-                        ihmApp.getMenuBarre().updateUI();
+                        ihmApp.setMenuBarre(null);
                         ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                        ihmApp.getMenuBarre().updateUI();
                     }
                     else{
                         ihmApp.setJMenuBar(ihmApp.getMenuBarre());

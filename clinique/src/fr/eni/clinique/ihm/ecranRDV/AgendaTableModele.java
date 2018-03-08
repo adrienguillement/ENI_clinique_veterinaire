@@ -82,15 +82,15 @@ public class AgendaTableModele extends AbstractTableModel{
                 ret=veto.getNom();
                 break;
             case 2:
-                //System.out.println(animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal()));
-                //animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
-                //animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
-                //System.out.println(animal);
-                //ret = animal.getCodeAnimal();
+                /*System.out.println(animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal()));
+                animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
+                System.out.println(animal);
+                ret = animal.getCodeAnimal();*/
                 break;
             case 3:
-                //animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
-                //ret = animal.getRace().getRace();
+                System.out.println(animal.toString());
+                animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
+                ret = "oui";
                 break;
             default:
                 break;

@@ -196,6 +196,10 @@ public class IHMapp extends JFrame implements ActionListener {
         return menuBarre;
     }
 
+    public void setMenuBarre(JMenuBar menuBarre){
+        this.menuBarre = menuBarre;
+    }
+
 
     public PersonnelFrame getPersonnelFrame() {
         if(personnelFrame== null){
