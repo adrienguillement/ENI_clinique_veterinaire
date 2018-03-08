@@ -5,16 +5,17 @@ import fr.eni.clinique.bo.Agenda;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
+import org.jdatepicker.impl.DateComponentFormatter;
 import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
 import fr.eni.clinique.ihm.ecranClient.ClientAddDialog;
 import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -29,11 +30,13 @@ import static javax.swing.text.html.HTML.Tag.HEAD;
 public class PriseRendezVousFrame extends JInternalFrame {
 
     private JLabel clientLabel, animalLabel, veterinaireLabel, heureLabel;
-    private JComboBox clientComboBox, animalComboBox, veterinaireComboBox, dateComboBox;
+    private JComboBox clientComboBox, animalComboBox, veterinaireComboBox, dateComboBox, hourComboBox, minutesComboBox;
     private JButton validerButton, supprimerButton, ajouterClientButton, ajouterAnimalauClientButton;
     private JFrame parent;
     private AgendaTable agendaTable;
-    private JDatePanelImpl panelQuand;
+    private JDatePanelImpl panelCalendar;
+    private JDatePickerImpl calendarPicker;
+    private JPanel panelQuand;
     private CltManager clientManager = new CltManager();
     private AnimalManager animalManager = new AnimalManager();
     private AnimalDialog animalDialog;
@@ -168,34 +171,30 @@ public class PriseRendezVousFrame extends JInternalFrame {
                     //refresh liste animaux
                     Client clientSelected = (Client)clientComboBox.getSelectedItem();
                     List<Animal> animaux = animalManager.getFromClient(clientSelected);
-                    animalComboBox = new JComboBox();
+                    animalComboBox.removeAllItems();
                     for(Animal elt:animaux){
                         animalComboBox.addItem(elt.getNomAnimal());
                     }
-
-                    //refresh du tableau
                 }
             }
         });
+
         panelPour.add(clientComboBox, gbc);
 
         gbc.gridx = 2;
         ajouterClientButton = new JButton("+");
-        ajouterClientButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //ouverture ecran ajout client
-                clientAddDialog = new ClientAddDialog(parent);
-                clientAddDialog.setVisible(true);
-                List<Client> clients = null;
-                try {
-                    clients = clientManager.getCatalogue();
-                } catch (BLLException e1) {
-                    e1.printStackTrace();
-                }
-                for(Client elt:clients){
-                    clientComboBox.addItem(elt);
-                }
+        ajouterClientButton.addActionListener(e -> {
+            //ouverture ecran ajout client
+            clientAddDialog = new ClientAddDialog(parent);
+            clientAddDialog.setVisible(true);
+            List<Client> clients1 = null;
+            try {
+                clients1 = clientManager.getCatalogue();
+            } catch (BLLException e1) {
+                e1.printStackTrace();
+            }
+            for(Client elt: clients1){
+                clientComboBox.addItem(elt);
             }
         });
         panelPour.add(ajouterClientButton, gbc);
@@ -236,23 +235,92 @@ public class PriseRendezVousFrame extends JInternalFrame {
 
 
         panelPour.setBorder(border);
-        panelPour.setPreferredSize(new Dimension(1000, 1000));
         return panelPour;
     }
 
+
+    /**
+     * Panel avec la date.
+     * @return
+     */
     public JPanel getPanelQuand(){
+        //Parametres datepicker
         UtilDateModel model = new UtilDateModel();
         Properties p = new Properties();
         p.put("text.today", "Today");
         p.put("text.month", "Month");
         p.put("text.year", "Year");
-        panelQuand = new JDatePanelImpl(model, p);
+
+        panelQuand = new JPanel();
+        panelQuand.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+
         TitledBorder border = new TitledBorder("Quand");
         border.setTitleJustification(TitledBorder.LEFT);
         border.setTitlePosition(TitledBorder.TOP);
-        panelQuand.setBorder(border);
 
+        gbc.gridwidth = 3;
+
+        panelQuand.add(getPanelCalendar(), gbc);
+
+        gbc.gridwidth = 1;
+        gbc.gridy = 1;
+
+        panelQuand.add(getHourComboBox(), gbc);
+        panelQuand.add(new JLabel("h"), gbc);
+        panelQuand.add(getMinutesComboBox(), gbc);
+
+        panelQuand.setBorder(border);
+        panelQuand.setSize( new Dimension( 200, 24 ) );
         return panelQuand;
+    }
+
+    /**
+     * Génération minute combobox.
+     */
+    private JComboBox getMinutesComboBox(){
+        minutesComboBox = new JComboBox();
+        for(int i=0; i<60; i++){
+            if(i<10){
+                minutesComboBox.addItem("0" + String.valueOf(i));
+            } else {
+                minutesComboBox.addItem(String.valueOf(i));
+            }
+
+        }
+
+        return minutesComboBox;
+    }
+
+    /***
+     * génération hour combobox.
+     * @return
+     */
+    private JComboBox getHourComboBox() {
+        hourComboBox = new JComboBox();
+        for(int i=0; i<24; i++){
+            if(i<10) {
+                hourComboBox.addItem("0" + String.valueOf(i));
+            } else {
+                hourComboBox.addItem(String.valueOf(i));
+            }
+        }
+        return hourComboBox;
+    }
+
+    public JPanel getPanelCalendar(){
+        JPanel panel = new JPanel();
+        UtilDateModel model = new UtilDateModel();
+        Properties p = new Properties();
+        p.put("text.today", "Aujourd'hui");
+        p.put("text.month", "Mois");
+        p.put("text.year", "Année");
+
+        panelCalendar = new JDatePanelImpl(model, p);
+        calendarPicker = new JDatePickerImpl(panelCalendar, new DateComponentFormatter());
+        panel.add(calendarPicker);
+        return panelCalendar;
     }
 
     public JPanel getPanelTable(){
@@ -292,15 +360,27 @@ public class PriseRendezVousFrame extends JInternalFrame {
 
     public void addNewReservation() throws BLLException {
         System.out.println("> Nouvelle réservation IHM");
-        System.out.println(panelQuand.getModel().getValue());
         Client client = (Client) clientComboBox.getSelectedItem();
-        System.out.println(panelQuand.getModel().getValue());
 
-        java.util.Date dateUtil = (java.util.Date) panelQuand.getModel().getValue();
-        java.sql.Date dateRDV = new java.sql.Date(dateUtil.getTime());
+        String day = String.valueOf(panelCalendar.getModel().getDay());
+        String month = String.valueOf(panelCalendar.getModel().getMonth()+1);
+        String year = String.valueOf(panelCalendar.getModel().getYear());
+        String hour = hourComboBox.getSelectedItem().toString();
+        String minute = minutesComboBox.getSelectedItem().toString();
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date parsed = null;
+
+        try {
+            parsed = format.parse(year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + "00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        java.sql.Timestamp dateRDV = new java.sql.Timestamp(parsed.getTime());
+        dateRDV.setTime(parsed.getTime());
 
         Personnel veto = (Personnel) veterinaireComboBox.getSelectedItem();
-        System.out.println(client.getCode());
         Agenda newRdv = new Agenda(veto.getCodePers(), dateRDV, client.getCode());
         AgendaManager agendaManager = new AgendaManager();
         agendaManager.insert(newRdv);
