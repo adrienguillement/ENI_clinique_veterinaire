@@ -4,6 +4,10 @@ import fr.eni.clinique.dal.JDBC.*;
 
 public class DAOFactory {
 
+    /**
+     * GETTERS DAO
+     * @return
+     */
     public static DAOAnimal getAnimalDAO(){
         DAOAnimal animalDAO = null;
         try{
