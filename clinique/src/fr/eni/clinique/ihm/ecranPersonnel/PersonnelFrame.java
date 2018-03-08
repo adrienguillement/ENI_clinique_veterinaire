@@ -33,9 +33,8 @@ public class PersonnelFrame extends JInternalFrame{
         super("Gestion du Personnel", true, true, true,true);
         this.parent = parent;
         this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-        //setBounds(100, 100,400, 600);
         setLayout(null);
-        setSize(880,640);
+        setSize(400,340);
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -107,7 +106,8 @@ public class PersonnelFrame extends JInternalFrame{
      */
     private JPanel getPanelButton(){
         JPanel panelButton = new JPanel();
-        ajouter = new JButton(new ImageIcon("lib/ajouter.png"));
+
+        ajouter = new JButton(new ImageIcon("lib/003-add.png"));
         ajouter.setText("Ajouter");
         ajouter.setVerticalTextPosition(SwingConstants.BOTTOM);
         ajouter.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -118,7 +118,7 @@ public class PersonnelFrame extends JInternalFrame{
                 System.out.println("Personnel ajouter");
             }
         });
-        modifier = new JButton(new ImageIcon("lib/unlock.png"));
+        modifier = new JButton(new ImageIcon("lib/002-minus.png"));
         modifier.setText("Réinitialiser");
         modifier.setVerticalTextPosition(SwingConstants.BOTTOM);
         modifier.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -137,7 +137,7 @@ public class PersonnelFrame extends JInternalFrame{
                 }
             }
         });
-        supprimer = new JButton(new ImageIcon("lib/moins.png"));
+        supprimer = new JButton(new ImageIcon("lib/001-padlock.png"));
         supprimer.setText("Supprimer");
         supprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
         supprimer.setHorizontalTextPosition(SwingConstants.CENTER);
