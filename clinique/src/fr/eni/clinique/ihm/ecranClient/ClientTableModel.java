@@ -56,4 +56,8 @@ public class ClientTableModel extends AbstractTableModel {
         this.clients = clients;
         this.fireTableDataChanged();
     }
+
+    public List<Client> getClients() {
+        return this.clients;
+    }
 }

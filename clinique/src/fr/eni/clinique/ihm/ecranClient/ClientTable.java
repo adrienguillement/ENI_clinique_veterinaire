@@ -14,6 +14,7 @@ public class ClientTable extends JTable {
     private ClientTableModel model;
     private ClientFrame clientFrame;
 
+
     /**
      * Constructeur.
      * @param clientFrame
@@ -47,8 +48,8 @@ public class ClientTable extends JTable {
         } catch (BLLException e) {
             JOptionPane.showMessageDialog(null, "Impossible de récupérer les clients.", null, JOptionPane.ERROR_MESSAGE);
         }
-
     }
+  
 
     /**
      * Getter model table.

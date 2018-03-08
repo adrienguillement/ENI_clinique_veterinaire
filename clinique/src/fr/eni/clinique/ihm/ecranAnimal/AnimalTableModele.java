@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class AnimalTableModele extends AbstractTableModel {
-
+  
     /**
      * Attributs
      */
@@ -63,6 +63,7 @@ public class AnimalTableModele extends AbstractTableModel {
         }
         return ret;
     }
+
 
     /**
      * Getter and setter

@@ -50,12 +50,22 @@ public class IHMapp extends JFrame implements ActionListener {
         setContentPane(desktopPane);
 
         // Barre de menus
-        setJMenuBar(getMenuBarre());
+        //setJMenuBar(getMenuBarre());
 
         //Frame interne exemple
         desktopPane.add(getPersonnelFrame());
         desktopPane.add(getClientSearch());
         desktopPane.add(getPriseRendezVousFrame());
+
+        //JDialog pour login (modal)
+        final JFrame frame = new JFrame("Authentification");
+        LoginDialog loginDlg = new LoginDialog(frame, this);
+        loginDlg.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        loginDlg.setVisible(true);
+
+        //JDialog login = new JDialog(this, "fezfez", Dialog.ModalityType.DOCUMENT_MODAL);
+        //login.setModal(true);
+        //login.setVisible(true);
     }
 
     // Lancement de l'application
@@ -63,22 +73,11 @@ public class IHMapp extends JFrame implements ActionListener {
         SwingUtilities.invokeLater(() -> {
             IHMapp ecran = null;
             try {
-                ecran = new IHMapp();
+                ecran = getInstance();
+                ecran.setVisible(true);
             } catch (BLLException e) {
                 JOptionPane.showMessageDialog(null, "Impossible de démarrer l'application.", null, JOptionPane.ERROR_MESSAGE);
             }
-
-
-            //JDialog pour login (modal)
-            final JFrame frame = new JFrame("Authentification");
-            LoginDialog loginDlg = new LoginDialog(frame);
-            loginDlg.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-            loginDlg.setVisible(true);
-
-
-            JDialog login = new JDialog(ecran, "fezfez", Dialog.ModalityType.DOCUMENT_MODAL);
-            login.setModal(true);
-            ecran.setVisible(true);
         });
     }
 
@@ -101,28 +100,38 @@ public class IHMapp extends JFrame implements ActionListener {
         menuItem.addActionListener(this);
         menu.add(menuItem);
 
-        // Menu Gestion RDV
-        JMenu menuGestionRDV = new JMenu("Gestion rendez vous");
-        menuBarre.add(menuGestionRDV);
+        if(utilisateurEnCours.getRole().equals("sec")){
+            // Menu Gestion RDV
+            JMenu menuGestionRDV = new JMenu("Gestion rendez vous");
+            menuBarre.add(menuGestionRDV);
 
-        // Sous menu prise rdv
-        JMenuItem menuItemPriseRDV = new JMenuItem("Prise de rendez vous");
-        menuItemPriseRDV.setActionCommand("priseRdv");
-        menuItemPriseRDV.addActionListener(this);
-        menuGestionRDV.add(menuItemPriseRDV);
+            // Sous menu prise rdv
+            JMenuItem menuItemPriseRDV = new JMenuItem("Prise de rendez vous");
+            menuItemPriseRDV.setActionCommand("priseRdv");
+            menuItemPriseRDV.addActionListener(this);
+            menuGestionRDV.add(menuItemPriseRDV);
 
-        // Sous menu gestion client
-        JMenuItem menuGestionClient = new JMenuItem("Gestion des clients");
-        menuGestionClient.setActionCommand("gestionClient");
-        menuGestionClient.addActionListener(this);
-        menuGestionRDV.add(menuGestionClient);
+            // Sous menu gestion client
+            JMenuItem menuGestionClient = new JMenuItem("Gestion des clients");
+            menuGestionClient.setActionCommand("gestionClient");
+            menuGestionClient.addActionListener(this);
+            menuGestionRDV.add(menuGestionClient);
+        }
 
-        // Menu personnel
-        menuItem = new JMenuItem("Gestion du Personnel");
-        menuBarre.add(menuItem);
-        menuItem.setActionCommand("gestionPersonnel");
-        menuItem.addActionListener(this);
+        if(utilisateurEnCours.getRole().equals("adm")){
+            // Menu personnel
+            menuItem = new JMenuItem("Gestion du Personnel");
+            menuBarre.add(menuItem);
+            menuItem.setActionCommand("gestionPersonnel");
+            menuItem.addActionListener(this);
+        }
 
+        if(utilisateurEnCours.getRole().equals("vet")){
+            menuItem = new JMenuItem("Agenda");
+            menuBarre.add(menuItem);
+            menuItem.setActionCommand("agenda");
+            menuItem.addActionListener(this);
+        }
     }
 
     // Réagir aux clicks sur les menus
@@ -141,6 +150,7 @@ public class IHMapp extends JFrame implements ActionListener {
                     getPriseRendezVousFrame().setVisible(false);
                 } catch (BLLException e1) {
                     JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
+                    e1.printStackTrace();
                 }
                 getPersonnelFrame().setVisible(true);
                 break;
