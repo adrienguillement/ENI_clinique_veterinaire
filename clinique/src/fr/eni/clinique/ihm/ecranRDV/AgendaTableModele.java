@@ -43,7 +43,7 @@ public class AgendaTableModele extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -82,15 +82,12 @@ public class AgendaTableModele extends AbstractTableModel{
                 ret=veto.getNom();
                 break;
             case 2:
-                /*System.out.println(animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal()));
                 animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
-                System.out.println(animal);
-                ret = animal.getCodeAnimal();*/
+                ret = animal.getNomAnimal();
                 break;
             case 3:
-                System.out.println(animal.toString());
                 animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
-                ret = "oui";
+                ret = animal.getRace().getRace();
                 break;
             default:
                 break;
