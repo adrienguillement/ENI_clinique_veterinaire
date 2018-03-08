@@ -14,7 +14,7 @@ public class ClientTable extends JTable {
     private ClientTableModel model;
     private ClientFrame clientFrame;
 
-    public ClientTable(){
+    public ClientTable(ClientFrame clientFrame, ClientSearchDialog clientSearchDialog){
         this.clientFrame = clientFrame;
         try {
             CltManager clientManager = new CltManager();
@@ -29,7 +29,9 @@ public class ClientTable extends JTable {
                     try {
                         clientSelected = clientManager.getClientById(codeClient);
                         clientSelected.setCode(codeClient);
+                        System.out.println((clientSelected.getCode()));
                         clientFrame.getClientSelected(clientSelected);
+                        clientSearchDialog.dispose();
                     } catch (BLLException e1) {
                         e1.printStackTrace();
                     }
@@ -40,6 +42,7 @@ public class ClientTable extends JTable {
         } catch (BLLException e) {
             e.printStackTrace();
         }
+
     }
 
 
