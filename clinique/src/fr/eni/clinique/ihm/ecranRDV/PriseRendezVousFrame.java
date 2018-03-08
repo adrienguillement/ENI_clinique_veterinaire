@@ -171,34 +171,30 @@ public class PriseRendezVousFrame extends JInternalFrame {
                     //refresh liste animaux
                     Client clientSelected = (Client)clientComboBox.getSelectedItem();
                     List<Animal> animaux = animalManager.getFromClient(clientSelected);
-                    animalComboBox = new JComboBox();
+                    animalComboBox.removeAllItems();
                     for(Animal elt:animaux){
                         animalComboBox.addItem(elt.getNomAnimal());
                     }
-
-                    //refresh du tableau
                 }
             }
         });
+
         panelPour.add(clientComboBox, gbc);
 
         gbc.gridx = 2;
         ajouterClientButton = new JButton("+");
-        ajouterClientButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //ouverture ecran ajout client
-                clientAddDialog = new ClientAddDialog(parent);
-                clientAddDialog.setVisible(true);
-                List<Client> clients = null;
-                try {
-                    clients = clientManager.getCatalogue();
-                } catch (BLLException e1) {
-                    e1.printStackTrace();
-                }
-                for(Client elt:clients){
-                    clientComboBox.addItem(elt);
-                }
+        ajouterClientButton.addActionListener(e -> {
+            //ouverture ecran ajout client
+            clientAddDialog = new ClientAddDialog(parent);
+            clientAddDialog.setVisible(true);
+            List<Client> clients1 = null;
+            try {
+                clients1 = clientManager.getCatalogue();
+            } catch (BLLException e1) {
+                e1.printStackTrace();
+            }
+            for(Client elt: clients1){
+                clientComboBox.addItem(elt);
             }
         });
         panelPour.add(ajouterClientButton, gbc);
