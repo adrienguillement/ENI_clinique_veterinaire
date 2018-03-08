@@ -16,7 +16,6 @@ public class PersonnelFrame extends JInternalFrame{
     private PersonnelEdit personnelEdit;
     private JButton ajouter,modifier,supprimer;
     private JFrame parent;
-    private Personnel personnel;
     private static PersonnelManager personnelManager;
 
     static {
@@ -24,12 +23,16 @@ public class PersonnelFrame extends JInternalFrame{
             personnelManager = new PersonnelManager();
 
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de contacter la base de données.", null, JOptionPane.ERROR_MESSAGE);
         }
     }
 
     /**
+<<<<<<< HEAD
      *
+=======
+     * Constructeur
+>>>>>>> master
      * @param parent
      */
     public PersonnelFrame(JFrame parent){
@@ -79,31 +82,43 @@ public class PersonnelFrame extends JInternalFrame{
     }
 
     /**
+<<<<<<< HEAD
      *
      * @return
+=======
+     * Ajout d'un personnel
+     * @return PersonnelAjout
+>>>>>>> master
      */
     public PersonnelAjout getPersonnelAjout(){
         personnelAjout = new PersonnelAjout(parent);
         try {
            personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer la liste du personnel.", null, JOptionPane.ERROR_MESSAGE);
         }
-
         return personnelAjout;
     }
 
+<<<<<<< HEAD
     /**
      *
      * @param personnel
      * @return
+=======
+
+    /**
+     * JDialog modification d'un personnel.
+     * @param personnel
+     * @return PersonnelEdit
+>>>>>>> master
      */
     public PersonnelEdit getPersonnelEdit(Personnel personnel){
         personnelEdit = new PersonnelEdit(parent, personnel);
         try{
             personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());
         } catch (BLLException e){
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de modifier le personnel de l'application.", null, JOptionPane.ERROR_MESSAGE);
         }
         return personnelEdit;
     }
@@ -162,7 +177,7 @@ public class PersonnelFrame extends JInternalFrame{
                         JOptionPane.showMessageDialog(null, "Veuillez selectionner une valeur à supprimer", null, JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (BLLException e1) {
-                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Impossible de supprimer le compte.", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

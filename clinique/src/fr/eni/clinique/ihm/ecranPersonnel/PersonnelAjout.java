@@ -19,8 +19,14 @@ public class PersonnelAjout extends JDialog{
     private Personnel personnel;
     private PersonnelManager personnelManager;
 
+<<<<<<< HEAD
     /**
      * Fenêtre d'ajout d'un personnel
+=======
+
+    /**
+     * Constructeur avec initialisation de l'IHM.
+>>>>>>> master
      * @param parent
      */
     public PersonnelAjout(Frame parent) {
@@ -93,7 +99,7 @@ public class PersonnelAjout extends JDialog{
                     personnelManager.insertPersonnel(personnel);
                     dispose();
                 } catch (BLLException e1) {
-                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Impossible de créer un nouveau compte.", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

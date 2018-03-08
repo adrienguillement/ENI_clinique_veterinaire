@@ -7,6 +7,7 @@ import fr.eni.clinique.bo.Agenda;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Personnel;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -17,6 +18,9 @@ import java.util.List;
 
 public class AgendaTableModele extends AbstractTableModel{
 
+    /**
+     * Attributs
+     */
     private List<Agenda> listeAgenda;
     private String[] agendaColonnes = {"Heure", "Nom du client", "Animal", "Race"};
 
@@ -27,6 +31,10 @@ public class AgendaTableModele extends AbstractTableModel{
     private Animal animal;
 
 
+    /**
+     * Constructeur
+     * @param listeAgenda
+     */
     public AgendaTableModele(List<Agenda> listeAgenda){
         this.listeAgenda = listeAgenda;
     }
@@ -54,7 +62,7 @@ public class AgendaTableModele extends AbstractTableModel{
             personnelManager = new PersonnelManager();
             animalManager = new AnimalManager();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
         }
         switch (columnIndex){
             case 0:

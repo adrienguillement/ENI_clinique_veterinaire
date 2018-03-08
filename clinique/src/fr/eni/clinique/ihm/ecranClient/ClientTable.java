@@ -14,6 +14,12 @@ public class ClientTable extends JTable {
     private ClientTableModel model;
     private ClientFrame clientFrame;
 
+
+    /**
+     * Constructeur.
+     * @param clientFrame
+     * @param clientSearchDialog
+     */
     public ClientTable(ClientFrame clientFrame, ClientSearchDialog clientSearchDialog){
         this.clientFrame = clientFrame;
         try {
@@ -33,30 +39,23 @@ public class ClientTable extends JTable {
                         clientFrame.getClientSelected(clientSelected);
                         clientSearchDialog.dispose();
                     } catch (BLLException e1) {
-                        e1.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Impossible de récupérer le client.", null, JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });
 
             this.setModel(model);
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer les clients.", null, JOptionPane.ERROR_MESSAGE);
         }
-
     }
+  
 
-
+    /**
+     * Getter model table.
+     * @return
+     */
     public ClientTableModel getModele() {
         return model;
-    }
-
-    private void addListListener(CltManager clientManager){
-
-        // Clic sur une ligne
-
-    }
-
-    public Client getClientSelected() {
-        return clientSelected;
     }
 }

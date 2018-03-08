@@ -12,7 +12,7 @@ public class login {
     /**
      * méthode demande de connection
      */
-    public static void connect(String login, String password)
+    public static void connect(String login, String password,IHMapp ihmApp)
     {
         ConnectionManager connectionManager = new ConnectionManager();
         Personnel personnel = null;
@@ -20,13 +20,13 @@ public class login {
             try {
                 personnel = connectionManager.getConnection(login, password);
             } catch (DALException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Impossible de trouver le compte correspondant.", null, JOptionPane.ERROR_MESSAGE);
             }
             if(personnel != null){
                 System.out.println("Bienvenue " + personnel.getNom() + "Vos droits sont correspondantes à votre rôle: " + personnel.getRole());
                 //init l'utilisateur en cours
                 connectionSucceed = true;
-                IHMapp.getInstance().setUtilisateurEnCours(personnel);
+                ihmApp.setUtilisateurEnCours(personnel);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Erreur d'authentification", null, JOptionPane.ERROR_MESSAGE);

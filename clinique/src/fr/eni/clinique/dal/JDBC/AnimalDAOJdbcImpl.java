@@ -13,18 +13,26 @@ import java.util.List;
 
 public class AnimalDAOJdbcImpl implements DAOAnimal {
 
+    /**
+     * ATTRIBUTS
+     */
     private RaceDAOJdbcImpl raceDAOJdbc = new RaceDAOJdbcImpl();
     private Race race = null;
 
     private static final String sqlSelectAll = "SELECT * FROM ANIMAL";
     private static final String sqlInsert = "INSERT INTO ANIMAL(NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String sqlUpdate = "UPDATE ANIMAL set NomAnimal=?,Sexe=?,Couleur=?,Race=?,CodeClient=?,Tatouage=?, Antecedents=?, Archive=? where CodeAnimal=?";
+    private static final String sqlUpdate = "UPDATE ANIMAL SET NomAnimal=?, Sexe=? ,Couleur=?, Race=?, Espece=?, CodeClient=?, Tatouage=?, Antecedents=?, Archive=? where CodeAnimal=?";
     private static final String sqlSelectByClient = "SELECT * FROM ANIMAL WHERE CodeClient = ? AND Archive = 0";
     private static final String sqlSelectByCode = "SELECT * FROM ANIMAL WHERE CodeAnimal = ? AND Archive = 0";
     private static final String sqlDelete = "UPDATE ANIMAL set Archive=1 WHERE CodeAnimal = ?";
 
 
+    /**
+     * DELETE
+     * @param animal
+     * @throws DALException
+     */
     @Override
     public void delete(Animal animal) throws DALException {
         Connection cnx = null;
@@ -51,6 +59,12 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         }
     }
 
+    /**
+     * SELECT BY CODE
+     * @param codeAnimal
+     * @return
+     * @throws DALException
+     */
     public Animal selectByCode(int codeAnimal) throws DALException {
         Connection cnx = null;
         PreparedStatement rqt = null;
@@ -96,6 +110,12 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         return animal;
     }
 
+    /**
+     * SELECT BY CLIENT
+     * @param client
+     * @return
+     * @throws DALException
+     */
     public List<Animal> selectByClient(Client client) throws DALException {
         Connection cnx = null;
         PreparedStatement rqt = null;
@@ -143,6 +163,11 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
     }
 
 
+    /**
+     * SELECT ALL
+     * @return
+     * @throws DALException
+     */
     @Override
     public List<Animal> selectAll() throws DALException {
         Connection cnx = null;
@@ -189,6 +214,12 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         return liste;
     }
 
+    /**
+     * INSERT
+     * @param unAnimal
+     * @return
+     * @throws DALException
+     */
     @Override
     public Animal insert(Object unAnimal) throws DALException {
         Animal animal = (Animal)unAnimal;
@@ -202,7 +233,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
             rqt.setString(3, animal.getCouleur());
             rqt.setString(4, animal.getRace().getRace());
             rqt.setString(5, animal.getRace().getEspece());
-            rqt.setInt(6, animal.getCodeClient()+1);
+            rqt.setInt(6, animal.getCodeClient());
             rqt.setString(7, animal.getTatouage());
             rqt.setString(8, animal.getAntecedents());
             rqt.setBoolean(9, animal.isArchive());
@@ -234,6 +265,11 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         return animal;
     }
 
+    /**
+     * UPDATE
+     * @param unAnimal
+     * @throws DALException
+     */
     @Override
     public void update(Object unAnimal) throws DALException {
         Animal animal = (Animal)unAnimal;
@@ -247,10 +283,11 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
             rqt.setString(3, animal.getCouleur());
             rqt.setString(4, animal.getRace().getRace());
             rqt.setString(5, animal.getRace().getEspece());
-            rqt.setInt(6, animal.getCodeClient()+1);
+            rqt.setInt(6, animal.getCodeClient());
             rqt.setString(7, animal.getTatouage());
             rqt.setString(8, animal.getAntecedents());
             rqt.setBoolean(9, animal.isArchive());
+            rqt.setInt(10, animal.getCodeAnimal());
             rqt.executeUpdate();
         } catch (SQLException e) {
             throw new DALException("Update animal failed - " + animal, e);
@@ -268,6 +305,11 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         }
     }
 
+    /**
+     * DELETE
+     * @param data
+     * @throws DALException
+     */
     @Override
     public void delete(Object data) throws DALException {
 

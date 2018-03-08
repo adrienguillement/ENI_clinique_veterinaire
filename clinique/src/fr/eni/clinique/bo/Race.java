@@ -1,9 +1,19 @@
 package fr.eni.clinique.bo;
 
 public class Race{
+
+    /**
+     * Attributs
+     */
     private String race;
     private String espece;
 
+
+    /**
+     * Constructeur
+     * @param race
+     * @param espece
+     */
     public Race(String race, String espece) {
         this.race = race;
         this.espece = espece;
@@ -11,6 +21,12 @@ public class Race{
 
     public Race() {
     }
+
+
+    /**
+     * GETTERS AND SETTERS
+     *
+     */
 
     public String getRace() {
         return this.race;

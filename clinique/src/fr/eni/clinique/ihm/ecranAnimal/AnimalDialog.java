@@ -35,23 +35,24 @@ public class AnimalDialog extends JDialog{
     private List<Animal> animaux = new ArrayList<>();
     private ClientFrame clientFrame;
 
+    /**
+     * Création des manager
+     */
     private AnimalManager animalManager;
-
     {
         try {
             animalManager = new AnimalManager();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de charger les animaux.", null, JOptionPane.ERROR_MESSAGE);
         }
     }
 
     private CltManager clientManager;
-
     {
         try {
             clientManager = new CltManager();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de charger les clients.", null, JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -63,8 +64,6 @@ public class AnimalDialog extends JDialog{
         this.animal = animal;
         this.clientFrame = clientFrame;
         setIHM();
-
-
     }
 
     //methode avec parametre optinnel
@@ -74,6 +73,9 @@ public class AnimalDialog extends JDialog{
         setIHM();
     }
 
+    /**
+     * Initialisation de l'ihm d'ajout.
+     */
     public void setIHM(){
 
         if(animal != null){
@@ -102,7 +104,7 @@ public class AnimalDialog extends JDialog{
             try {
                 client = clientManager.getClientById(animal.getCodeClient());
             } catch (BLLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Impossible de récupérer le client correspondant à l'animal.", null, JOptionPane.ERROR_MESSAGE);
             }
 
             clientTextField = new JTextField(client.getNom() + " " + client.getPrenomClient());
@@ -114,7 +116,7 @@ public class AnimalDialog extends JDialog{
             try {
                 clients = clientManager.getCatalogue();
             } catch (BLLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Impossible de récupérer les clients.", null, JOptionPane.ERROR_MESSAGE);
             }
 
             //affichage d'une comboBox avec properties spécifiques à l'objet
@@ -201,8 +203,12 @@ public class AnimalDialog extends JDialog{
 
                 //Ajout ou modification d'un animal
                 if(estModification){
-                    animalManager.update(animal);
+                    Race race = new Race(raceComboBox.getSelectedItem().toString(), especeComboBox.getSelectedItem().toString());
+                    Animal newAnimal = new Animal(nomTextfield.getText(), sexeComboBox.getSelectedItem().toString(), couleurTextField.getText(), race, animal.getCodeClient(), tatouageTextField.getText(), null, false);
+                    newAnimal.setCodeAnimal(Integer.parseInt(codeTextField.getText()));
+                    animalManager.update(newAnimal);
                     JOptionPane.showMessageDialog(null, "Animal modifié", null, JOptionPane.INFORMATION_MESSAGE);
+                    dispose();
                 }
                 else{
                     Race race = new Race(raceComboBox.getSelectedItem().toString(), especeComboBox.getSelectedItem().toString());
@@ -232,13 +238,16 @@ public class AnimalDialog extends JDialog{
             especeLabel.setText(animal.getRace().getEspece());
             tatouageTextField.setText(animal.getTatouage());
             ajouterButton.setText("Modifier");
+            especeComboBox.addItem(animal.getRace().getEspece());
+            raceComboBox.addItem(animal.getRace().getRace());
+            sexeComboBox.addItem(animal.getSexe());
         }
         else{
             ajouterButton.setText("Ajouter");
             try {
                 animaux = DAOFactory.getAnimalDAO().selectAll();
             } catch (DALException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Impossible de récupérer les animaux.", null, JOptionPane.ERROR_MESSAGE);
             }
 
             //maj listes
