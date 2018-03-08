@@ -8,12 +8,19 @@ import java.awt.event.ActionListener;
 
 public class LoginDialog extends JDialog {
 
+    /**
+     * Attributes
+     */
     private JTextField tfUsername;
     private JPasswordField pfPassword;
     private JLabel lbUsername;
     private JLabel lbPassword;
     private JButton btnLogin;
 
+    /**
+     * Constructeurs.
+     * @param parent
+     */
     public LoginDialog(Frame parent) {
         super(parent, "Login", true);
         //
@@ -72,9 +79,10 @@ public class LoginDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-
-
-
+    /**
+     * Getters
+     * @return
+     */
     public String getUsername() {
         return tfUsername.getText().trim();
     }
