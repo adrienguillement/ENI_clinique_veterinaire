@@ -45,7 +45,6 @@ public class AnimalDialog extends JDialog{
         }
     }
 
-<<<<<<< HEAD
     private CltManager clientManager;
 
     {
@@ -55,9 +54,6 @@ public class AnimalDialog extends JDialog{
             e.printStackTrace();
         }
     }
-=======
-    private CltManager clientManager = new CltManager();
->>>>>>> master
 
     //creation d'un param optionnel
     private Animal animal = null;
