@@ -10,6 +10,7 @@ import fr.eni.clinique.bo.Race;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
+import fr.eni.clinique.ihm.ecranRDV.PriseRendezVousFrame;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -63,8 +64,11 @@ public class AnimalDialog extends JDialog{
         this.animal = animal;
         this.clientFrame = clientFrame;
         setIHM();
+    }
 
-
+    public AnimalDialog(Frame parent){
+        super(parent, "Animal", true);
+        setIHM();
     }
 
     //methode avec parametre optinnel
@@ -216,7 +220,9 @@ public class AnimalDialog extends JDialog{
 
                     animalManager.insert(newAnimal);
                 }
-                clientFrame.getAnimalTable().getModele().setAnimaux(animalManager.getFromClient(clientFrame.getClient()));
+                if(clientFrame != null){
+                    clientFrame.getAnimalTable().getModele().setAnimaux(animalManager.getFromClient(clientFrame.getClient()));
+                }
             }
         });
         panel.add(ajouterButton, cs);

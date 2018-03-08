@@ -94,4 +94,9 @@ public class AgendaTableModele extends AbstractTableModel{
         }
         return ret;
     }
+
+    public void setListeAgenda(List<Agenda> listeAgenda){
+        this.listeAgenda = listeAgenda;
+        this.fireTableDataChanged();
+    }
 }
