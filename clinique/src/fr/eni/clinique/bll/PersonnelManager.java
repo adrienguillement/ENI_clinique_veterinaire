@@ -5,43 +5,28 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.DAOPersonne;
 
-import javax.swing.*;
 import java.util.List;
 
 public class PersonnelManager {
-
-    /**
-     * Attribut
-     */
     private static DAOPersonne daoPersonnel;
 
-    /**
-     * Constructeur
-     * @throws BLLException
-     */
     public PersonnelManager() throws BLLException{
         daoPersonnel = DAOFactory.getPersonneDAO();
     }
 
-    /**
-     * Retourne un personnel from id
-     * @param id
-     * @return
-     */
     public Personnel getPersonnelById(int id) {
         Personnel personnel = null;
 
         try{
             personnel = DAOFactory.getPersonneDAO().selectById(id);
         }catch(DALException e){
-            JOptionPane.showMessageDialog(null, "Impossible de récupérer l'utilisateur.", null, JOptionPane.ERROR_MESSAGE);
-
+            e.printStackTrace();
         }
         return personnel;
     }
 
     /**
-     * Retourne liste personnels.
+     *
      * @return
      * @throws BLLException
      */
@@ -52,64 +37,39 @@ public class PersonnelManager {
             personnels = DAOFactory.getPersonneDAO().selectAll();
         }catch(DALException e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erreur de récupération du personnel.", null, JOptionPane.ERROR_MESSAGE);
-
+            throw new BLLException("Erreur récupération du personnels", e);
         }
         return personnels;
     }
 
-    /**
-     * Ajout d'un nouveau personnel
-     * @param personnel
-     * @return
-     * @throws BLLException
-     */
     public Personnel insertPersonnel(Personnel personnel) throws  BLLException{
         try{
             validerPersonnel(personnel);
             daoPersonnel.insert(personnel);
         } catch (DALException e){
-            JOptionPane.showMessageDialog(null, "Echec de l'insertion du personnel.", null, JOptionPane.ERROR_MESSAGE);
+            throw new BLLException("Echec insert personnel"+ personnel, e);
         }
         return personnel;
     }
 
-    /**
-     * MAJ d'un personnel.
-     * @param personnel
-     * @return
-     * @throws BLLException
-     */
     public Personnel updatePersonnel(Personnel personnel) throws BLLException{
         try{
             validerPersonnel(personnel);
             daoPersonnel.update(personnel);
         } catch (DALException e){
-            JOptionPane.showMessageDialog(null, "Impossible de mettre à jour ce personnel.", null, JOptionPane.ERROR_MESSAGE);
-
+            throw new BLLException("echec update personnel: "+personnel, e);
         }
         return personnel;
     }
 
-    /**
-     * Suppression d'un personnel
-     * @param personnel
-     * @throws BLLException
-     */
     public void deletePersonnel(Personnel personnel) throws BLLException{
         try{
             daoPersonnel.delete(personnel);
         }catch (DALException e){
-            JOptionPane.showMessageDialog(null, "Impossible de supprimer ce personnel.", null, JOptionPane.ERROR_MESSAGE);
-
+            throw new BLLException("echec delete personnel: "+ personnel, e);
         }
     }
 
-    /**
-     * Validation d'un personnel
-     * @param personnel
-     * @throws BLLException
-     */
     public void validerPersonnel(Personnel personnel) throws BLLException{
         boolean valide = true;
         StringBuffer sb = new StringBuffer();

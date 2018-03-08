@@ -7,7 +7,6 @@ import fr.eni.clinique.bo.Agenda;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Personnel;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -18,9 +17,6 @@ import java.util.List;
 
 public class AgendaTableModele extends AbstractTableModel{
 
-    /**
-     * Attributs
-     */
     private List<Agenda> listeAgenda;
     private String[] agendaColonnes = {"Heure", "Nom du client", "Animal", "Race"};
 
@@ -31,10 +27,6 @@ public class AgendaTableModele extends AbstractTableModel{
     private Animal animal;
 
 
-    /**
-     * Constructeur
-     * @param listeAgenda
-     */
     public AgendaTableModele(List<Agenda> listeAgenda){
         this.listeAgenda = listeAgenda;
     }
@@ -62,7 +54,7 @@ public class AgendaTableModele extends AbstractTableModel{
             personnelManager = new PersonnelManager();
             animalManager = new AnimalManager();
         } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
         switch (columnIndex){
             case 0:
@@ -90,15 +82,13 @@ public class AgendaTableModele extends AbstractTableModel{
                 ret=veto.getNom();
                 break;
             case 2:
-                //System.out.println(animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal()));
-                //animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
-                //animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
-                //System.out.println(animal);
-                //ret = animal.getCodeAnimal();
+                animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
+                System.out.println(animal);
+                System.out.println(animal.getSexe());
+                ret = animal.getRace().getRace();
                 break;
             case 3:
                 //animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
-                //ret = animal.getRace().getRace();
                 break;
             default:
                 break;

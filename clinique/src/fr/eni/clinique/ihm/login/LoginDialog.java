@@ -11,9 +11,6 @@ import fr.eni.clinique.ihm.IHMapp;
 
 public class LoginDialog extends JDialog {
 
-    /**
-     * Attributes
-     */
     private JTextField tfUsername;
     private JPasswordField pfPassword;
     private JLabel lbUsername;
@@ -21,11 +18,6 @@ public class LoginDialog extends JDialog {
     private JButton btnLogin;
     private IHMapp IHMapp;
 
-
-    /**
-     * Constructeurs.
-     * @param parent
-     */
     public LoginDialog(Frame parent, IHMapp ihmApp) {
         super(parent, "Login", true);
         //
@@ -69,7 +61,14 @@ public class LoginDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 login.connect(getUsername(), getPassword(), ihmApp);
                 if(login.getConnectionSucceed()){
-                    ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                    if(ihmApp.getJMenuBar() != null){
+                        ihmApp.getJMenuBar().removeAll();
+                        ihmApp.getMenuBarre().updateUI();
+                        ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                    }
+                    else{
+                        ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                    }
                     dispose();
                 }
             }
@@ -86,11 +85,6 @@ public class LoginDialog extends JDialog {
         setLocationRelativeTo(parent);
     }
 
-
-    /**
-     * Getters
-     * @return
-     */
     public String getUsername() {
         return tfUsername.getText().trim();
     }

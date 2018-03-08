@@ -9,58 +9,38 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static javax.swing.text.html.HTML.Tag.HEAD;
+
 public class PriseRendezVousFrame extends JInternalFrame {
 
-    /**
-     * Attributs
-     */
-    private JLabel clientLabel, animalLabel, veterinaireLabel;
-    private JComboBox clientComboBox, animalComboBox, veterinaireComboBox;
+    private JLabel clientLabel, animalLabel, veterinaireLabel, heureLabel;
+    private JComboBox clientComboBox, animalComboBox, veterinaireComboBox, dateComboBox;
     private JButton validerButton, supprimerButton, ajouterClientButton, ajouterAnimalauClientButton;
     private JFrame parent;
     private AgendaTable agendaTable;
-    private CltManager clientManager;
     private JDatePanelImpl panelQuand;
+    private CltManager clientManager = new CltManager();
+    private AnimalManager animalManager = new AnimalManager();
 
-    {
-        try {
-            clientManager = new CltManager();
-        } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
-
-        }
-    }
 
     private PersonnelManager personnelManager;
     {
         try {
             personnelManager = new PersonnelManager();
         } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
-
+            e.printStackTrace();
         }
     }
 
-    private AnimalManager animalManager;
-    {
-        try {
-            animalManager = new AnimalManager();
-        } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
-
-        }
-    }
-
-    /**
-     * Constructeur
-     * @param parent
-     * @throws BLLException
-     */
     public PriseRendezVousFrame(JFrame parent) throws BLLException{
         //Ecran avec un titre, redimensionable, fermable, agrandissable, iconifiable
         super("Prise de rendez-vous", true, true, true,true);
@@ -71,11 +51,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
         setContentPane(getPanelPriseRendezVous());
     }
 
-    /**
-     * Panel prise de rendez vous.
-     * @return
-     * @throws BLLException
-     */
     public JPanel getPanelPriseRendezVous() throws BLLException{
         JPanel panelPriseRendezVous = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -105,10 +80,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
         return panelPriseRendezVous;
     }
 
-    /**
-     * Panel liste veto
-     * @return
-     */
     public JPanel getPanelPar(){
         JPanel panelPar = new JPanel();
         TitledBorder border = new TitledBorder("Par");
@@ -123,8 +94,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
         try {
             personnels = personnelManager.getPersonnels();
         } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de la récupération du personnel.", null, JOptionPane.ERROR_MESSAGE);
-
+            e.printStackTrace();
         }
         //affichage d'une comboBox avec properties spécifiques à l'objet
         veterinaireComboBox = new JComboBox(new DefaultComboBoxModel(personnels.toArray()));
@@ -145,10 +115,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
         return panelPar;
     }
 
-    /**
-     * Panel liste clients.
-     * @return
-     */
     public JPanel getPanelPour(){
         JPanel panelPour = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -170,8 +136,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
         try {
             clients = clientManager.getCatalogue();
         } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Erreur lors de la récupération des clients.", null, JOptionPane.ERROR_MESSAGE);
-
+            e.printStackTrace();
         }
         //affichage d'une comboBox avec properties spécifiques à l'objet
         clientComboBox = new JComboBox(new DefaultComboBoxModel(clients.toArray()));
@@ -209,10 +174,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
         return panelPour;
     }
 
-    /**
-     * Panel date.
-     * @return
-     */
     public JPanel getPanelQuand(){
         UtilDateModel model = new UtilDateModel();
         Properties p = new Properties();
@@ -228,10 +189,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
         return panelQuand;
     }
 
-    /**
-     * Panel tableau des rdv.
-     * @return
-     */
     public JPanel getPanelTable(){
         System.out.println("> getPanelTable");
         JPanel panelTable = new JPanel();
@@ -243,24 +200,20 @@ public class PriseRendezVousFrame extends JInternalFrame {
         return panelTable;
     }
 
-    /**
-     * table rdv
-     * @return
-     */
     public AgendaTable getAgendaTable(){
         agendaTable = new AgendaTable();
         return agendaTable;
     }
 
-    /**
-     * Panel boutons.
-     * @return
-     */
     public JPanel getValiderSupprimerPanel(){
         JPanel panelValiderSupprimerPanel = new JPanel();
         validerButton = new JButton("Valider");
         validerButton.addActionListener(e -> {
-            addNewReservation();
+            try {
+                addNewReservation();
+            } catch (BLLException e1) {
+                e1.printStackTrace();
+            }
         });
 
         supprimerButton = new JButton("Supprimer");
@@ -271,10 +224,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
         return panelValiderSupprimerPanel;
     }
 
-    /**
-     * Ajout d'une nouvelle réservation.
-     */
-    public void addNewReservation() {
+    public void addNewReservation() throws BLLException {
         System.out.println("> Nouvelle réservation IHM");
         System.out.println(panelQuand.getModel().getValue());
         Client client = (Client) clientComboBox.getSelectedItem();
@@ -286,20 +236,12 @@ public class PriseRendezVousFrame extends JInternalFrame {
         Personnel veto = (Personnel) veterinaireComboBox.getSelectedItem();
         System.out.println(client.getCode());
         Agenda newRdv = new Agenda(veto.getCodePers(), dateRDV, client.getCode());
-        try {
-            AgendaManager agendaManager = new AgendaManager();
-            agendaManager.insert(newRdv);
-            JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Problème lors de la réservation", null, JOptionPane.ERROR_MESSAGE);
-        }
+        AgendaManager agendaManager = new AgendaManager();
+        agendaManager.insert(newRdv);
+        JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /**
-     * Chargement liste animaux.
-     */
-    public void LoadListes(){
+    public void LoadListes() throws BLLException{
         List<Animal> listeAnimal = animalManager.getListeAnimaux();
 
         for(Animal elt:listeAnimal){

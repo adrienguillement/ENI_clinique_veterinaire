@@ -13,9 +13,6 @@ import java.util.List;
 
 public class AnimalDAOJdbcImpl implements DAOAnimal {
 
-    /**
-     * ATTRIBUTS
-     */
     private RaceDAOJdbcImpl raceDAOJdbc = new RaceDAOJdbcImpl();
     private Race race = null;
 
@@ -28,11 +25,6 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
     private static final String sqlDelete = "UPDATE ANIMAL set Archive=1 WHERE CodeAnimal = ?";
 
 
-    /**
-     * DELETE
-     * @param animal
-     * @throws DALException
-     */
     @Override
     public void delete(Animal animal) throws DALException {
         Connection cnx = null;
@@ -59,12 +51,6 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         }
     }
 
-    /**
-     * SELECT BY CODE
-     * @param codeAnimal
-     * @return
-     * @throws DALException
-     */
     public Animal selectByCode(int codeAnimal) throws DALException {
         Connection cnx = null;
         PreparedStatement rqt = null;
@@ -110,12 +96,6 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         return animal;
     }
 
-    /**
-     * SELECT BY CLIENT
-     * @param client
-     * @return
-     * @throws DALException
-     */
     public List<Animal> selectByClient(Client client) throws DALException {
         Connection cnx = null;
         PreparedStatement rqt = null;
@@ -163,11 +143,6 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
     }
 
 
-    /**
-     * SELECT ALL
-     * @return
-     * @throws DALException
-     */
     @Override
     public List<Animal> selectAll() throws DALException {
         Connection cnx = null;
@@ -214,12 +189,6 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         return liste;
     }
 
-    /**
-     * INSERT
-     * @param unAnimal
-     * @return
-     * @throws DALException
-     */
     @Override
     public Animal insert(Object unAnimal) throws DALException {
         Animal animal = (Animal)unAnimal;
@@ -265,11 +234,6 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         return animal;
     }
 
-    /**
-     * UPDATE
-     * @param unAnimal
-     * @throws DALException
-     */
     @Override
     public void update(Object unAnimal) throws DALException {
         Animal animal = (Animal)unAnimal;
@@ -305,11 +269,6 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
         }
     }
 
-    /**
-     * DELETE
-     * @param data
-     * @throws DALException
-     */
     @Override
     public void delete(Object data) throws DALException {
 

@@ -10,25 +10,17 @@ import javax.swing.*;
 
 public class AnimalTable extends JTable {
     private AnimalTableModele modele;
-
-    /**
-     * Constructeur
-     * @param client
-     */
+    private Animal animalSelected;
+    private AnimalManager animalManager;
     public AnimalTable(Client client){
         try {
             AnimalManager animalManager = new AnimalManager();
             modele = new AnimalTableModele(animalManager.getFromClient(client));
             this.setModel(modele);
         } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Impossible de récupérer les animaux du client.", null, JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
         }
     }
-
-    /**
-     * Récupération du model de la table.
-     * @return AnimalTableModele
-     */
     public AnimalTableModele getModele() {
         return modele;
     }

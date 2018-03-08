@@ -1,7 +1,6 @@
 package fr.eni.clinique.dal;
 
 
-import javax.swing.*;
 import java.util.Properties;
 
 public class Settings {
@@ -12,8 +11,7 @@ public class Settings {
             properties = new Properties();
             properties.load(Settings.class.getResourceAsStream("settings.properties"));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Impossible de charger les settings de la DB.", null, JOptionPane.ERROR_MESSAGE);
-
+            e.printStackTrace();
         }
     }
 
