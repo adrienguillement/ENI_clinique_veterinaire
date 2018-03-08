@@ -85,14 +85,12 @@ public class PersonnelFrame extends JInternalFrame{
         return personnelAjout;
     }
 
-<<<<<<< HEAD
+
     /**
      * JDialog modification d'un personnel.
      * @param personnel
      * @return PersonnelEdit
      */
-=======
->>>>>>> master
     public PersonnelEdit getPersonnelEdit(Personnel personnel){
         personnelEdit = new PersonnelEdit(parent, personnel);
         try{
