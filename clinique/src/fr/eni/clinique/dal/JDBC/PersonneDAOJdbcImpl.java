@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonneDAOJdbcImpl implements DAOPersonne{
+
+    /**
+     * ATTRIBUTS
+     */
     private static final String selectAll = "select CodePers, Nom, MotPasse, Role, Archive from Personnel WHERE Archive=0 ORDER BY CodePers ASC";
     private static final String selectByVet = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where Role= vet";
     private static final String selectById = "select CodePers, Nom, MotPasse, Role, Archive from Personnel where CodePers= ?";
@@ -18,6 +22,12 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     private static final String update = "update Personnel set Nom=?, MotPasse=?,Role=? where CodePers=?";
     private static final String delete = "update Personnel set Archive=true where CodePers=?";
 
+
+    /**
+     * SELECT ALL
+     * @return
+     * @throws DALException
+     */
     public List<Personnel> selectAll() throws DALException{
         Connection cnx = null;
         Statement stt = null;
@@ -57,6 +67,11 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         return liste;
     }
 
+    /**
+     * SELECT BY VETERINAIRE
+     * @return
+     * @throws DALException
+     */
     public List<Personnel> selectByVet() throws DALException{
         Connection cnx = null;
         Statement stt = null;
@@ -95,9 +110,14 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
         }
         return liste;
     }
-    
 
 
+    /**
+     * SELECT BY ID
+     * @param CodePers
+     * @return
+     * @throws DALException
+     */
     public Personnel selectById(int CodePers) throws DALException{
         Connection cnx = null;
         PreparedStatement stt = null;
@@ -138,6 +158,12 @@ public class PersonneDAOJdbcImpl implements DAOPersonne{
     }
 
 
+    /**
+     * INSERT
+     * @param data
+     * @return
+     * @throws DALException
+     */
     public Personnel insert(Object data) throws DALException{
         Personnel personnel = (Personnel)data;
         Connection cnx = null;
