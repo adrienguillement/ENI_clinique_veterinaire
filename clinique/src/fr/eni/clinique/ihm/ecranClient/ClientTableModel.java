@@ -12,6 +12,10 @@ public class ClientTableModel extends AbstractTableModel {
 
     private List<Client> clients;
 
+    /**
+     * Constructeur.
+     * @param clients
+     */
     public ClientTableModel(List<Client> clients) { this.clients = clients; }
 
     @Override
@@ -44,12 +48,12 @@ public class ClientTableModel extends AbstractTableModel {
         return data;
     }
 
+    /**
+     * Set la liste des clients.
+     * @param clients
+     */
     public void setClients(List<Client> clients) {
         this.clients = clients;
         this.fireTableDataChanged();
-    }
-
-    public List<Client> getClients() {
-        return this.clients;
     }
 }

@@ -14,6 +14,11 @@ public class ClientTable extends JTable {
     private ClientTableModel model;
     private ClientFrame clientFrame;
 
+    /**
+     * Constructeur.
+     * @param clientFrame
+     * @param clientSearchDialog
+     */
     public ClientTable(ClientFrame clientFrame, ClientSearchDialog clientSearchDialog){
         this.clientFrame = clientFrame;
         try {
@@ -45,18 +50,11 @@ public class ClientTable extends JTable {
 
     }
 
-
+    /**
+     * Getter model table.
+     * @return
+     */
     public ClientTableModel getModele() {
         return model;
-    }
-
-    private void addListListener(CltManager clientManager){
-
-        // Clic sur une ligne
-
-    }
-
-    public Client getClientSelected() {
-        return clientSelected;
     }
 }

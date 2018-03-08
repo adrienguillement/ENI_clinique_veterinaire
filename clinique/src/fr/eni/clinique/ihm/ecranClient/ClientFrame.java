@@ -24,19 +24,14 @@ public class ClientFrame extends JInternalFrame {
 
     private JButton ajouter, rechercher, modifier, supprimer;
     private JButton ajouterAnimal, modifierAnimal, supprimerAnimal;
-    private JTextField rechercherField;
     private ClientTable panelSearch;
-    private JPanel panel_client;
-    private JPanel panel_client_result, panel_client_buttons;
-    private JPanel panel_client_add;
     private Client client;
     private JTextField code, nom, prenom, adresse, ville, codePostal, assurance, email, numTel, remarque;
-    private CltManager clientManager = new CltManager();
+    private CltManager clientManager;
 
     private AnimalTable animalTable;
     private Animal selectedAnimal;
-    private AnimalTableModele animalTableModel;
-    private AnimalManager animalManager = new AnimalManager();
+    private AnimalManager animalManager;
 
     private ClientSearchDialog clientSearch;
     private ClientAddDialog clientAddDialog;
@@ -58,6 +53,10 @@ public class ClientFrame extends JInternalFrame {
     }
 
 
+    /**
+     * Panel principal (avec les boutons et les informations du client.
+     * @return JPanel
+     */
     private JPanel getPanelClient(){
         System.out.printf(client.toString());
         JPanel panel = new JPanel();
@@ -79,7 +78,7 @@ public class ClientFrame extends JInternalFrame {
 
     /**
      * Panel correspondant à la gestion des animaux
-     * @return
+     * @return JPanel
      */
     private JPanel getPanelAnimaux() {
         JPanel panelAnimal = new JPanel();
@@ -154,11 +153,20 @@ public class ClientFrame extends JInternalFrame {
         return animalDialog;
     }
 
+    /**
+     * JTable contenant les animaux du client.
+     * @return AnimalTable
+     */
     private AnimalTable getTableAnimal() {
         animalTable = new AnimalTable(client);
         return animalTable;
     }
 
+    /**
+     * JPanel des informations client.
+     * @return JPanel
+     * @throws BLLException
+     */
     private JPanel getPanelFormClient() throws BLLException {
         JPanel panel = new JPanel();
 
@@ -208,18 +216,30 @@ public class ClientFrame extends JInternalFrame {
         return panel;
     }
 
+    /**
+     * JDialog de recherche d'un client.
+     * @return ClientSearchDialog
+     */
     private ClientSearchDialog getClientSearch(){
         clientSearch = new ClientSearchDialog(parent, this);
 
         return clientSearch;
     }
 
+    /**
+     * JDialog d'ajout d'un client.
+     * @return
+     */
     private ClientAddDialog getClientAddDialog() {
         clientAddDialog = new ClientAddDialog(parent);
 
         return clientAddDialog;
     }
 
+
+    /**
+     * Suppression du client courant.
+     */
     private void getClientDelete(){
         try {
             client = new Client(Integer.valueOf(code.getText()), nom.getText(), prenom.getText(), adresse.getText(), null, codePostal.getText(), ville.getText(), numTel.getText(), assurance.getText(), email.getText(), remarque.getText(), false);
@@ -283,6 +303,10 @@ public class ClientFrame extends JInternalFrame {
         return panelBoutton;
     }
 
+    /**
+     * JTable de recherche client.
+     * @return ClientTable
+     */
     private ClientTable getPanelSearch() {
 
         panelSearch = new ClientTable(this, null);
@@ -290,6 +314,10 @@ public class ClientFrame extends JInternalFrame {
         return panelSearch;
     }
 
+    /**
+     * Récupération du client selectionné dans la recherche.
+     * @param client
+     */
     public void getClientSelected(Client client){
         this.getPanelSearch().setVisible(false);
         try {
@@ -311,6 +339,10 @@ public class ClientFrame extends JInternalFrame {
         animalTable.getModele().setAnimaux(animalManager.getFromClient(client));
     }
 
+    /**
+     * Getter
+     * @return
+     */
     public Client getClient() {
         return client;
     }
@@ -319,6 +351,10 @@ public class ClientFrame extends JInternalFrame {
         return animalTable;
     }
 
+    /**
+     * Setter
+     * @param client
+     */
     public void setClient(Client client) {
         this.client = client;
     }
