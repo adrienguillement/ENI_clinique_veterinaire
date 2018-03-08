@@ -7,6 +7,7 @@ import fr.eni.clinique.bo.Agenda;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Personnel;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -54,7 +55,7 @@ public class AgendaTableModele extends AbstractTableModel{
             personnelManager = new PersonnelManager();
             animalManager = new AnimalManager();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
         }
         switch (columnIndex){
             case 0:

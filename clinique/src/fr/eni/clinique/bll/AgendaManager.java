@@ -6,6 +6,7 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOAgenda;
 import fr.eni.clinique.dal.DAOFactory;
 
+import javax.swing.*;
 import java.util.List;
 
 public class AgendaManager {
@@ -21,7 +22,8 @@ public class AgendaManager {
         try{
             listeAgenda = daoAgenda.selectAll();
         }catch(DALException e){
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer l'agenda.", null, JOptionPane.ERROR_MESSAGE);
+
         }
         return listeAgenda;
     }
@@ -30,7 +32,8 @@ public class AgendaManager {
         try {
             daoAgenda.insert(agenda);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de créer un nouveau rendez vous.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -38,7 +41,8 @@ public class AgendaManager {
         try {
             daoAgenda.update(agenda);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de mettre à jour une réservation.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -46,7 +50,8 @@ public class AgendaManager {
         try {
             daoAgenda.delete(agenda);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de supprimer ce rendez-vous.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 }

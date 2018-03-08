@@ -33,14 +33,14 @@ public class ClientTable extends JTable {
                         clientFrame.getClientSelected(clientSelected);
                         clientSearchDialog.dispose();
                     } catch (BLLException e1) {
-                        e1.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Impossible de récupérer le client.", null, JOptionPane.ERROR_MESSAGE);
                     }
                 }
             });
 
             this.setModel(model);
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer les clients.", null, JOptionPane.ERROR_MESSAGE);
         }
 
     }

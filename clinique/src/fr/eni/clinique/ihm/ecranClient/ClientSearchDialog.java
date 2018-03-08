@@ -31,7 +31,7 @@ public class ClientSearchDialog extends JDialog {
                 CltManager clientManager = new CltManager();
                 clientTable.getModele().setClients(clientManager.searchClient(rechercherField.getText()));
             } catch (BLLException e1) {
-                e1.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Impossible de chercher un client.", null, JOptionPane.ERROR_MESSAGE);
             }
         });
 

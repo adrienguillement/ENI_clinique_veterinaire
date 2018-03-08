@@ -18,7 +18,7 @@ public class AnimalTable extends JTable {
             modele = new AnimalTableModele(animalManager.getFromClient(client));
             this.setModel(modele);
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer les animaux du client.", null, JOptionPane.ERROR_MESSAGE);
         }
     }
     public AnimalTableModele getModele() {

@@ -32,7 +32,8 @@ public class PriseRendezVousFrame extends JInternalFrame {
         try {
             clientManager = new CltManager();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -41,7 +42,8 @@ public class PriseRendezVousFrame extends JInternalFrame {
         try {
             personnelManager = new PersonnelManager();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -50,7 +52,8 @@ public class PriseRendezVousFrame extends JInternalFrame {
         try {
             animalManager = new AnimalManager();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -107,7 +110,8 @@ public class PriseRendezVousFrame extends JInternalFrame {
         try {
             personnels = personnelManager.getPersonnels();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erreur lors de la récupération du personnel.", null, JOptionPane.ERROR_MESSAGE);
+
         }
         //affichage d'une comboBox avec properties spécifiques à l'objet
         veterinaireComboBox = new JComboBox(new DefaultComboBoxModel(personnels.toArray()));
@@ -149,7 +153,8 @@ public class PriseRendezVousFrame extends JInternalFrame {
         try {
             clients = clientManager.getCatalogue();
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erreur lors de la récupération des clients.", null, JOptionPane.ERROR_MESSAGE);
+
         }
         //affichage d'une comboBox avec properties spécifiques à l'objet
         clientComboBox = new JComboBox(new DefaultComboBoxModel(clients.toArray()));

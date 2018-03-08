@@ -14,7 +14,8 @@ public class AgendaTable extends JTable{
             modele = new AgendaTableModele(agendaManager.getListeAgenda());
             this.setModel(modele);
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erreur lors de la récupération de l'agenda.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 

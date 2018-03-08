@@ -68,7 +68,7 @@ public class ClientFrame extends JInternalFrame {
             client = clientManager.getFirst();
             panel.add(getPanelFormClient(), BorderLayout.LINE_START);
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer un client.", null, JOptionPane.ERROR_MESSAGE);
         }
 
         panel.add(getPanelAnimaux());
@@ -295,7 +295,7 @@ public class ClientFrame extends JInternalFrame {
         try {
             this.setClient(clientManager.getClientById(client.getCode()));
         } catch (BLLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer le client.", null, JOptionPane.ERROR_MESSAGE);
         }
 
         //mise à jour de l'interfce graphique

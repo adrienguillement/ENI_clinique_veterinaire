@@ -6,6 +6,7 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOAnimal;
 import fr.eni.clinique.dal.DAOFactory;
 
+import javax.swing.*;
 import java.util.List;
 
 public class AnimalManager {
@@ -20,7 +21,8 @@ public class AnimalManager {
         try {
             daoAnimal.delete(animal);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de supprimer un animal.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -31,7 +33,8 @@ public class AnimalManager {
         try {
             animauxClient = daoAnimal.selectByClient(client);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer les animaux de ce client.", null, JOptionPane.ERROR_MESSAGE);
+
         }
 
         return animauxClient;
@@ -43,7 +46,8 @@ public class AnimalManager {
         try{
             animaux = daoAnimal.selectAll();
         }catch(DALException e){
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer les animaux.", null, JOptionPane.ERROR_MESSAGE);
+
         }
         return animaux;
     }
@@ -53,7 +57,8 @@ public class AnimalManager {
             System.out.println(animal);
             daoAnimal.insert(animal);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible d'ajouter un nouvel animal.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -61,7 +66,8 @@ public class AnimalManager {
         try {
             daoAnimal.update(animal);
         } catch (DALException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de mettre à jour l'animal.", null, JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -70,7 +76,8 @@ public class AnimalManager {
         try {
             animal = daoAnimal.selectByCode(code);
         } catch (DALException e){
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Impossible de récupérer l'animal.", null, JOptionPane.ERROR_MESSAGE);
+
         }
         return animal;
     }

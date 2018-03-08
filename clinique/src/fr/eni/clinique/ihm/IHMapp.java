@@ -65,7 +65,7 @@ public class IHMapp extends JFrame implements ActionListener {
             try {
                 ecran = new IHMapp();
             } catch (BLLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Impossible de démarrer l'application.", null, JOptionPane.ERROR_MESSAGE);
             }
 
 
@@ -140,7 +140,7 @@ public class IHMapp extends JFrame implements ActionListener {
                     getClientSearch().setVisible(false);
                     getPriseRendezVousFrame().setVisible(false);
                 } catch (BLLException e1) {
-                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
                 }
                 getPersonnelFrame().setVisible(true);
                 break;
@@ -151,7 +151,7 @@ public class IHMapp extends JFrame implements ActionListener {
                     getClientSearch().setVisible(false);
                     getPriseRendezVousFrame().setVisible(true);
                 } catch (BLLException e1) {
-                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
                 }
                 break;
 
@@ -161,7 +161,7 @@ public class IHMapp extends JFrame implements ActionListener {
                     getClientSearch().setVisible(true);
                     getPriseRendezVousFrame().setVisible(true);
                 } catch (BLLException e1) {
-                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
                 }
 
             default:
