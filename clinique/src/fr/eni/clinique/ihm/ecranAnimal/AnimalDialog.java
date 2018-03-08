@@ -35,8 +35,10 @@ public class AnimalDialog extends JDialog{
     private List<Animal> animaux = new ArrayList<>();
     private ClientFrame clientFrame;
 
+    /**
+     * Création des manager
+     */
     private AnimalManager animalManager;
-
     {
         try {
             animalManager = new AnimalManager();
@@ -46,7 +48,6 @@ public class AnimalDialog extends JDialog{
     }
 
     private CltManager clientManager;
-
     {
         try {
             clientManager = new CltManager();
@@ -63,8 +64,6 @@ public class AnimalDialog extends JDialog{
         this.animal = animal;
         this.clientFrame = clientFrame;
         setIHM();
-
-
     }
 
     //methode avec parametre optinnel
@@ -74,6 +73,9 @@ public class AnimalDialog extends JDialog{
         setIHM();
     }
 
+    /**
+     * Initialisation de l'ihm d'ajout.
+     */
     public void setIHM(){
 
         if(animal != null){
