@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.ihm.IHMapp;
+
 public class LoginDialog extends JDialog {
 
     private JTextField tfUsername;
@@ -13,10 +16,12 @@ public class LoginDialog extends JDialog {
     private JLabel lbUsername;
     private JLabel lbPassword;
     private JButton btnLogin;
+    private IHMapp IHMapp;
 
-    public LoginDialog(Frame parent) {
+    public LoginDialog(Frame parent, IHMapp ihmApp) {
         super(parent, "Login", true);
         //
+        this.IHMapp = IHMapp;
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints cs = new GridBagConstraints();
         cs.insets = new Insets(5, 5, 5, 5);
@@ -54,8 +59,9 @@ public class LoginDialog extends JDialog {
         btnLogin.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                login.connect(getUsername(), getPassword());
+                login.connect(getUsername(), getPassword(), ihmApp);
                 if(login.getConnectionSucceed()){
+                    ihmApp.setJMenuBar(ihmApp.getMenuBarre());
                     dispose();
                 }
             }
@@ -71,9 +77,6 @@ public class LoginDialog extends JDialog {
         setResizable(false);
         setLocationRelativeTo(parent);
     }
-
-
-
 
     public String getUsername() {
         return tfUsername.getText().trim();
