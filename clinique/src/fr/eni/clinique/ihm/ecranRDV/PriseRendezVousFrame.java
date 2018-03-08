@@ -318,7 +318,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
             e.printStackTrace();
         }
 
-        java.util.Date dateRDV = new java.sql.Date(parsed.getTime());
+        java.sql.Timestamp dateRDV = new java.sql.Timestamp(parsed.getTime());
         dateRDV.setTime(parsed.getTime());
 
         Personnel veto = (Personnel) veterinaireComboBox.getSelectedItem();

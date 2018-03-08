@@ -71,8 +71,11 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
         try {
             cnx = JdbcTools.getConnection();
             rqt = cnx.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
+
+            Date date = new Date(agenda.getDateRdv().getTime());
+
             rqt.setInt(1, agenda.getCodeVeto());
-            rqt.setDate(2, (java.sql.Date) agenda.getDateRdv());
+            rqt.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
             rqt.setInt(3, agenda.getCodeAnimal());
 
             int nbRows = rqt.executeUpdate();
