@@ -20,6 +20,11 @@ public class PersonnelEdit extends JDialog{
     private PersonnelManager personnelManager;
 
 
+    /**
+     * Constructeur et initialisation de la fenetre d'édition.
+     * @param parent
+     * @param personnel
+     */
     public PersonnelEdit(Frame parent, Personnel personnel) {
         super(parent, "Edition Personnel", true);
         //
