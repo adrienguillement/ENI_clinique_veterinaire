@@ -8,6 +8,9 @@ import javax.swing.*;
 public class AgendaTable extends JTable{
     private AgendaTableModele modele;
 
+    /**
+     * Constructeur.
+     */
     public AgendaTable(){
         try {
             AgendaManager agendaManager= new AgendaManager();
@@ -18,10 +21,4 @@ public class AgendaTable extends JTable{
 
         }
     }
-
-    public AgendaTableModele getModele() {
-        return modele;
-    }
-
-
 }

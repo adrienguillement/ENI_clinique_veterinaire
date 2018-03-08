@@ -18,6 +18,9 @@ import java.util.List;
 
 public class AgendaTableModele extends AbstractTableModel{
 
+    /**
+     * Attributs
+     */
     private List<Agenda> listeAgenda;
     private String[] agendaColonnes = {"Heure", "Nom du client", "Animal", "Race"};
 
@@ -28,6 +31,10 @@ public class AgendaTableModele extends AbstractTableModel{
     private Animal animal;
 
 
+    /**
+     * Constructeur
+     * @param listeAgenda
+     */
     public AgendaTableModele(List<Agenda> listeAgenda){
         this.listeAgenda = listeAgenda;
     }
