@@ -28,12 +28,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
     private JDatePanelImpl panelQuand;
 
     {
-        try {
-            clientManager = new CltManager();
-        } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Impossible de charger l'application.", null, JOptionPane.ERROR_MESSAGE);
-
-        }
+        clientManager = new CltManager();
     }
 
     private PersonnelManager personnelManager;
@@ -286,14 +281,10 @@ public class PriseRendezVousFrame extends JInternalFrame {
         Personnel veto = (Personnel) veterinaireComboBox.getSelectedItem();
         System.out.println(client.getCode());
         Agenda newRdv = new Agenda(veto.getCodePers(), dateRDV, client.getCode());
-        try {
-            AgendaManager agendaManager = new AgendaManager();
-            agendaManager.insert(newRdv);
-            JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
+        AgendaManager agendaManager = new AgendaManager();
+        agendaManager.insert(newRdv);
+        JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
 
-        } catch (BLLException e) {
-            JOptionPane.showMessageDialog(null, "Problème lors de la réservation", null, JOptionPane.ERROR_MESSAGE);
-        }
     }
 
     /**
