@@ -45,9 +45,10 @@ public class DialogDossier extends JDialog {
         }
 
         getContentPane().add(getTopPanel(), BorderLayout.NORTH);
-        getContentPane().add(getInfoAnimalPanel(), BorderLayout.WEST);
-        getContentPane().add(getAntecedantsPanel(), BorderLayout.EAST);
-
+        JPanel panel = new JPanel();
+        panel.add(getInfoAnimalPanel());
+        panel.add(getAntecedantsPanel());
+        getContentPane().add(panel, BorderLayout.CENTER);
 
         pack();
         setResizable(false);
@@ -84,6 +85,8 @@ public class DialogDossier extends JDialog {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.gridwidth = 2;
+
         nomClient = new JPanel();
         TitledBorder border = new TitledBorder("Client");
         nomClient.setBorder(border);
@@ -101,6 +104,7 @@ public class DialogDossier extends JDialog {
          nomClient.add(new JLabel(client.getNom() + " " + client.getPrenomClient()), gbc);
 
         infoAnimalDetail = new JPanel();
+        gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 1;
         infoAnimalPanel.add(new JLabel("Animal : "), gbc);
