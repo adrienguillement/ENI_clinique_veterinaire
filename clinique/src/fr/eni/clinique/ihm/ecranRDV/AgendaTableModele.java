@@ -97,6 +97,7 @@ public class AgendaTableModele extends AbstractTableModel{
         return ret;
     }
 
+
     public List<Agenda> getListeAgenda() {
         return listeAgenda;
     }
