@@ -29,11 +29,18 @@ import static javax.swing.text.html.HTML.Tag.HEAD;
 
 public class PriseRendezVousFrame extends JInternalFrame {
 
+    /**
+     * Attributs
+     */
     private JLabel clientLabel, animalLabel, veterinaireLabel, heureLabel;
     private JComboBox clientComboBox, animalComboBox, veterinaireComboBox, dateComboBox, hourComboBox, minutesComboBox;
     private JButton validerButton, supprimerButton, ajouterClientButton, ajouterAnimalauClientButton;
     private JFrame parent;
+
     private AgendaTable agendaTable;
+    private Agenda selectedRdv;
+    private AgendaManager agendaManager;
+
     private JDatePanelImpl panelCalendar;
     private JDatePickerImpl calendarPicker;
     private JPanel panelQuand;
@@ -352,7 +359,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
     }
 
     public AgendaTable getAgendaTable(){
-        agendaTable = new AgendaTable();
+        agendaTable = new AgendaTable(this);
         return agendaTable;
     }
 
@@ -368,6 +375,18 @@ public class PriseRendezVousFrame extends JInternalFrame {
         });
 
         supprimerButton = new JButton("Supprimer");
+        supprimerButton.addActionListener(e -> {
+            try {
+                agendaManager = new AgendaManager();
+                selectedRdv = agendaTable.getModele().getListeAgenda().get(agendaTable.getSelectedRow());
+                agendaManager.delete(selectedRdv);
+
+                agendaTable.getModele().setListeAgenda(agendaManager.getListeAgenda());
+                JOptionPane.showMessageDialog(null, "Rendez-vous supprimé.", null, JOptionPane.INFORMATION_MESSAGE);
+            } catch (BLLException e1) {
+                JOptionPane.showMessageDialog(null, "Impossible de supprimer la réservation.", null, JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
         panelValiderSupprimerPanel.add(validerButton);
         panelValiderSupprimerPanel.add(supprimerButton);
@@ -401,6 +420,8 @@ public class PriseRendezVousFrame extends JInternalFrame {
         Agenda newRdv = new Agenda(veto.getCodePers(), dateRDV, client.getCode());
         AgendaManager agendaManager = new AgendaManager();
         agendaManager.insert(newRdv);
+
+        agendaTable.getModele().setListeAgenda(agendaManager.getListeAgenda());
         JOptionPane.showMessageDialog(null, "Nouvelle réservation effectuée.", null, JOptionPane.INFORMATION_MESSAGE);
     }
 

@@ -13,8 +13,11 @@ import fr.eni.clinique.ihm.ecranAnimal.AnimalTable;
 import fr.eni.clinique.ihm.ecranAnimal.AnimalTableModele;
 import fr.eni.clinique.ihm.ecranPersonnel.PersonnelAjout;
 import fr.eni.clinique.ihm.login.LoginDialog;
+import javafx.scene.layout.BorderPane;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +25,7 @@ import java.beans.PropertyChangeListener;
 
 public class ClientFrame extends JInternalFrame {
 
-    private JButton ajouter, rechercher, modifier, supprimer;
+    private JButton ajouter, rechercher, modifier, supprimer, annuler;
     private JButton ajouterAnimal, modifierAnimal, supprimerAnimal;
     private JTextField rechercherField;
     private ClientTable panelSearch;
@@ -81,10 +84,17 @@ public class ClientFrame extends JInternalFrame {
      * @return
      */
     private JPanel getPanelAnimaux() {
-        JPanel panelAnimal = new JPanel();
-        panelAnimal.setLayout(new GridLayout(0,1));
 
-        panelAnimal.add(getTableAnimal());
+        JPanel panelAnimal = new JPanel();
+
+        JPanel tableAnimal = new JPanel();
+        tableAnimal.setLayout(new BorderLayout());
+        getTableAnimal();
+
+        tableAnimal.add(animalTable.getTableHeader(), BorderLayout.NORTH);
+        tableAnimal.add(getTableAnimal(), BorderLayout.CENTER);
+
+        panelAnimal.add(tableAnimal);
         panelAnimal.add(getPanelButtonAnimal());
         return panelAnimal;
     }
@@ -110,9 +120,10 @@ public class ClientFrame extends JInternalFrame {
         supprimerAnimal = new JButton("Supprimer");
         supprimerAnimal.addActionListener(e -> {
             try{
-                AnimalManager animalManager = new AnimalManager();
+                animalManager = new AnimalManager();
                 selectedAnimal = animalTable.getModele().getAnimaux().get(animalTable.getSelectedRow());
                 animalManager.deleteAnimal(selectedAnimal);
+                animalTable.getModele().setAnimaux(animalManager.getFromClient(client));
                 JOptionPane.showMessageDialog(null, "Animal supprimé.", null, JOptionPane.INFORMATION_MESSAGE);
 
             } catch (BLLException error){
@@ -147,7 +158,6 @@ public class ClientFrame extends JInternalFrame {
      * @return
      */
     private AnimalDialog getAnimalDialog(Animal selectedAnimal) {
-        System.out.println(selectedAnimal);
         animalDialog = new AnimalDialog(parent, selectedAnimal, this);
         animalDialog.setVisible(true);
         return animalDialog;
@@ -159,52 +169,98 @@ public class ClientFrame extends JInternalFrame {
     }
 
     private JPanel getPanelFormClient() throws BLLException {
+        JPanel panelBorder = new JPanel();
+        panelBorder.setLayout(new BorderLayout());
+
         JPanel panel = new JPanel();
 
-        panel.setLayout(new GridLayout(0, 2));
-        panel.add(new JLabel("Code : "));
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        panel.add(new JLabel("Code : "), gbc);
 
+        gbc.gridx = 1;
         this.code = new JTextField(String.valueOf(client.getCode()));
         this.code.setEditable(false);
         JTextField codeClient = this.code;
-        panel.add(codeClient);
+        codeClient.setPreferredSize(new Dimension(120,20));
+        panel.add(codeClient, gbc);
 
-        panel.add(new JLabel("Nom : "));
-        this.nom = new JTextField(client.getNom());
-        panel.add(this.nom);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        panel.add(new JLabel("Nom : "), gbc);
+        nom = new JTextField(client.getNom());
+        nom.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.nom, gbc);
 
-        panel.add(new JLabel("Prenom : "));
-        this.prenom = new JTextField(client.getPrenomClient());
-        panel.add(this.prenom);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        panel.add(new JLabel("Prenom : "), gbc);
+        prenom = new JTextField(client.getPrenomClient());
+        prenom.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.prenom, gbc);
 
-        panel.add(new JLabel("Email : "));
-        this.email = new JTextField(client.getEmail());
-        panel.add(this.email);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        panel.add(new JLabel("Email : "), gbc);
+        email = new JTextField(client.getEmail());
+        email.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.email, gbc);
 
-        panel.add(new JLabel("Adresse : "));
-        this.adresse = new JTextField(client.getAdresse1());
-        panel.add(this.adresse);
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        panel.add(new JLabel("Adresse : "), gbc);
+        adresse = new JTextField(client.getAdresse1());
+        adresse.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.adresse, gbc);
 
-        panel.add(new JLabel("Code postal : "));
-        this.codePostal = new JTextField(client.getCodePostal());
-        panel.add(this.codePostal);
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        panel.add(new JLabel("Code postal : "), gbc);
+        codePostal = new JTextField(client.getCodePostal());
+        codePostal.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.codePostal, gbc);
 
-        panel.add(new JLabel("Ville : "));
-        this.ville = new JTextField(client.getVille());
-        panel.add(this.ville);
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        panel.add(new JLabel("Ville : "), gbc);
+        ville = new JTextField(client.getVille());
+        ville.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.ville, gbc);
 
-        panel.add(new JLabel("Assurance : "));
-        this.assurance = new JTextField(client.getAssurance());
-        panel.add(this.assurance);
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        panel.add(new JLabel("Assurance : "), gbc);
+        assurance = new JTextField(client.getAssurance());
+        assurance.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.assurance, gbc);
 
-        panel.add(new JLabel("Numéro tel : "));
-        this.numTel = new JTextField(client.getNumTel());
-        panel.add(this.numTel);
+        gbc.gridx = 0;
+        gbc.gridy = 9;
+        panel.add(new JLabel("Numéro tel : "), gbc);
+        numTel = new JTextField(client.getNumTel());
+        numTel.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.numTel, gbc);
 
-        panel.add(new JLabel("Remarque : "));
-        this.remarque = new JTextField(client.getRemarque());
-        panel.add(this.remarque);
-        return panel;
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        panel.add(new JLabel("Remarque : "), gbc);
+        remarque = new JTextField(client.getRemarque());
+        remarque.setPreferredSize(new Dimension(120,20));
+        gbc.gridx = 1;
+        panel.add(this.remarque, gbc);
+
+        panelBorder.add(panel, BorderLayout.NORTH);
+        return panelBorder;
     }
 
     private ClientSearchDialog getClientSearch(){
@@ -235,7 +291,9 @@ public class ClientFrame extends JInternalFrame {
      */
     private JPanel getPanelButton() {
         JPanel panelBoutton = new JPanel();
+        panelBoutton.setLayout(new GridBagLayout());
 
+        panelBoutton.setBorder(BorderFactory.createLineBorder(Color.black));
         // Bouton rechercher
         rechercher = new JButton("Rechercher");
         rechercher.addActionListener(e -> {
@@ -243,12 +301,12 @@ public class ClientFrame extends JInternalFrame {
         });
 
         // Bouton ajouter
-        ajouter = new JButton("Ajouter client");
+        ajouter = new JButton("Ajouter");
         ajouter.addActionListener(e -> {
             getClientAddDialog();
         });
 
-        supprimer = new JButton("Supprimer client");
+        supprimer = new JButton("Supprimer");
         supprimer.addActionListener(e -> {
             getClientDelete();
         });
@@ -275,17 +333,31 @@ public class ClientFrame extends JInternalFrame {
                 }
             }
         });
+
+        //Bouton annuler
+        annuler = new JButton("Annuler");
+        annuler.addActionListener(e -> {
+            try{
+                animalManager.update(selectedAnimal);
+            }catch(Exception error){
+                animalManager.insert(selectedAnimal);
+            }
+            animalTable.getModele().setAnimaux(animalManager.getFromClient(client));
+        });
+
         panelBoutton.add(rechercher);
         panelBoutton.add(ajouter);
         panelBoutton.add(supprimer);
         panelBoutton.add(modifier);
+
+        //Permet annulation modification ou suppression animal
+        panelBoutton.add(annuler);
         return panelBoutton;
     }
 
     private ClientTable getPanelSearch() {
 
         panelSearch = new ClientTable(this, null);
-        System.out.printf("De retour dans le clientFrame");
         return panelSearch;
     }
 

@@ -8,7 +8,8 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOAgenda;
 import fr.eni.clinique.dal.DAOFactory;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+
 import java.util.List;
 
 public class AgendaManager {
@@ -16,6 +17,28 @@ public class AgendaManager {
 
     public AgendaManager() throws BLLException{
         daoAgenda = new DAOFactory().getAgendaDAO();
+    }
+
+    public List<Agenda> selectByDateAndPersonneID(Timestamp date, int id){
+        List<Agenda> listeAgenda = null;
+
+        try{
+            listeAgenda = daoAgenda.selectByDateAndPersonneID(date, id);
+        } catch(DALException e){
+            e.printStackTrace();
+        }
+        return listeAgenda;
+    }
+
+    public List<Agenda> getListFromPersonnelId(int id){
+        List<Agenda> listeAgenda = null;
+
+        try{
+            listeAgenda = daoAgenda.selectByPersonneId(id);
+        } catch(DALException e){
+            e.printStackTrace();
+        }
+        return listeAgenda;
     }
 
     public List<Agenda> getListeAgenda(){
