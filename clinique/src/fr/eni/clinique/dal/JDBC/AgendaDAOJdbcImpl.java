@@ -22,6 +22,8 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
     private static final String sqlDelete = "DELETE FROM AGENDA where CodeVeto = ? and DateRdv = ? and CodeAnimal = ?";
     private static final String selectByPersonneId = "SELECT * FROM AGENDA WHERE CodeVeto = ? AND DateRdv = GETDATE() ";
     private static final String selectByDateAndPersonneID = "SELECT * FROM AGENDA WHERE CodeVeto = ? AND (DATEPART(yy, DateRdv) = ? AND DATEPART(mm, DateRdv) = ? AND DATEPART(dd, DateRdv) = ?)";
+    private static final String sqlSelectedByClient = "SELECT * FROM AGENDA where CodeVeto=?";
+
 
     public List<Agenda> selectByDateAndPersonneID(Timestamp date, int id) throws DALException {
         Connection cnx = null;

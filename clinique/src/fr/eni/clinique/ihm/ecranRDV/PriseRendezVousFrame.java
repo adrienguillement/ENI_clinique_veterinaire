@@ -46,7 +46,6 @@ public class PriseRendezVousFrame extends JInternalFrame {
     private JPanel panelQuand;
     private CltManager clientManager = new CltManager();
     private AnimalManager animalManager = new AnimalManager();
-    private AgendaManager agendaManager = new AgendaManager();
     private AnimalDialog animalDialog;
     private ClientAddDialog clientAddDialog;
 
@@ -249,10 +248,10 @@ public class PriseRendezVousFrame extends JInternalFrame {
                 Client clientSelected = (Client)clientComboBox.getSelectedItem();
                 listeAnimal = animalManager.getFromClient(clientSelected);
                 animalComboBox = new JComboBox();
+                animalComboBox.removeAllItems();
                 for(Animal elt:listeAnimal){
                     animalComboBox.addItem(elt.getNomAnimal());
                 }
-                dispose();
             }
         });
         panelPour.add(ajouterAnimalauClientButton, gbc);
