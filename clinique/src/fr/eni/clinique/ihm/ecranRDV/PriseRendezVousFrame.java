@@ -39,7 +39,7 @@ public class PriseRendezVousFrame extends JInternalFrame {
 
     private AgendaTable agendaTable;
     private Agenda selectedRdv;
-    private AgendaManager agendaManager;
+    private AgendaManager agendaManager = new AgendaManager();
 
     private JDatePanelImpl panelCalendar;
     private JDatePickerImpl calendarPicker;
