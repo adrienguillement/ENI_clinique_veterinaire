@@ -15,7 +15,7 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
     private static final String sqlSelectAll = "SELECT * FROM AGENDA";
     private static final String sqlInsert = "INSERT INTO AGENDA (CodeVeto, DateRdv, CodeAnimal) VALUES(?, ?, ?)";
     private static final String sqlUpdate = "UPDATE AGENDA set DateRdv = ?, CodeAnimal = ? WHERE CodeVeto = ?";
-    private static final String sqlDelete = "DELETE * FROM AGENDA where CodeVeto = ?";
+    private static final String sqlDelete = "DELETE FROM AGENDA where CodeVeto = ? and DateRdv = ? and CodeAnimal = ?";
 
     @Override
     public List<Agenda> selectAll() throws DALException {
@@ -40,8 +40,6 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
                         date,
                         rs.getInt("CodeAnimal"));
                 liste.add(agenda);
-
-                System.out.println(date);
             }
         } catch (SQLException e) {
             throw new DALException("selectAll agenda failed - " , e);
@@ -118,9 +116,13 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
         PreparedStatement rqt = null;
 
         try{
+            Date date = new Date(agenda.getDateRdv().getTime());
             cnx = JdbcTools.getConnection();
             rqt = cnx.prepareStatement(sqlDelete);
             rqt.setInt(1, agenda.getCodeVeto());
+            rqt.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
+            rqt.setInt(3, agenda.getCodeAnimal());
+
             rqt.executeUpdate();
         }catch (SQLException e) {
             throw new DALException("Delete agenda failed - codeVeto=" + agenda.getCodeVeto(), e);

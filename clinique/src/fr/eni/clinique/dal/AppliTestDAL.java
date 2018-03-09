@@ -15,7 +15,7 @@ public class AppliTestDAL extends DAOFactory{
         try {
             //Sélection de toutes les races
             List<Personnel> personnels = DAOFactory.getPersonneDAO().selectAll();
-            System.out.println("Sélection de tous les articles  : " + personnels.toString() );
+            System.out.println("Sélection de tous les personnels  : " + personnels.toString() );
 
 
             //Test de la DAL

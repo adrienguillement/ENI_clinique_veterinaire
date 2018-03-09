@@ -50,7 +50,6 @@ public class AnimalManager {
 
     public void insert(Animal animal){
         try {
-            System.out.println(animal);
             daoAnimal.insert(animal);
         } catch (DALException e) {
             e.printStackTrace();

@@ -69,7 +69,6 @@ public class ClientAddDialog extends JDialog {
                         JOptionPane.showMessageDialog(null, "Les champs ne sont pas correctement complétés", null, JOptionPane.WARNING_MESSAGE);
                     }
                 } catch (BLLException e1) {
-                    e1.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Problème lors de l'ajout, vérifier que tout les champs sont complétés correctement.", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -81,71 +80,71 @@ public class ClientAddDialog extends JDialog {
         gbc.insets = new Insets(20, 10, 10, 10);
         gbc.gridwidth = 1;
 
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.gridx = 0;
         panel.add(nomLabel,gbc);
 
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.gridx = 1;
         panel.add(nomTextField,gbc);
 
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridx = 0;
         panel.add(prenomLabel,gbc);
 
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.gridx = 1;
         panel.add(prenomTextField,gbc);
 
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridx = 0;
         panel.add(adresseLabel,gbc);
 
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.gridx = 1;
         panel.add(adresseTextField,gbc);
 
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridx = 0;
         panel.add(codePostalLabel,gbc);
 
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.gridx = 1;
         panel.add(codePostalTextField,gbc);
 
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridx = 0;
         panel.add(villeLabel,gbc);
 
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridx = 1;
         panel.add(villeTextField,gbc);
 
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridx = 0;
         panel.add(numLabel,gbc);
 
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.gridx = 1;
         panel.add(numTextField,gbc);
 
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridx = 0;
         panel.add(assuranceLabel,gbc);
 
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         gbc.gridx = 1;
         panel.add(assuranceTextField,gbc);
 
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         gbc.gridx = 0;
         panel.add(eMailLabel,gbc);
 
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         gbc.gridx = 1;
         panel.add(eMailTextField,gbc);
 
-        gbc.gridy = 8;
+        gbc.gridy = 0;
         gbc.gridx = 0;
         panel.add(ajouter, gbc);
 

@@ -43,7 +43,7 @@ public class ClientDAOJdbcImpl implements DAOClient {
 
             rqt.executeUpdate();
         }catch (SQLException e) {
-            throw new DALException("Delete article failed - client = " + client, e);
+            throw new DALException("Delete client failed - client = " + client, e);
         } finally {
             try {
                 if (rqt != null){
@@ -221,7 +221,7 @@ public class ClientDAOJdbcImpl implements DAOClient {
             rqt.setInt(1, client.getCode());
             rqt.executeUpdate();
         }catch (SQLException e) {
-            throw new DALException("Delete article failed - client = " + client, e);
+            throw new DALException("Delete client failed - client = " + client, e);
         } finally {
             try {
                 if (rqt != null){
