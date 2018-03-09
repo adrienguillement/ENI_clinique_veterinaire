@@ -2,6 +2,7 @@ package fr.eni.clinique.ihm;
 
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.ihm.ecranAgenda.AgendaFrame;
 import fr.eni.clinique.ihm.ecranAnimal.AnimalDialog;
 import fr.eni.clinique.ihm.ecranClient.ClientFrame;
 import fr.eni.clinique.ihm.ecranClient.ClientTable;
@@ -29,6 +30,7 @@ public class IHMapp extends JFrame implements ActionListener {
     private static IHMapp instance;
     private ClientFrame clientPanel;
     private PriseRendezVousFrame rendezVousFrame;
+    private AgendaFrame agendaFrame;
 
     public static IHMapp getInstance() throws BLLException{
         if(IHMapp.instance == null){
@@ -56,6 +58,7 @@ public class IHMapp extends JFrame implements ActionListener {
         desktopPane.add(getPersonnelFrame());
         desktopPane.add(getClientSearch());
         desktopPane.add(getPriseRendezVousFrame());
+        desktopPane.add(getAgendaFrame());
 
         //JDialog pour login (modal)
         final JFrame frame = new JFrame("Authentification");
@@ -177,6 +180,18 @@ public class IHMapp extends JFrame implements ActionListener {
                 } catch (BLLException e1) {
                     e1.printStackTrace();
                 }
+                break;
+
+            case "agenda":
+                try {
+                    getPersonnelFrame().setVisible(false);
+                    getClientSearch().setVisible(false);
+                    getPriseRendezVousFrame().setVisible(false);
+                    getAgendaFrame().setVisible(true);
+                } catch (BLLException e1) {
+                    e1.printStackTrace();
+                }
+                break;
 
             default:
                 System.out.println("Probleme e=" + e);
@@ -228,6 +243,18 @@ public class IHMapp extends JFrame implements ActionListener {
             rendezVousFrame = new PriseRendezVousFrame(this);
         }
         return rendezVousFrame;
+    }
+
+    /**
+     * Getter AgendaFrame
+     * @return
+     * @throws BLLException
+     */
+    public AgendaFrame getAgendaFrame() throws BLLException {
+        if(agendaFrame == null){
+            agendaFrame = new AgendaFrame(this);
+        }
+        return agendaFrame;
     }
 
     public JMenuBar getJMenuBar(){
