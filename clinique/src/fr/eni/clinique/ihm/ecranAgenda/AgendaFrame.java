@@ -4,6 +4,7 @@ import fr.eni.clinique.bll.AgendaManager;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.CltManager;
 import fr.eni.clinique.bll.PersonnelManager;
+import fr.eni.clinique.bo.Agenda;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.ihm.ecranRDV.AgendaTable;
 import org.jdatepicker.impl.DateComponentFormatter;
@@ -43,6 +44,8 @@ public class AgendaFrame extends JInternalFrame {
     private AgendaTable agendaTable;
     private AgendaManager agendaManager;
     private JButton dossierMedical;
+    private Agenda selectedRdv;
+    private DialogDossier dialogDossier;
 
     /**
      * Constructeur
@@ -196,13 +199,33 @@ public class AgendaFrame extends JInternalFrame {
         panelAgenda.setLayout(new BorderLayout());
         agendaTable = new AgendaTable(this);
 
-        dossierMedical = new JButton("DossierMédical");
-
+        dossierMedical = new JButton("Dossier Médical");
+        dossierMedical.addActionListener(e -> {
+            selectedRdv = agendaTable.getModele().getListeAgenda().get(agendaTable.getSelectedRow());
+            getDialogDossier(selectedRdv.getCodeAnimal());
+        });
         panelAgenda.add(this.agendaTable.getTableHeader(),BorderLayout.NORTH);
         panelAgenda.add(agendaTable, BorderLayout.CENTER);
 
-        panelAgenda.add(dossierMedical);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(dossierMedical, BorderLayout.LINE_END);
+
+
+        panelAgenda.add(panel, BorderLayout.PAGE_END);
 
         return panelAgenda;
+    }
+
+    /**
+     * Appel à la JDialog
+     * @param codeAnimal
+     * @return
+     */
+    public DialogDossier getDialogDossier(int codeAnimal) {
+        if(dialogDossier == null){
+            dialogDossier = new DialogDossier(parent, codeAnimal);
+        }
+        return dialogDossier;
     }
 }
