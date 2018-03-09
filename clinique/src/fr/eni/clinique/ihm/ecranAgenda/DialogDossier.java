@@ -80,12 +80,7 @@ public class DialogDossier extends JDialog {
      */
     public JPanel getInfoAnimalPanel() {
         infoAnimalPanel = new JPanel();
-        infoAnimalPanel.setLayout(new GridBagLayout());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
+        infoAnimalPanel.setLayout(new BorderLayout());
 
         nomClient = new JPanel();
         TitledBorder border = new TitledBorder("Client");
@@ -94,41 +89,49 @@ public class DialogDossier extends JDialog {
         Client client = null;
         try {
             CltManager clientManager = new CltManager();
-            System.out.println(currentAnimal.getCodeClient());
-            System.out.println(clientManager.getClientById(currentAnimal.getCodeClient()));
 
             client = clientManager.getClientById(currentAnimal.getCodeClient());
         } catch (BLLException e) {
             e.printStackTrace();
         }
-         nomClient.add(new JLabel(client.getNom() + " " + client.getPrenomClient()), gbc);
+         nomClient.add(new JLabel(client.getNom() + " " + client.getPrenomClient()));
 
         infoAnimalDetail = new JPanel();
-        gbc.gridwidth = 1;
+        infoAnimalDetail.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 1;
-        infoAnimalPanel.add(new JLabel("Animal : "), gbc);
+        gbc.gridy = 0;
+
+        infoAnimalDetail.add(new JLabel("Animal : "), gbc);
         gbc.gridx = 1;
-        infoAnimalPanel.add(new JLabel(String.valueOf(currentAnimal.getCodeClient())), gbc);
+        gbc.gridy = 0;
+        infoAnimalDetail.add(new JLabel(String.valueOf(currentAnimal.getCodeClient())), gbc);
+
+        gbc.gridy = 1;
+        infoAnimalDetail.add(new JLabel(currentAnimal.getNomAnimal()), gbc);
+
 
         gbc.gridy = 2;
-        infoAnimalPanel.add(new JLabel(currentAnimal.getNomAnimal()), gbc);
-        gbc.gridy = 3;
-        infoAnimalPanel.add(new JLabel(currentAnimal.getCouleur()), gbc);
+        infoAnimalDetail.add(new JLabel(currentAnimal.getCouleur()), gbc);
+
         gbc.gridx = 2;
-        infoAnimalPanel.add(new JLabel(currentAnimal.getSexe()), gbc);
+        gbc.gridy = 2;
+        infoAnimalDetail.add(new JLabel(currentAnimal.getSexe()), gbc);
+
         gbc.gridx = 1;
+        gbc.gridy = 3;
+        infoAnimalDetail.add(new JLabel(currentAnimal.getRace().getRace()), gbc);
+
         gbc.gridy = 4;
-        infoAnimalPanel.add(new JLabel(currentAnimal.getRace().getRace()), gbc);
-        gbc.gridy = 5;
         if(currentAnimal.getTatouage().equals(null)){
-            infoAnimalPanel.add(new JLabel("Non tatoué"), gbc);
+            infoAnimalDetail.add(new JLabel("Non tatoué"), gbc);
         }else {
-            infoAnimalPanel.add(new JLabel(currentAnimal.getTatouage()), gbc);
+            infoAnimalDetail.add(new JLabel(currentAnimal.getTatouage()), gbc);
         }
 
-        infoAnimalPanel.add(nomClient);
-        infoAnimalPanel.add(infoAnimalDetail);
+        infoAnimalPanel.add(nomClient, BorderLayout.NORTH);
+        infoAnimalPanel.add(infoAnimalDetail, BorderLayout.CENTER);
         return infoAnimalPanel;
     }
 
