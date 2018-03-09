@@ -214,11 +214,12 @@ public class AnimalDialog extends JDialog{
                 }
                 else{
                     Race race = new Race(raceComboBox.getSelectedItem().toString(), especeComboBox.getSelectedItem().toString());
-                    System.out.println(clientComboBox.getSelectedItem());
                     Client client = (Client)clientComboBox.getSelectedItem();
                     Animal newAnimal = new Animal(nomTextfield.getText(), sexeComboBox.getSelectedItem().toString(), couleurTextField.getText(), race, client.getCode(), tatouageTextField.getText(), null, false);
 
                     animalManager.insert(newAnimal);
+                    dispose();
+
                 }
                 if(clientFrame != null){
                     clientFrame.getAnimalTable().getModele().setAnimaux(animalManager.getFromClient(clientFrame.getClient()));

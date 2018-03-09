@@ -12,7 +12,7 @@ public class ClientDAOJdbcImpl implements DAOClient {
 
     private static final String sqlInsert = "INSERT INTO CLIENT(NomClient, PrenomClient, Adresse1, Adresse2, CodePostal, Ville, NumTel, Assurance, Email, Remarque, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String sqlSelectAll = "SELECT * from client WHERE archive = 0";
-    private static final String sqlSelectById = "SELECT * from client WHERE CodeClient = ? AND archive = 0";
+    private static final String sqlSelectById = "SELECT * from client WHERE CodeClient = ?";
     private static final String sqlDelete = "UPDATE client SET archive = 1 WHERE CodeClient = ?";
     private static final String sqlFirstClient = "SELECT TOP 1 * FROM client WHERE archive = 0";
     private static final String sqlSearchClient = "SELECT * FROM client WHERE NomClient LIKE ?";
@@ -43,7 +43,7 @@ public class ClientDAOJdbcImpl implements DAOClient {
 
             rqt.executeUpdate();
         }catch (SQLException e) {
-            throw new DALException("Delete article failed - client = " + client, e);
+            throw new DALException("Delete client failed - client = " + client, e);
         } finally {
             try {
                 if (rqt != null){
@@ -221,7 +221,7 @@ public class ClientDAOJdbcImpl implements DAOClient {
             rqt.setInt(1, client.getCode());
             rqt.executeUpdate();
         }catch (SQLException e) {
-            throw new DALException("Delete article failed - client = " + client, e);
+            throw new DALException("Delete client failed - client = " + client, e);
         } finally {
             try {
                 if (rqt != null){

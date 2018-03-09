@@ -19,8 +19,101 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
     private static final String sqlSelectAll = "SELECT * FROM AGENDA";
     private static final String sqlInsert = "INSERT INTO AGENDA (CodeVeto, DateRdv, CodeAnimal) VALUES(?, ?, ?)";
     private static final String sqlUpdate = "UPDATE AGENDA set DateRdv = ?, CodeAnimal = ? WHERE CodeVeto = ?";
-    private static final String sqlDelete = "DELETE * FROM AGENDA where CodeVeto = ?";
+    private static final String sqlDelete = "DELETE FROM AGENDA where CodeVeto = ? and DateRdv = ? and CodeAnimal = ?";
+    private static final String selectByPersonneId = "SELECT * FROM AGENDA WHERE CodeVeto = ? AND DateRdv = GETDATE() ";
+    private static final String selectByDateAndPersonneID = "SELECT * FROM AGENDA WHERE CodeVeto = ? AND (DATEPART(yy, DateRdv) = ? AND DATEPART(mm, DateRdv) = ? AND DATEPART(dd, DateRdv) = ?)";
     private static final String sqlSelectedByClient = "SELECT * FROM AGENDA where CodeVeto=?";
+
+
+    public List<Agenda> selectByDateAndPersonneID(Timestamp date, int id) throws DALException {
+        Connection cnx = null;
+        PreparedStatement rqt = null;
+        ResultSet rs = null;
+
+        List<Agenda> liste = new ArrayList<Agenda>();
+
+        try{
+            long timestamp = date.getTime();
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(timestamp);
+
+            cnx = JdbcTools.getConnection();
+            rqt = cnx.prepareStatement(selectByDateAndPersonneID);
+            rqt.setInt(1, id);
+            rqt.setInt(2, cal.get(Calendar.YEAR));
+            rqt.setInt(3, cal.get(Calendar.MONTH)+1);
+            rqt.setInt(4, cal.get(Calendar.DAY_OF_MONTH));
+            rs = rqt.executeQuery();
+
+            Agenda agenda = null;
+
+            while (rs.next()) {
+                agenda = new Agenda(rs.getInt("CodeVeto"),
+                        rs.getTimestamp("DateRdv"),
+                        rs.getInt("CodeAnimal"));
+                liste.add(agenda);
+            }
+        } catch (SQLException e) {
+            throw new DALException("sqlSearch failed - " , e);
+        } finally {
+            try {
+                if (rs != null){
+                    rs.close();
+                }
+                if (rqt != null){
+                    rqt.close();
+                }
+                if(cnx!=null){
+                    cnx.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return liste;
+    }
+
+
+    public List<Agenda> selectByPersonneId(int id) throws DALException {
+        Connection cnx = null;
+        PreparedStatement rqt = null;
+        ResultSet rs = null;
+
+        List<Agenda> liste = new ArrayList<Agenda>();
+
+        try{
+            cnx = JdbcTools.getConnection();
+            rqt = cnx.prepareStatement(selectByPersonneId);
+            rqt.setInt(1, id);
+            rs = rqt.executeQuery();
+
+            Agenda agenda = null;
+
+            while (rs.next()) {
+                agenda = new Agenda(rs.getInt("CodeVeto"),
+                        rs.getTimestamp("DateRdv"),
+                        rs.getInt("CodeAnimal"));
+                liste.add(agenda);
+            }
+        } catch (SQLException e) {
+            throw new DALException("sqlSearch failed - " , e);
+        } finally {
+            try {
+                if (rs != null){
+                    rs.close();
+                }
+                if (rqt != null){
+                    rqt.close();
+                }
+                if(cnx!=null){
+                    cnx.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return liste;
+    }
 
     @Override
     public List<Agenda> selectAll() throws DALException {
@@ -45,8 +138,6 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
                         date,
                         rs.getInt("CodeAnimal"));
                 liste.add(agenda);
-
-                System.out.println(date);
             }
         } catch (SQLException e) {
             throw new DALException("selectAll agenda failed - " , e);
@@ -123,9 +214,13 @@ public class AgendaDAOJdbcImpl implements DAOAgenda{
         PreparedStatement rqt = null;
 
         try{
+            Date date = new Date(agenda.getDateRdv().getTime());
             cnx = JdbcTools.getConnection();
             rqt = cnx.prepareStatement(sqlDelete);
             rqt.setInt(1, agenda.getCodeVeto());
+            rqt.setTimestamp(2, new java.sql.Timestamp(date.getTime()));
+            rqt.setInt(3, agenda.getCodeAnimal());
+
             rqt.executeUpdate();
         }catch (SQLException e) {
             throw new DALException("Delete agenda failed - codeVeto=" + agenda.getCodeVeto(), e);

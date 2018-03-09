@@ -11,6 +11,7 @@ import java.util.List;
 public class ClientTableModel extends AbstractTableModel {
 
     private List<Client> clients;
+    private String[] titreColonnes = {"Numero", "Nom", "Prenom", "Mél"};
 
     public ClientTableModel(List<Client> clients) { this.clients = clients; }
 
@@ -22,6 +23,11 @@ public class ClientTableModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         return 4;
+    }
+
+    @Override
+    public String getColumnName(int index) {
+        return titreColonnes[index];
     }
 
     @Override

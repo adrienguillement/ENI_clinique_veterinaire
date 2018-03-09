@@ -21,7 +21,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 
     private static final String sqlUpdate = "UPDATE ANIMAL SET NomAnimal=?, Sexe=? ,Couleur=?, Race=?, Espece=?, CodeClient=?, Tatouage=?, Antecedents=?, Archive=? where CodeAnimal=?";
     private static final String sqlSelectByClient = "SELECT * FROM ANIMAL WHERE CodeClient = ? AND Archive = 0";
-    private static final String sqlSelectByCode = "SELECT * FROM ANIMAL WHERE CodeAnimal = ?";
+    private static final String sqlSelectByCode = "SELECT * FROM ANIMAL WHERE CodeAnimal = ? AND Archive = 0";
     private static final String sqlDelete = "UPDATE ANIMAL set Archive=1 WHERE CodeAnimal = ?";
 
 
@@ -36,7 +36,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
             rqt.setInt(1, animal.getCodeAnimal());
             rqt.executeUpdate();
         }catch (SQLException e) {
-            throw new DALException("Delete article failed - client = " + animal, e);
+            throw new DALException("Delete client failed - client = " + animal, e);
         } finally {
             try {
                 if (rqt != null){

@@ -29,7 +29,6 @@ public class ClientTable extends JTable {
                     try {
                         clientSelected = clientManager.getClientById(codeClient);
                         clientSelected.setCode(codeClient);
-                        System.out.println((clientSelected.getCode()));
                         clientFrame.getClientSelected(clientSelected);
                         clientSearchDialog.dispose();
                     } catch (BLLException e1) {

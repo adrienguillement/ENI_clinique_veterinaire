@@ -37,7 +37,9 @@ public class ClientSearchDialog extends JDialog {
 
         panel.add(rechercherField);
         panel.add(rechercher);
-        panel.add(getClientTable(), BorderLayout.LINE_START);
+        panel.add(this.getClientTable().getTableHeader(),BorderLayout.NORTH);
+        panel.add(getClientTable(), BorderLayout.CENTER);
+
         panel.setVisible(true);
 
         getContentPane().add(panel, BorderLayout.CENTER);
@@ -45,6 +47,7 @@ public class ClientSearchDialog extends JDialog {
         setSize(new Dimension(500, 250));
         //setResizable(false);
         setLocationRelativeTo(parent);
+        this.setResizable(false);
         this.setVisible(true);
     }
 

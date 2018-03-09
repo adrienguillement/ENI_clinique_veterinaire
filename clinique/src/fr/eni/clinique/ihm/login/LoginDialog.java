@@ -38,6 +38,20 @@ public class LoginDialog extends JDialog {
         cs.gridx = 1;
         cs.gridy = 0;
         cs.gridwidth = 2;
+        tfUsername.addActionListener(e -> {
+            login.connect(getUsername(), getPassword(), ihmApp);
+            if(login.getConnectionSucceed()){
+                if(ihmApp.getJMenuBar() != null){
+                    ihmApp.setMenuBarre(null);
+                    ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                    ihmApp.getMenuBarre().updateUI();
+                }
+                else{
+                    ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                }
+                dispose();
+            }
+        });
         panel.add(tfUsername, cs);
 
         lbPassword = new JLabel("Mot de passe: ");
@@ -50,27 +64,38 @@ public class LoginDialog extends JDialog {
         cs.gridx = 1;
         cs.gridy = 2;
         cs.gridwidth = 2;
+        pfPassword.addActionListener(e -> {
+            login.connect(getUsername(), getPassword(), ihmApp);
+            if(login.getConnectionSucceed()){
+                if(ihmApp.getJMenuBar() != null){
+                    ihmApp.setMenuBarre(null);
+                    ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                    ihmApp.getMenuBarre().updateUI();
+                }
+                else{
+                    ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                }
+                dispose();
+            }
+        });
         panel.add(pfPassword, cs);
 
         panel.setBorder(new LineBorder(Color.GRAY));
 
         btnLogin = new JButton("Connexion");
 
-        btnLogin.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                login.connect(getUsername(), getPassword(), ihmApp);
-                if(login.getConnectionSucceed()){
-                    if(ihmApp.getJMenuBar() != null){
-                        ihmApp.setMenuBarre(null);
-                        ihmApp.setJMenuBar(ihmApp.getMenuBarre());
-                        ihmApp.getMenuBarre().updateUI();
-                    }
-                    else{
-                        ihmApp.setJMenuBar(ihmApp.getMenuBarre());
-                    }
-                    dispose();
+        btnLogin.addActionListener(e -> {
+            login.connect(getUsername(), getPassword(), ihmApp);
+            if(login.getConnectionSucceed()){
+                if(ihmApp.getJMenuBar() != null){
+                    ihmApp.setMenuBarre(null);
+                    ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                    ihmApp.getMenuBarre().updateUI();
                 }
+                else{
+                    ihmApp.setJMenuBar(ihmApp.getMenuBarre());
+                }
+                dispose();
             }
         });
 

@@ -128,7 +128,6 @@ public class PersonnelFrame extends JInternalFrame{
 
                 int numSelected = personnelTable.getSelectedRow();
                 if(numSelected != -1) {
-                    System.out.println(numSelected);
                     Personnel personnel = personnelTable.setPersonnelTable().listePersonnels.get(numSelected);
                     getPersonnelEdit(personnel);
                     System.out.println("modification terminer");
@@ -147,7 +146,6 @@ public class PersonnelFrame extends JInternalFrame{
                 try {
                     int numSelected = personnelTable.getSelectedRow();
                     if(numSelected != -1) {
-                        System.out.println(numSelected);
                         Personnel personnel = personnelTable.listePersonnels.get(numSelected);
                         personnelManager.deletePersonnel(personnel);
                         personnelTable.getModele().setPersonnels(personnelManager.getPersonnels());

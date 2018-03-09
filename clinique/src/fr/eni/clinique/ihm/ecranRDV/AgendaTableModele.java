@@ -18,7 +18,7 @@ import java.util.List;
 public class AgendaTableModele extends AbstractTableModel{
 
     private List<Agenda> listeAgenda;
-    private String[] agendaColonnes = {"Heure", "Nom du client", "Animal", "Race"};
+    private String[] agendaColonnes = {"Heure", "Nom du client", "Animal", "Race", "Date"};
 
     private PersonnelManager personnelManager;
     private AnimalManager animalManager;
@@ -43,7 +43,7 @@ public class AgendaTableModele extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -89,13 +89,20 @@ public class AgendaTableModele extends AbstractTableModel{
                 animal = animalManager.getFromCode(listeAgenda.get(rowIndex).getCodeAnimal());
                 ret = animal.getRace().getRace();
                 break;
+            case 4:
+                ret = listeAgenda.get(rowIndex).getDateRdv();
             default:
                 break;
         }
         return ret;
     }
 
-    public void setListeAgenda(List<Agenda> listeAgenda){
+
+    public List<Agenda> getListeAgenda() {
+        return listeAgenda;
+    }
+
+    public void setListeAgenda(List<Agenda> listeAgenda) {
         this.listeAgenda = listeAgenda;
         this.fireTableDataChanged();
     }

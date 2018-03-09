@@ -91,7 +91,6 @@ public class PersonnelEdit extends JDialog{
                     personnel.setMotPasse((SHA512.getSHA512(motPasse.getText(), "toto")));
                     personnel.setRole(selected.toString());
                     personnelManager = new PersonnelManager();
-                    System.out.println(personnel);
                     personnelManager.updatePersonnel(personnel);
                     dispose();
                 } catch (BLLException e1) {
